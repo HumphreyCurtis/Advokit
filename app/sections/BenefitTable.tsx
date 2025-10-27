@@ -9,11 +9,12 @@ import "primereact/resources/primereact.min.css";
 import { Rating } from "primereact/rating";
 
 type Benefit = {
-  id: number | string;
+  id: number;
   title: string;
-  difficulty: number | string;
-  value: number | string;
+  difficulty: number;
+  value: number;
   info: string;
+  slug: string;
 };
 
 const header = (
@@ -81,15 +82,15 @@ export default function BenefitTable() {
           field="title"
           header="Title"
           sortable
-          body={(row: Benefit) => (
+          body={(benefit: Benefit) => (
             <Link
-              href={`/benefits/${row.id}`}
+              href={`/benefits/${benefit.slug}`}
               className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline underline-offset-2
 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded transition"
               onClick={(e) => e.stopPropagation()}
-              aria-label={`Open ${row.title}`}
+              aria-label={`Open ${benefit.title}`}
             >
-              {row.title}
+              {benefit.title}
               <span className="transition-transform group-hover:translate-x-0.5">
                 →
               </span>

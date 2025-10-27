@@ -1,4 +1,3 @@
-import Link from "next/link";
 import BenefitTable from "./sections/BenefitTable";
 import BenefitList from "./sections/BenefitList";
 
@@ -11,7 +10,8 @@ export default function Home() {
             Advokit
           </h1>
           <p className="text-base text-gray-600 md:text-lg">
-            Join our community.
+            Community assembled resources for people with aphasia and
+            post-stroke benefit applicants.
           </p>
         </header>
         <div className="mt-10 space-y-12">

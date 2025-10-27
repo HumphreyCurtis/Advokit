@@ -2,11 +2,12 @@ import benefitData from "@/data/home.json";
 import Link from "next/link";
 
 type Benefit = {
-  id: number | string;
+  id: number;
   title: string;
-  difficulty: number | string;
-  value: number | string;
+  difficulty: number;
+  value: number;
   info: string;
+  slug: string;
 };
 
 export default function BenefitList() {
@@ -19,7 +20,7 @@ export default function BenefitList() {
           <li key={String(benefit.id)}>
             <h3 className="font-semibold">
               <Link
-                href={`/benefits/${benefit.id}`}
+                href={`/benefits/${benefit.slug}`}
                 className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline underline-offset-2
 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded transition"
               >
