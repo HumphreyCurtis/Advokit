@@ -1,17 +1,17 @@
-import benefitData from "@/data/home.json";
 import Link from "next/link";
+import { getAllBenefits } from "@/app/lib/benefits";
 
-type Benefit = {
-  id: number;
-  title: string;
-  difficulty: number;
-  value: number;
-  info: string;
-  slug: string;
-};
+// type Benefit = {
+//   id: number;
+//   title: string;
+//   difficulty: number;
+//   value: number;
+//   info: string;
+//   slug: string;
+// };
 
 export default function BenefitList() {
-  const benefits = benefitData as Benefit[]; // ensure it's an array
+  const benefits = getAllBenefits();
 
   return (
     <div>

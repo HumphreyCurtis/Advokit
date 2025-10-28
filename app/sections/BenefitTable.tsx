@@ -1,21 +1,15 @@
 "use client";
 
+import { getAllBenefits } from "../lib/benefits";
+import type { Benefit } from "@/app/types";
+
 import Link from "next/link";
-import benefitData from "@/data/home.json";
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import { Rating } from "primereact/rating";
-
-type Benefit = {
-  id: number;
-  title: string;
-  difficulty: number;
-  value: number;
-  info: string;
-  slug: string;
-};
 
 const header = (
   <div className="flex flex-wrap align-items-center justify-content-between gap-2">
@@ -64,7 +58,7 @@ const ratingBenefitDifficulty = (row: Benefit) => {
 };
 
 export default function BenefitTable() {
-  const benefits = benefitData;
+  const benefits = getAllBenefits();
 
   return (
     <div className="card">
