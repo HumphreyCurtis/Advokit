@@ -1,15 +1,6 @@
 import Link from "next/link";
 import { getAllBenefits } from "@/app/lib/benefits";
 
-// type Benefit = {
-//   id: number;
-//   title: string;
-//   difficulty: number;
-//   value: number;
-//   info: string;
-//   slug: string;
-// };
-
 export default function BenefitList() {
   const benefits = getAllBenefits();
 
@@ -27,10 +18,11 @@ focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 roun
                 {benefit.title}
               </Link>
             </h3>
-            <p className="text-sm text-gray-600">{benefit.info}</p>
           </li>
         ))}
       </ol>
     </div>
   );
 }
+
+// <p className="text-sm text-gray-600">{benefit.info}</p>

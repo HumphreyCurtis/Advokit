@@ -1,3 +1,4 @@
+import Infobox from "@/app/components/Infobox";
 import Section from "@/app/components/Section";
 import { getBenefitDataBySlug } from "@/app/lib/benefits";
 import Link from "next/link";
@@ -41,10 +42,7 @@ export default async function BenefitPage({
         {/* Main column */}
         <div className="min-w-0">
           <section className="prose prose-gray max-w-none leading-relaxed">
-            <p className="text-lg text-gray-700">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              congue…
-            </p>
+            <p className="text-lg text-gray-700">{benefit.info}</p>
 
             {/* Contents box (shows on md+) */}
             {sections.length > 0 ? (
@@ -71,7 +69,6 @@ export default async function BenefitPage({
           </section>
 
           {/* Unwinding sections */}
-
           {sections.map((s) => (
             <Section
               key={s.id}
@@ -84,34 +81,7 @@ export default async function BenefitPage({
           ))}
         </div>
 
-        {/* Infobox column (sticky) */}
-        <aside className="hidden lg:block lg:self-start">
-          <div className="sticky top-16 rounded-lg border border-gray-200 bg-white">
-            <div className="border-b border-gray-200 p-4">
-              <h3 id="quick-facts" className="text-base font-semibold">
-                Quick facts
-              </h3>
-            </div>
-            <dl className="divide-y divide-gray-200 text-sm">
-              <div className="grid grid-cols-3 gap-3 p-4">
-                <dt className="col-span-1 text-gray-500">Category</dt>
-                <dd className="col-span-2 font-medium">Lorem</dd>
-              </div>
-              <div className="grid grid-cols-3 gap-3 p-4">
-                <dt className="col-span-1 text-gray-500">Status</dt>
-                <dd className="col-span-2 font-medium">Active</dd>
-              </div>
-              <div className="grid grid-cols-3 gap-3 p-4">
-                <dt className="col-span-1 text-gray-500">First published</dt>
-                <dd className="col-span-2 font-medium">2021</dd>
-              </div>
-              <div className="grid grid-cols-3 gap-3 p-4">
-                <dt className="col-span-1 text-gray-500">License</dt>
-                <dd className="col-span-2 font-medium">CC BY-SA</dd>
-              </div>
-            </dl>
-          </div>
-        </aside>
+        <Infobox status={"Active"} published={"2026"} />
       </div>
     </article>
   );

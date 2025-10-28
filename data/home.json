@@ -111,5 +111,24 @@
         }
       ]
     }
+  },
+  {
+    "id": 4,
+    "title": "Motability Scheme",
+    "slug": "motability-scheme",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Stage 1 — Applying",
+          "body": "Lorem ipsum dolor sit amet…"
+        },
+        {
+          "id": "stage-2",
+          "title": "Stage 2 — Exploration",
+          "body": "Sed cursus justo eget…"
+        }
+      ]
+    }
   }
 ]
