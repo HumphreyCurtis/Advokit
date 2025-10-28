@@ -1,5 +1,7 @@
-import benefitData from "@/data/home.json";
+import raw from "@/data/home.json";
 import type { Benefit } from "@/app/types";
+
+const benefitData = raw as Benefit[];
 
 export function getAllBenefits(): Benefit[] {
   return benefitData;
@@ -10,6 +12,5 @@ export function getBenefitDataBySlug(slug: string): Benefit {
   if (!benefit) {
     throw new Error(`Benefit with slug not found`);
   }
-  console.log(benefit);
   return benefit;
 }

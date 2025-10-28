@@ -8,7 +8,6 @@ export default function BenefitLayout({
   params: { slug: string };
 }) {
   const benefits = getAllBenefits();
-  console.log(benefits);
 
   return (
     // Push everything below your fixed header (assumes h-16 / 64px)

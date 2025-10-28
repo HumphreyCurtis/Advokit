@@ -71,7 +71,6 @@ export default function BenefitTable() {
         removableSort
         stripedRows
         showGridlines
-        size="small"
         className="w-full text-xs sm:text-sm"
         // header={header}
       >

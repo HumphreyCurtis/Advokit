@@ -104,7 +104,7 @@ export default function ReadAloudBox({
   // --- server placeholder to prevent hydration mismatch ---
   if (!mounted) {
     return (
-      <div className="my-3 inline-flex items-center gap-2 rounded-md border border-gray-200 bg-white p-3 text-sm w-fit">
+      <div className="my-3 inline-flex items-center gap-2 border border-gray-200 bg-white p-3 text-sm w-fit">
         <label className="mr-1 font-medium">Voice</label>
         <select className="max-w-56 rounded border px-2 py-1" disabled>
           <option>Loading voices…</option>

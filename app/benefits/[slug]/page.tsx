@@ -1,7 +1,7 @@
 import Infobox from "@/app/components/Infobox";
 import Section from "@/app/components/Section";
+import PrintButton from "@/app/components/PrintButton";
 import { getBenefitDataBySlug } from "@/app/lib/benefits";
-import Link from "next/link";
 import ReadAloud from "@/app/components/ReadAloud";
 
 export default async function BenefitPage({
@@ -22,20 +22,8 @@ export default async function BenefitPage({
       </header>
 
       {/* Top utility bar */}
-      <div className="mt-4 flex flex-wrap items-center gap-3 border-y border-gray-200 py-2 text-sm">
-        <Link
-          href="#"
-          className="underline underline-offset-2 hover:text-blue-700"
-        >
-          Talk
-        </Link>
-        <span aria-hidden>·</span>
-        <Link
-          href="#"
-          className="underline underline-offset-2 hover:text-blue-700"
-        >
-          Print
-        </Link>
+      <div className="mt-4 flex flex-wrap items-center gap-3 border-y border-gray-200 py-2 text-sm print:hidden">
+        <PrintButton />
       </div>
 
       {/* Grid: Main content + (sticky) infobox */}
@@ -47,7 +35,7 @@ export default async function BenefitPage({
 
             {/* Contents box (shows on md+) */}
             {sections.length > 0 ? (
-              <div className="not-prose mt-6 hidden border border-gray-200 bg-white p-4 text-sm md:block">
+              <div className="not-prose mt-6 hidden rounded-lg border border-gray-200 bg-white p-4 text-sm md:block">
                 <div className="mb-2 font-semibold">Contents</div>
                 <ol className="list-decimal space-y-1 pl-5">
                   {sections.map((section) => (
