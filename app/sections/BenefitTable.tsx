@@ -32,6 +32,7 @@ const ratingBenefitDifficulty = (row: Benefit) => {
         alt="custom-cancel-image"
         width="15"
         height="15"
+        className="block mx-auto"
       />
     );
   } else if (difficulty == 2) {
@@ -41,6 +42,7 @@ const ratingBenefitDifficulty = (row: Benefit) => {
         alt="amber-traffic-light"
         width="15"
         height="15"
+        className="block mx-auto"
       />
     );
   } else if (difficulty == 3) {
@@ -50,6 +52,7 @@ const ratingBenefitDifficulty = (row: Benefit) => {
         alt="red-traffic-light"
         width="15"
         height="15"
+        className="block mx-auto"
       />
     );
   }

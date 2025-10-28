@@ -2,6 +2,7 @@ import Infobox from "@/app/components/Infobox";
 import Section from "@/app/components/Section";
 import { getBenefitDataBySlug } from "@/app/lib/benefits";
 import Link from "next/link";
+import ReadAloud from "@/app/components/ReadAloud";
 
 export default async function BenefitPage({
   params,
@@ -68,17 +69,23 @@ export default async function BenefitPage({
             )}
           </section>
 
+          <div className="mb-3 flex justify-end">
+            <ReadAloud targetId="article-content" defaultRate={1} />
+          </div>
+
           {/* Unwinding sections */}
-          {sections.map((s) => (
-            <Section
-              key={s.id}
-              id={s.id}
-              title={s.title}
-              body={s.body ?? ""}
-              figure={s.figure ?? ""}
-              figureCaption={s.figureCaption ?? ""}
-            />
-          ))}
+          <div id="article-content">
+            {sections.map((s) => (
+              <Section
+                key={s.id}
+                id={s.id}
+                title={s.title}
+                body={s.body ?? ""}
+                figure={s.figure ?? ""}
+                figureCaption={s.figureCaption ?? ""}
+              />
+            ))}
+          </div>
         </div>
 
         <Infobox status={"Active"} published={"2026"} />
