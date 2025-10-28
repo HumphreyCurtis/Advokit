@@ -14,7 +14,7 @@ export default function BenefitLayout({
 
   return (
     // Push everything below your fixed header (assumes h-16 / 64px)
-    <div className="min-h-screen pt-16">
+    <div>
       {/* Desktop-only sidebar below header */}
       <nav
         aria-label="Benefits (desktop)"
