@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@media print {
+  figure,
+  .avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid; /* legacy but helps */
+  }
+}

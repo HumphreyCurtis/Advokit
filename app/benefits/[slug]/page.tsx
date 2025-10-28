@@ -27,7 +27,7 @@ export default async function BenefitPage({
       </div>
 
       {/* Grid: Main content + (sticky) infobox */}
-      <div className="relative mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
+      <div className="relative mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] print:block">
         {/* Main column */}
         <div className="min-w-0">
           <section className="prose prose-gray max-w-none leading-relaxed">
