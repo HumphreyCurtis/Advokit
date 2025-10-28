@@ -1,10 +1,8 @@
 import Link from "next/link";
-import type { Benefit } from "@/app/types";
 import { getAllBenefits } from "@/app/lib/benefits";
 
 export default function BenefitLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
   params: { slug: string };

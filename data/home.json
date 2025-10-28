@@ -5,7 +5,36 @@
     "difficulty": 1,
     "value": 1,
     "info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    "slug": "pip"
+    "slug": "pip",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Stage 1 — Foundations",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras interdum, urna id volutpat molestie, arcu odio ultrices lacus, ut varius lectus ligula nec lectus. Maecenas egestas mi bibendum bibendum tempus. Integer efficitur, dui id viverra efficitur, magna mi pharetra velit, et aliquet lorem magna eget risus."
+        },
+        {
+          "id": "stage-2",
+          "title": "Stage 2 — Exploration",
+          "body": "Sed cursus, justo eget blandit luctus, mi dui dictum nibh, ut mattis ex arcu id nunc. Pellentesque in sem euismod, ultrices justo at, scelerisque nisl."
+        },
+        {
+          "id": "stage-3",
+          "title": "Stage 3 — Integration",
+          "body": "Proin sit amet rhoncus lacus. Suspendisse vestibulum arcu in neque congue, eu congue nulla aliquet. Integer feugiat congue velit, a volutpat ligula maximus in."
+        },
+        {
+          "id": "stage-4",
+          "title": "Stage 4 — Evaluation",
+          "body": "Cras finibus sem a fringilla cursus. Sed vulputate mi nec malesuada venenatis. Curabitur interdum, ligula non tincidunt egestas, massa augue congue ante."
+        },
+        {
+          "id": "stage-5",
+          "title": "Stage 5 — Outlook & Limitations",
+          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+        }
+      ]
+    }
   },
   {
     "id": 2,
@@ -13,7 +42,38 @@
     "difficulty": 2,
     "value": 3,
     "info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    "slug": "blue-badge"
+    "slug": "blue-badge",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Stage 1 — Foundations",
+          "body": "Lorem ipsum dolor sit amet…",
+          "figure": "https://picsum.photos/1200/600",
+          "figureCaption": "Testing 1,2,3"
+        },
+        {
+          "id": "stage-2",
+          "title": "Stage 2 — Exploration",
+          "body": "Sed cursus justo eget…"
+        },
+        {
+          "id": "stage-3",
+          "title": "Stage 3 — Integration",
+          "body": "Proin sit amet rhoncus…"
+        },
+        {
+          "id": "stage-4",
+          "title": "Stage 4 — Evaluation",
+          "body": "Cras finibus sem a fringilla…"
+        },
+        {
+          "id": "stage-5",
+          "title": "Stage 5 — Outlook & Limitations",
+          "body": "Integer efficitur augue nec…"
+        }
+      ]
+    }
   },
   {
     "id": 3,
@@ -21,6 +81,35 @@
     "difficulty": 3,
     "value": 3,
     "info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    "slug": "council-housing"
+    "slug": "council-housing",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Stage 1 — Applying",
+          "body": "Lorem ipsum dolor sit amet…"
+        },
+        {
+          "id": "stage-2",
+          "title": "Stage 2 — Exploration",
+          "body": "Sed cursus justo eget…"
+        },
+        {
+          "id": "stage-3",
+          "title": "Stage 3 — Integration",
+          "body": "Proin sit amet rhoncus…"
+        },
+        {
+          "id": "stage-4",
+          "title": "Stage 4 — Evaluation",
+          "body": "Cras finibus sem a fringilla…"
+        },
+        {
+          "id": "stage-5",
+          "title": "Stage 5 — Outlook & Limitations",
+          "body": "Integer efficitur augue nec…"
+        }
+      ]
+    }
   }
 ]

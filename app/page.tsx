@@ -6,9 +6,7 @@ export default function Home() {
     <main className="bg-white text-gray-900">
       <div className="mx-auto max-w-5xl px-2 py-5">
         <header className="space-y-3">
-          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-            Advokit
-          </h1>
+          <h1 className="text-4xl font-bold tracking-tight">Advokit</h1>
           <p className="text-base text-gray-600 md:text-lg">
             Community assembled resources for people with aphasia and
             post-stroke benefit applicants.
@@ -17,7 +15,7 @@ export default function Home() {
         <div className="mt-10 space-y-12">
           <section id="benefits-list" className="scroll-mt-24">
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              List
+              Full list
             </h2>
             <div className="mt-4 rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm">
               <BenefitList />
@@ -25,7 +23,7 @@ export default function Home() {
           </section>
           <section id="benefits-table" className="scroll-mt-24">
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              Table
+              Ranking table
             </h2>
             <div className="mt-4">
               <BenefitTable />
