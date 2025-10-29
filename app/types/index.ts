@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 export type Benefit = {
   id: number;
   title: string;
@@ -20,3 +18,8 @@ export type Section = {
 };
 
 export type Article = { sections: Section[] };
+
+export type InfoBox = {
+  status: string;
+  published: string;
+};
