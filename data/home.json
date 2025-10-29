@@ -10,27 +10,52 @@
       "sections": [
         {
           "id": "stage-1",
-          "title": "Stage 1 — Foundations",
+          "title": "Tip 1: Consider applying for the Freedom Pass, Motability Scheme or a Blue Badge first",
           "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras interdum, urna id volutpat molestie, arcu odio ultrices lacus, ut varius lectus ligula nec lectus. Maecenas egestas mi bibendum bibendum tempus. Integer efficitur, dui id viverra efficitur, magna mi pharetra velit, et aliquet lorem magna eget risus."
         },
         {
           "id": "stage-2",
-          "title": "Stage 2 — Exploration",
+          "title": "Tip 2: Never underestimate your disability",
           "body": "Sed cursus, justo eget blandit luctus, mi dui dictum nibh, ut mattis ex arcu id nunc. Pellentesque in sem euismod, ultrices justo at, scelerisque nisl."
         },
         {
           "id": "stage-3",
-          "title": "Stage 3 — Integration",
+          "title": "Tip 3: Keep a record of your disability and government correspondence",
           "body": "Proin sit amet rhoncus lacus. Suspendisse vestibulum arcu in neque congue, eu congue nulla aliquet. Integer feugiat congue velit, a volutpat ligula maximus in."
         },
         {
           "id": "stage-4",
-          "title": "Stage 4 — Evaluation",
+          "title": "Tip 4: Get a letter from your GP to backup your application",
           "body": "Cras finibus sem a fringilla cursus. Sed vulputate mi nec malesuada venenatis. Curabitur interdum, ligula non tincidunt egestas, massa augue congue ante."
         },
         {
           "id": "stage-5",
-          "title": "Stage 5 — Outlook & Limitations",
+          "title": "Tip 5: If one location is difficult -- try another location if you can!",
+          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+        },
+        {
+          "id": "stage-6",
+          "title": "Tip 6: When you're being assessed bring someone with you",
+          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+        },
+        {
+          "id": "stage-7",
+          "title": "Tip 7: Immediately appeal if you're rejected and don't get down on yourself!",
+          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+        },
+        {
+          "id": "stage-8",
+          "title": "Tip 8: PIP is shit - it can be painful and take a long time",
+          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+        },
+        {
+          "id": "stage-9",
+          "title": "Tip 9: Don't be afraid to ask for help from caregivers, family members and others!",
+          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+        },
+        {
+          "id": "stage-10",
+          "title": "Tip 10: Buy a diary and keep a record of your daily struggles",
           "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
         }
       ]
@@ -115,6 +140,9 @@
   {
     "id": 4,
     "title": "Motability Scheme",
+    "difficulty": 2,
+    "value": 2,
+    "info": "Placeholder description.",
     "slug": "motability-scheme",
     "article": {
       "sections": [
@@ -127,6 +155,38 @@
           "id": "stage-2",
           "title": "Stage 2 — Exploration",
           "body": "Sed cursus justo eget…"
+        },
+        {
+          "id": "stage-3",
+          "title": "Filip went to Serbia",
+          "body": "He had a nice time"
+        }
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "title": "Pension Credit",
+    "difficulty": 2,
+    "value": 3,
+    "info": "Placeholder description.",
+    "slug": "pension-credit",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Stage 1 — Applying",
+          "body": "Lorem ipsum dolor sit amet…"
+        },
+        {
+          "id": "stage-2",
+          "title": "Stage 2 — Exploration",
+          "body": "Sed cursus justo eget…"
+        },
+        {
+          "id": "stage-3",
+          "title": "Filip went to Serbia",
+          "body": "He had a nice time"
         }
       ]
     }

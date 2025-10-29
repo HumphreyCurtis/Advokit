@@ -8,8 +8,8 @@ export default function Home() {
         <header className="space-y-3">
           <h1 className="text-4xl font-bold tracking-tight">Advokit</h1>
           <p className="text-base text-gray-600 md:text-lg">
-            Community assembled resources for people with aphasia and
-            post-stroke benefit applicants.
+            Community assembled advice, tips and resources made by people with
+            aphasia for fellow post-stroke benefit applicants.
           </p>
         </header>
         <div className="mt-10 space-y-12">
