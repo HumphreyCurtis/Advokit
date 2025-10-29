@@ -5,7 +5,6 @@ export default function BenefitLayout({
   children,
 }: {
   children: React.ReactNode;
-  params: { slug: string };
 }) {
   const benefits = getAllBenefits();
 
