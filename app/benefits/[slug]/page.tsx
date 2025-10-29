@@ -31,13 +31,18 @@ export default async function BenefitPage({
         {/* Main column */}
         <div className="min-w-0">
           <section className="prose prose-gray max-w-none leading-relaxed">
-            <p className="text-lg text-gray-700">{benefit.info}</p>
+            <p
+              className="text-lg text-gray-700"
+              dangerouslySetInnerHTML={{ __html: benefit.info }}
+            ></p>
 
             {/* Contents box (shows on md+) */}
             {sections.length > 0 ? (
               <div className="not-prose mt-6 hidden rounded-lg border border-gray-200 bg-white p-4 text-sm md:block">
-                <div className="mb-2 font-semibold">Contents</div>
-                <ol className="list-decimal space-y-1 pl-5">
+                <div className="mb-2 font-semibold">
+                  Our community top {benefit.title} tips
+                </div>
+                <ol>
                   {sections.map((section) => (
                     <li key={section.id}>
                       <a

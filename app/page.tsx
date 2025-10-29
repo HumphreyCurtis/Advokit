@@ -9,7 +9,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold tracking-tight">Advokit</h1>
           <p className="text-base text-gray-600 md:text-lg">
             Community assembled advice, tips and resources made by people with
-            aphasia for fellow post-stroke benefit applicants.
+            aphasia for fellow benefit applicants.
           </p>
         </header>
         <div className="mt-10 space-y-12">

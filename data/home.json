@@ -4,59 +4,59 @@
     "title": "PIP",
     "difficulty": 1,
     "value": 1,
-    "info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "info": "Personal Independence Payment (PIP) helps with extra living costs if you have a long-term physical or mental health condition or disability that makes it hard to carry out everyday tasks or get around. You can receive PIP even if you’re working, have savings, or are getting most other benefits. To start a claim, call the ‘PIP new claims’ phone line using the webpage below. You’ll be asked a few basic questions about yourself and your condition. After that, you’ll receive a form where you can explain how your disability or condition affects your daily life and follow these tips. <a href='https://www.gov.uk/pip' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Visit gov.uk/pip for all PIP-related information</a>.",
     "slug": "pip",
     "article": {
       "sections": [
         {
           "id": "stage-1",
-          "title": "Tip 1: Consider applying for the Freedom Pass, Motability Scheme or a Blue Badge first",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras interdum, urna id volutpat molestie, arcu odio ultrices lacus, ut varius lectus ligula nec lectus. Maecenas egestas mi bibendum bibendum tempus. Integer efficitur, dui id viverra efficitur, magna mi pharetra velit, et aliquet lorem magna eget risus."
+          "title": "Tip 1: Check related support you may qualify for",
+          "body": "Before or alongside your PIP claim, check linked support such as a Blue Badge, Motability (if you receive the enhanced mobility component), a Freedom Pass (London), or a Disabled Person’s Railcard. These can strengthen your overall support plan."
         },
         {
           "id": "stage-2",
-          "title": "Tip 2: Never underestimate your disability",
-          "body": "Sed cursus, justo eget blandit luctus, mi dui dictum nibh, ut mattis ex arcu id nunc. Pellentesque in sem euismod, ultrices justo at, scelerisque nisl."
+          "title": "Tip 2: Describe your worst days, not your best",
+          "body": "Explain how your condition affects you on bad days and how often they occur. Give concrete examples of difficulties with daily activities and moving around."
         },
         {
           "id": "stage-3",
-          "title": "Tip 3: Keep a record of your disability and government correspondence",
-          "body": "Proin sit amet rhoncus lacus. Suspendisse vestibulum arcu in neque congue, eu congue nulla aliquet. Integer feugiat congue velit, a volutpat ligula maximus in."
+          "title": "Tip 3: Keep records and organise correspondence",
+          "body": "Save copies of forms, letters, and decision notices. Keep a simple diary of symptoms, flare-ups, and how they affect activities like washing, dressing, preparing food, and getting around."
         },
         {
           "id": "stage-4",
-          "title": "Tip 4: Get a letter from your GP to backup your application",
-          "body": "Cras finibus sem a fringilla cursus. Sed vulputate mi nec malesuada venenatis. Curabitur interdum, ligula non tincidunt egestas, massa augue congue ante."
+          "title": "Tip 4: Gather supporting evidence",
+          "body": "Ask your GP or relevant clinicians (e.g., SLT, OT, consultant) for letters that describe your functional difficulties and variability over time. Include care plans or therapy notes where possible."
         },
         {
           "id": "stage-5",
-          "title": "Tip 5: If one location is difficult -- try another location if you can!",
-          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+          "title": "Tip 5: If an assessment location is unsuitable, ask for adjustments",
+          "body": "If travel or the venue is difficult, request a different location, reasonable adjustments, or a home assessment if appropriate. Explain why the standard location is not accessible to you."
         },
         {
           "id": "stage-6",
-          "title": "Tip 6: When you're being assessed bring someone with you",
-          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+          "title": "Tip 6: Bring someone to the assessment",
+          "body": "A companion can help you communicate, take notes, and ensure key points are covered. Let them add observations if you forget details or fatigue."
         },
         {
           "id": "stage-7",
-          "title": "Tip 7: Immediately appeal if you're rejected and don't get down on yourself!",
-          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+          "title": "Tip 7: Challenge decisions promptly",
+          "body": "If you’re unhappy with the decision, request a Mandatory Reconsideration within the deadline. If needed, you can then appeal to a tribunal. Keep copies of everything you submit."
         },
         {
           "id": "stage-8",
-          "title": "Tip 8: PIP is shit - it can be painful and take a long time",
-          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+          "title": "Tip 8: Expect the process to take time",
+          "body": "PIP can be a slow and sometimes stressful process. Plan for delays, take breaks when completing forms, and seek support if you need it."
         },
         {
           "id": "stage-9",
-          "title": "Tip 9: Don't be afraid to ask for help from caregivers, family members and others!",
-          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+          "title": "Tip 9: Get help if you need it",
+          "body": "Ask caregivers, family, or support organisations to help you describe your needs clearly. A second pair of eyes can spot missing details or examples."
         },
         {
           "id": "stage-10",
-          "title": "Tip 10: Buy a diary and keep a record of your daily struggles",
-          "body": "Integer efficitur, augue nec convallis condimentum, metus massa tincidunt lectus, sed rhoncus ante diam ut magna. Suspendisse tincidunt metus ut pulvinar."
+          "title": "Tip 10: Keep a simple daily diary",
+          "body": "Note pain, fatigue, communication challenges, and what tasks you struggled with. Real examples (dates, what happened, and impact) make your form and evidence stronger."
         }
       ]
     }
@@ -66,100 +66,148 @@
     "title": "Blue Badge",
     "difficulty": 2,
     "value": 3,
-    "info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "info": "Blue Badges help people with disabilities or health conditions park closer to their destination. You can apply for a badge for yourself, on behalf of somebody else, or for an organisation that transports disabled people. In England, Scotland, and Wales you can apply on <a href='https://www.gov.uk/apply-blue-badge' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/apply-blue-badge</a>. A Blue Badge costs £10 in England, £20 in Scotland and is free in Wales.",
     "slug": "blue-badge",
     "article": {
       "sections": [
         {
           "id": "stage-1",
-          "title": "Stage 1 — Foundations",
-          "body": "Lorem ipsum dolor sit amet…",
-          "figure": "https://picsum.photos/1200/600",
-          "figureCaption": "Testing 1,2,3"
+          "title": "Tip 1: Check if you qualify automatically",
+          "body": "You may automatically qualify for a Blue Badge if you receive certain benefits such as the higher rate mobility component of Disability Living Allowance (DLA) or the enhanced rate mobility component of Personal Independence Payment (PIP). Check your eligibility before applying."
         },
         {
           "id": "stage-2",
-          "title": "Stage 2 — Exploration",
-          "body": "Sed cursus justo eget…"
+          "title": "Tip 2: You can still apply even if you don’t qualify automatically",
+          "body": "If you don’t meet the automatic criteria, you can apply under ‘further assessment’. You’ll need to describe how your condition affects your mobility and provide supporting evidence, such as medical reports or letters."
         },
         {
           "id": "stage-3",
-          "title": "Stage 3 — Integration",
-          "body": "Proin sit amet rhoncus…"
+          "title": "Tip 3: Be detailed about walking difficulties",
+          "body": "Describe how far you can walk, how long it takes, and what causes pain, fatigue, or breathlessness. Give examples of how your mobility varies from day to day."
         },
         {
           "id": "stage-4",
-          "title": "Stage 4 — Evaluation",
-          "body": "Cras finibus sem a fringilla…"
+          "title": "Tip 4: Include supporting medical evidence",
+          "body": "Attach recent letters or reports from your GP, physiotherapist, or consultant that explain your condition and how it limits your walking or mobility. Evidence helps avoid unnecessary reassessment."
         },
         {
           "id": "stage-5",
-          "title": "Stage 5 — Outlook & Limitations",
-          "body": "Integer efficitur augue nec…"
+          "title": "Tip 5: Keep copies of your application and evidence",
+          "body": "Save digital or paper copies of everything you submit. If there are delays or queries, you can refer back to what you originally sent."
+        },
+        {
+          "id": "stage-6",
+          "title": "Tip 6: Know the costs and renewal process",
+          "body": "Blue Badges last up to three years. Renewal is not automatic—you must reapply before your badge expires. The fee depends on where you live (£10 in England, £20 in Scotland, free in Wales)."
+        },
+        {
+          "id": "stage-7",
+          "title": "Tip 7: Check how to display your badge correctly",
+          "body": "When using your badge, make sure the wheelchair symbol is visible and the expiry date faces up. Misuse, including lending it to others, can result in fines."
+        },
+        {
+          "id": "stage-8",
+          "title": "Tip 8: Ask for help if you need support applying",
+          "body": "Local councils, Citizens Advice, and disability organisations can help you complete your application or appeal a decision if you’re refused."
         }
       ]
     }
   },
   {
     "id": 3,
-    "title": "Council Housing",
+    "title": "NHS & GP",
     "difficulty": 3,
     "value": 3,
-    "info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    "slug": "council-housing",
+    "info": "Your GP is usually the first point of contact for NHS healthcare. They can help with ongoing treatment, referrals, and the medical evidence you might need for benefits or social care. You can find more about NHS services and how to register with a GP on <a href='https://www.nhs.uk/nhs-services/gps/' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>NHS.uk</a>.",
+    "slug": "nhs",
     "article": {
       "sections": [
         {
           "id": "stage-1",
-          "title": "Stage 1 — Applying",
-          "body": "Lorem ipsum dolor sit amet…"
+          "title": "Tip 1: Register with a GP as soon as possible",
+          "body": "You don’t need proof of address or immigration status to register with a GP. Find a local practice on NHS.uk and contact them to join their list. If one practice is full, try another nearby."
         },
         {
           "id": "stage-2",
-          "title": "Stage 2 — Exploration",
-          "body": "Sed cursus justo eget…"
+          "title": "Tip 2: Keep your GP updated about your condition",
+          "body": "Regularly share changes in your symptoms, medications, or daily challenges. This helps your GP keep accurate records that can support referrals and benefit applications."
         },
         {
           "id": "stage-3",
-          "title": "Stage 3 — Integration",
-          "body": "Proin sit amet rhoncus…"
+          "title": "Tip 3: Ask for clear explanations",
+          "body": "If you don’t understand a diagnosis or treatment plan, ask your GP to explain in plain language or write it down. You can request an interpreter or communication support if needed."
         },
         {
           "id": "stage-4",
-          "title": "Stage 4 — Evaluation",
-          "body": "Cras finibus sem a fringilla…"
+          "title": "Tip 4: Request supporting letters when needed",
+          "body": "Your GP can write letters describing how your condition affects your daily life. These can support applications for PIP, Blue Badges, or social care. Allow a few weeks for completion."
         },
         {
           "id": "stage-5",
-          "title": "Stage 5 — Outlook & Limitations",
-          "body": "Integer efficitur augue nec…"
+          "title": "Tip 5: Make use of referrals and allied health professionals",
+          "body": "GPs can refer you to specialists such as physiotherapists, occupational therapists, or speech and language therapists. These services can provide reports and advice that strengthen your care plan."
+        },
+        {
+          "id": "stage-6",
+          "title": "Tip 6: Time your calls to beat the queue",
+          "body": "Many GP and NHS phone lines open exactly at 08:00. One trick some patients use is to phone just before the lines open and stay on the call so the message finishes as the system switches over. For example, if the automated greeting is about a minute long, calling around 07:59:00 can place you first or second when the queue opens. Use this technique considerately and only where appropriate, or check if your practice offers online booking or callback options."
+        },
+        {
+          "id": "stage-7",
+          "title": "Tip 7: Bring someone to appointments for support",
+          "body": "If communication or memory is difficult, bring a trusted person to help you listen, take notes, and explain your concerns. They can also help you recall what the GP said afterward."
+        },
+        {
+          "id": "stage-8",
+          "title": "Tip 8: If you’re unhappy with your GP, you can change practice",
+          "body": "You can move to another GP practice at any time. If you have concerns, try discussing them first, but if you still feel uncomfortable, register elsewhere through NHS.uk."
+        },
+        {
+          "id": "stage-9",
+          "title": "Tip 9: Ask for regular medication reviews",
+          "body": "If you take ongoing medication, request a review every 6 to 12 months to check whether it’s still suitable and whether side effects are being managed. Pharmacists can also support this process."
+        },
+        {
+          "id": "stage-10",
+          "title": "Tip 10: Seek advocacy or support if appointments feel difficult",
+          "body": "If you struggle to communicate or feel anxious at appointments, you can ask for a patient advocate, communication partner, or support worker. Many local NHS trusts or charities offer this service."
         }
       ]
     }
   },
   {
     "id": 4,
-    "title": "Motability Scheme",
+    "title": "Citizens Advice",
     "difficulty": 2,
     "value": 2,
-    "info": "Placeholder description.",
-    "slug": "motability-scheme",
+    "info": "Citizens Advice (CAB) offers free, confidential, and impartial advice on money, benefits, housing, work, and many other issues. You can find your nearest office or get help online through <a href='https://www.citizensadvice.org.uk/' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>CitizensAdvice.org.uk</a>.",
+    "slug": "citizens-advice",
     "article": {
       "sections": [
         {
           "id": "stage-1",
-          "title": "Stage 1 — Applying",
-          "body": "Lorem ipsum dolor sit amet…"
+          "title": "Tip 1: Contact them early when a problem starts",
+          "body": "Don’t wait until an issue becomes urgent. Contact Citizens Advice as soon as you receive letters or notice difficulties with benefits, debt, or housing. Early advice often prevents bigger problems later."
         },
         {
           "id": "stage-2",
-          "title": "Stage 2 — Exploration",
-          "body": "Sed cursus justo eget…"
+          "title": "Tip 2: Bring all your documents and evidence",
+          "body": "When you visit or call, have copies of letters, bills, forms, and any benefit decisions ready. This helps the adviser understand your situation quickly and give accurate guidance."
         },
         {
           "id": "stage-3",
-          "title": "Filip went to Serbia",
-          "body": "He had a nice time"
+          "title": "Tip 3: Ask about specialist support and referrals",
+          "body": "CAB advisers can refer you to specialist teams for issues like disability benefits, debt relief, or legal advice. They can also help you contact your local council, energy provider, or landlord if needed."
+        },
+        {
+          "id": "stage-4",
+          "title": "Tip 4: Keep a record of advice and next steps",
+          "body": "Write down the name of your adviser, what was agreed, and any follow-up actions. This makes it easier to continue your case if you speak to a different adviser later or need to appeal a decision."
+        },
+        {
+          "id": "stage-5",
+          "title": "Tip 5: Use online and phone services if you can’t attend in person",
+          "body": "You can often get help by phone or webchat through the national Citizens Advice website. Many local branches also offer email advice if visiting in person is difficult."
         }
       ]
     }
@@ -169,24 +217,34 @@
     "title": "Pension Credit",
     "difficulty": 2,
     "value": 3,
-    "info": "Placeholder description.",
+    "info": "Pension Credit is an income-related benefit for people over State Pension age. It tops up your weekly income if it’s below a certain amount and can open access to other support like help with rent, council tax, and heating bills. You can check your eligibility and apply on <a href='https://www.gov.uk/pension-credit' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>GOV.UK</a> or by calling the Pension Credit claim line.",
     "slug": "pension-credit",
     "article": {
       "sections": [
         {
           "id": "stage-1",
-          "title": "Stage 1 — Applying",
-          "body": "Lorem ipsum dolor sit amet…"
+          "title": "Tip 1: Check your eligibility early",
+          "body": "You can usually get Pension Credit if you’re over State Pension age and on a low income. It’s worth checking even if you have savings, a private pension, or own your home — many people miss out because they assume they won’t qualify."
         },
         {
           "id": "stage-2",
-          "title": "Stage 2 — Exploration",
-          "body": "Sed cursus justo eget…"
+          "title": "Tip 2: Apply even if you’re only slightly under the income limit",
+          "body": "Even small top-ups can make a big difference. Getting Pension Credit can also qualify you for extra support, like free TV licences (if over 75), Housing Benefit, and help with NHS dental or optical costs."
         },
         {
           "id": "stage-3",
-          "title": "Filip went to Serbia",
-          "body": "He had a nice time"
+          "title": "Tip 3: Gather key information before applying",
+          "body": "Have details ready about your income, savings, housing costs, and National Insurance number. You can apply online, by phone, or by post — and a trusted family member or friend can help if needed."
+        },
+        {
+          "id": "stage-4",
+          "title": "Tip 4: Ask for backdated payments",
+          "body": "Claims can usually be backdated up to three months if you were eligible during that time. Mention this when you apply so you don’t miss out on money owed."
+        },
+        {
+          "id": "stage-5",
+          "title": "Tip 5: Get help with your application",
+          "body": "If you need support applying, contact Citizens Advice, Age UK, or your local council’s welfare rights service. They can check your eligibility and help you complete the forms."
         }
       ]
     }
