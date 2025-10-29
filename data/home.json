@@ -217,7 +217,7 @@
     "title": "Pension Credit",
     "difficulty": 2,
     "value": 3,
-    "info": "Pension Credit is an income-related benefit for people over State Pension age. It tops up your weekly income if it’s below a certain amount and can open access to other support like help with rent, council tax, and heating bills. You can check your eligibility and apply on <a href='https://www.gov.uk/pension-credit' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>GOV.UK</a> or by calling the Pension Credit claim line.",
+    "info": "Pension Credit is an income-related benefit for people over State Pension age. It tops up your weekly income if it’s below a certain amount and can open access to other support like help with rent, council tax, and heating bills. You can check your eligibility and apply on <a href='https://www.gov.uk/pension-credit' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/pension-credit</a> or by calling the Pension Credit claim line.",
     "slug": "pension-credit",
     "article": {
       "sections": [
