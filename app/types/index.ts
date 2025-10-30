@@ -6,7 +6,10 @@ export type Benefit = {
   info: string;
   slug: string;
   article?: Article;
+  resources?: Resource[];
 };
+
+export type Article = { sections: Section[] };
 
 export type Section = {
   id: string;
@@ -17,9 +20,12 @@ export type Section = {
   figureCaption?: string;
 };
 
-export type Article = { sections: Section[] };
-
 export type InfoBox = {
   status: string;
   published: string;
+};
+
+export type Resource = {
+  url: string;
+  title?: string;
 };

@@ -59,7 +59,13 @@
           "body": "Note pain, fatigue, communication challenges, and what tasks you struggled with. Real examples (dates, what happened, and impact) make your form and evidence stronger."
         }
       ]
-    }
+    },
+    "resources": [
+      {
+        "url": "/resources/PIP-Help-Sheet.pdf",
+        "title": "Derbyshire County Council PIP Application Help Sheet (15 pages)"
+      }
+    ]
   },
   {
     "id": 2,
@@ -111,7 +117,13 @@
           "body": "Local councils, Citizens Advice, and disability organisations can help you complete your application or appeal a decision if you’re refused."
         }
       ]
-    }
+    },
+    "resources": [
+      {
+        "url": "/resources/Blue-Badge-Guide.pdf",
+        "title": "Age UK Blue Badge Application Guide (14 pages)"
+      }
+    ]
   },
   {
     "id": 3,

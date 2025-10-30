@@ -3,6 +3,7 @@ import Section from "@/app/components/Section";
 import PrintButton from "@/app/components/PrintButton";
 import { getBenefitDataBySlug } from "@/app/lib/benefits";
 import ReadAloud from "@/app/components/ReadAloud";
+import KeyResources from "@/app/components/KeyResources";
 
 export default async function BenefitPage({
   params,
@@ -79,6 +80,8 @@ export default async function BenefitPage({
               />
             ))}
           </div>
+
+          <KeyResources resources={benefit.resources ?? []} />
         </div>
 
         <Infobox status={"Active"} published={"2026"} />
