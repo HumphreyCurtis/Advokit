@@ -2,8 +2,8 @@
   {
     "id": 1,
     "title": "PIP",
-    "difficulty": 1,
-    "value": 1,
+    "difficulty": 3,
+    "value": 5,
     "info": "Personal Independence Payment (PIP) helps with extra living costs if you have a long-term physical or mental health condition or disability that makes it hard to carry out everyday tasks or get around. You can receive PIP even if you’re working, have savings, or are getting most other benefits. To start a claim, call the ‘PIP new claims’ phone line using the webpage below. You’ll be asked a few basic questions about yourself and your condition. After that, you’ll receive a form where you can explain how your disability or condition affects your daily life and follow these tips. <a href='https://www.gov.uk/pip' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Visit gov.uk/pip for all PIP-related information</a>.",
     "slug": "pip",
     "article": {
@@ -75,7 +75,7 @@
     "id": 2,
     "title": "Blue Badge",
     "difficulty": 2,
-    "value": 3,
+    "value": 4,
     "info": "Blue Badges help people with disabilities or health conditions park closer to their destination. You can apply for a badge for yourself, on behalf of somebody else, or for an organisation that transports disabled people. In England, Scotland, and Wales you can apply on <a href='https://www.gov.uk/apply-blue-badge' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/apply-blue-badge</a>. A Blue Badge costs £10 in England, £20 in Scotland and is free in Wales.",
     "slug": "blue-badge",
     "article": {
@@ -142,8 +142,8 @@
   {
     "id": 3,
     "title": "NHS & GP",
-    "difficulty": 3,
-    "value": 3,
+    "difficulty": 2,
+    "value": 4,
     "info": "Your GP is usually the first point of contact for NHS healthcare. They can help with ongoing treatment, referrals, and the medical evidence you might need for benefits or social care. You can find more about NHS services and how to register with a GP on <a href='https://www.nhs.uk/nhs-services/gps/' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>NHS.uk</a>.",
     "slug": "nhs",
     "article": {
@@ -205,7 +205,7 @@
     "id": 4,
     "title": "Citizens Advice",
     "difficulty": 2,
-    "value": 2,
+    "value": 4,
     "info": "Citizens Advice (CAB) offers free, confidential, and impartial advice on money, benefits, housing, work, and many other issues. You can find your nearest office or get help online through <a href='https://www.citizensadvice.org.uk/' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>CitizensAdvice.org.uk</a>.",
     "slug": "citizens-advice",
     "article": {
@@ -271,6 +271,478 @@
           "id": "stage-5",
           "title": "Tip 5: Get help with your application",
           "body": "If you need support applying, contact Citizens Advice, Age UK, or your local council’s welfare rights service. They can check your eligibility and help you complete the forms."
+        }
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "title": "Universal Credit",
+    "difficulty": 3,
+    "value": 5,
+    "info": "Universal Credit replaces several benefits and helps with living costs if your income is low or you’re out of work. You apply online and then attend an interview. Payments are usually monthly. <a href='https://www.gov.uk/universal-credit' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/universal-credit</a>.",
+    "slug": "universal-credit",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Gather ID and details before you start",
+          "body": "Have ID, National Insurance number, rent/mortgage, savings, income, and health information ready. This makes the online form easier."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Ask for reasonable adjustments",
+          "body": "If you have aphasia, ask for extra time, Easy Read letters, or a named contact. You can bring someone to appointments."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Note health conditions in your journal",
+          "body": "Use the online journal to explain how your condition affects work and daily tasks. Keep entries short and clear."
+        },
+        {
+          "id": "stage-4",
+          "title": "Tip 4: Report changes quickly",
+          "body": "Tell UC if your income, health, rent, or household changes. This helps avoid overpayments or missed money."
+        },
+        {
+          "id": "stage-5",
+          "title": "Tip 5: Ask about extra elements",
+          "body": "Check if you can get limited capability for work elements, carer element, or housing costs in your claim."
+        },
+        {
+          "id": "stage-6",
+          "title": "Tip 6: If money is tight, ask for an advance",
+          "body": "You can request an advance while you wait for your first payment. Repayments are taken from future UC."
+        }
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "title": "Employment and Support Allowance",
+    "difficulty": 3,
+    "value": 4,
+    "info": "New-style ESA can help if you cannot work due to illness or disability and have enough National Insurance contributions. You can claim alongside some other support. <a href='https://www.gov.uk/employment-support-allowance' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/employment-support-allowance</a>.",
+    "slug": "employment-support-allowance",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Explain your limits clearly",
+          "body": "Say what you can and cannot do safely, repeatedly, and in a reasonable time. Use short examples."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Keep medical evidence together",
+          "body": "Consultant/GP/SLT/OT letters help. Include how tasks make you tired or unwell and how long you need to recover."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Prepare for the assessment",
+          "body": "Ask for adjustments (quiet room, longer time, home or phone assessment). Bring a supporter to help speak and take notes."
+        },
+        {
+          "id": "stage-4",
+          "title": "Tip 4: Use a diary",
+          "body": "Log bad days, rests, and after-effects. This supports your answers."
+        },
+        {
+          "id": "stage-5",
+          "title": "Tip 5: Challenge decisions on time",
+          "body": "Request Mandatory Reconsideration if you disagree. Keep copies of everything."
+        }
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "title": "Disabled Facilities Grant",
+    "difficulty": 2,
+    "value": 4,
+    "info": "A DFG helps pay for home adaptations (e.g., level access shower, ramps, wider doors). It’s means-tested for adults and arranged through your local council after an OT assessment. <a href='https://www.gov.uk/disabled-facilities-grants' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/disabled-facilities-grants</a>.",
+    "slug": "disabled-facilities-grant",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Ask your council for an OT assessment",
+          "body": "An occupational therapist will assess your needs at home and recommend adaptations."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Be clear about daily difficulties",
+          "body": "Explain problems with bathing, stairs, getting in/out, and fatigue. Short, real examples help."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Consider interim equipment",
+          "body": "While waiting, ask about temporary aids (rails, perching stools, portable ramps)."
+        },
+        {
+          "id": "stage-4",
+          "title": "Tip 4: Get quotes and keep receipts",
+          "body": "The council may need quotes from approved contractors. Keep all paperwork."
+        },
+        {
+          "id": "stage-5",
+          "title": "Tip 5: Ask about other funding",
+          "body": "Some councils top up grants; charities may help if costs exceed the grant cap."
+        }
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "title": "Carer’s Allowance",
+    "difficulty": 2,
+    "value": 3,
+    "info": "Money for people who care for someone receiving certain disability benefits. You usually need to care for 35+ hours per week. It can affect other benefits, so get advice before applying. <a href='https://www.gov.uk/carers-allowance' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/carers-allowance</a>.",
+    "slug": "carers-allowance",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Check the qualifying benefit",
+          "body": "The person you care for must get an eligible benefit (e.g., PIP daily living). Check before you apply."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Track your 35 hours",
+          "body": "List tasks: cooking, prompting, supervision, communication help. Keep simple weekly notes."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Check impact on other benefits",
+          "body": "Carer’s Allowance can reduce other payments. Ask Citizens Advice if unsure."
+        },
+        {
+          "id": "stage-4",
+          "title": "Tip 4: Report changes",
+          "body": "Tell the DWP if hours drop or circumstances change."
+        }
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "title": "Council Tax Reduction",
+    "difficulty": 2,
+    "value": 3,
+    "info": "Your local council may reduce your Council Tax if your income is low or someone in your home has a disability. Schemes vary by area. <a href='https://www.gov.uk/apply-council-tax-reduction' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/apply-council-tax-reduction</a>.",
+    "slug": "council-tax-reduction",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Apply through your local council",
+          "body": "Use your council’s website. You may need income, savings, and household details."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Ask about disability discounts",
+          "body": "Check Disabled Band Reduction or severe mental impairment discounts if relevant."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Send evidence",
+          "body": "Provide proof of benefits, ID, tenancy, and medical evidence if asked."
+        }
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "title": "Disabled Persons Railcard",
+    "difficulty": 1,
+    "value": 2,
+    "info": "1/3 off rail fares for you and a companion. You’ll need proof of eligibility. <a href='https://www.disabledpersons-railcard.co.uk/' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>disabledpersons-railcard.co.uk</a>.",
+    "slug": "disabled-persons-railcard",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Check eligibility list",
+          "body": "PIP, DLA, and other medical evidence may qualify. Upload clear photos of documents."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Consider a 3-year card",
+          "body": "It’s cheaper per year and avoids yearly renewals."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Travel with a supporter",
+          "body": "Your companion also gets 1/3 off when you use the card."
+        }
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "title": "Freedom Pass",
+    "difficulty": 2,
+    "value": 4,
+    "info": "Free travel on most public transport in London if you’re eligible (older person or disabled person criteria). Apply through your local London borough. <a href='https://www.londoncouncils.gov.uk/services/freedom-pass' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>London Councils – Freedom Pass</a>.",
+    "slug": "freedom-pass",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Pick the right category",
+          "body": "Apply as an older person or a disabled person. Read the criteria before starting."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Prepare documents",
+          "body": "You’ll need photo ID, address proof, and medical evidence if applying under disability."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Ask for communication support",
+          "body": "Request help with the form if you have aphasia. You can bring a supporter to any interview."
+        }
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "title": "VAT Relief on disability equipment",
+    "difficulty": 1,
+    "value": 2,
+    "info": "If you have a long-term illness or disability, you may not have to pay VAT on certain equipment and home adaptations (e.g., wheelchairs, stairlifts). Ask suppliers about VAT relief and fill in their declaration. <a href='https://www.gov.uk/financial-help-disabled/vat-relief' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk – VAT relief</a>.",
+    "slug": "vat-relief",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Check the item is eligible",
+          "body": "Ask the supplier. Keep the product page or quote that shows eligibility."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Complete the VAT relief form",
+          "body": "Most suppliers provide a short declaration. Keep a copy for your records."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Combine with DFG when relevant",
+          "body": "If adapting your home, ask about using VAT relief and grants together."
+        }
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "title": "CEA Cinema Card",
+    "difficulty": 1,
+    "value": 1,
+    "info": "A national card that lets a companion attend the cinema for free when they go with a disabled person. Small annual fee. <a href='https://www.ceacard.co.uk/' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>ceacard.co.uk</a>.",
+    "slug": "cea-card",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Prepare proof",
+          "body": "Upload proof like PIP, DLA, or a letter from a professional. Use clear photos."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Keep the card handy",
+          "body": "Show the card when you buy tickets online or at the desk."
+        }
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "title": "‘Please Offer Me a Seat’ badge",
+    "difficulty": 1,
+    "value": 1,
+    "info": "A free badge/card (e.g., from TfL) that tells other passengers you need a seat—useful for hidden disabilities or fatigue. <a href='https://tfl.gov.uk/transport-accessibility/please-offer-me-a-seat' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>TfL – Please Offer Me a Seat</a>.",
+    "slug": "please-offer-me-a-seat",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Order online",
+          "body": "Apply on the website. It’s free and posted to you."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Use on buses, tubes, trains",
+          "body": "Wear the badge or show the card when you need a seat."
+        }
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "title": "Hidden Disabilities Sunflower Lanyard",
+    "difficulty": 1,
+    "value": 1,
+    "info": "A sunflower lanyard quietly shows you have a hidden disability and may need more time or help. Used in many shops, stations, and airports. <a href='https://hdsunflower.com/uk' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>hdsunflower.com</a>.",
+    "slug": "hidden-disability-lanyard",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Get a lanyard and card",
+          "body": "Order online or ask at participating stores or airports. Add a simple note on your needs."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Use it where it helps",
+          "body": "Wear it in busy places. Staff may offer quieter queues or extra help."
+        }
+      ]
+    }
+  },
+  {
+    "id": 17,
+    "title": "Council Social Prescribing",
+    "difficulty": 2,
+    "value": 2,
+    "info": "Social prescribers (often via your GP or council) connect you to local support: exercise groups, debt advice, carers’ help, or community activities.",
+    "slug": "social-prescribing",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Ask your GP or council for a referral",
+          "body": "Say what you want help with (energy bills, isolation, activity, carers’ support)."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Start small",
+          "body": "Pick one or two activities. Review after a few weeks and adjust."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Request communication support",
+          "body": "Ask for longer appointments or written summaries if you have aphasia."
+        }
+      ]
+    }
+  },
+  {
+    "id": 18,
+    "title": "Access Card",
+    "difficulty": 1,
+    "value": 2,
+    "info": "A card that shows your access needs with simple symbols (e.g., needs a companion). Accepted at many venues to arrange adjustments. Small fee. <a href='https://www.accesscard.org.uk/' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>accesscard.org.uk</a>.",
+    "slug": "access-card",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: List your needs clearly",
+          "body": "When you apply, describe the help you need (e.g., seats, queueing, companion)."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Show at booking",
+          "body": "Use the card when buying tickets to request adjustments."
+        }
+      ]
+    }
+  },
+  {
+    "id": 19,
+    "title": "National Disability ID",
+    "difficulty": 1,
+    "value": 1,
+    "info": "There is no single official UK disability ID, but some councils, charities, and schemes (e.g., Access Card, Sunflower) provide recognition that helps you ask for adjustments.",
+    "slug": "national-disability-id",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Use recognised schemes",
+          "body": "Carry an Access Card, Sunflower lanyard, or relevant council card to show your needs."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Keep medical letters handy",
+          "body": "A short letter from your GP or clinician can help when asking for adjustments."
+        }
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "title": "Motability Scheme",
+    "difficulty": 2,
+    "value": 4,
+    "info": "You can lease a new car, scooter, or powered wheelchair by exchanging the enhanced rate of your mobility benefit (PIP, DLA higher-rate mobility, AFIP, or War Pensioners’ Mobility Supplement). Insurance, servicing, tyres, and breakdown cover are included. <a href='https://www.motability.co.uk' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>motability.co.uk</a>.",
+    "slug": "motability",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Check you have the right mobility award",
+          "body": "You usually need the enhanced rate mobility (PIP) or DLA higher-rate mobility. Check your award letter before you start."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: List your needs before choosing",
+          "body": "Think about transfers, boot space, seat height, doors, and adaptations (hand controls, swivel seats). Shortlist models that fit your needs."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Ask about adaptations and test them",
+          "body": "Many adaptations are low-cost or included. Book a demonstration. Bring a supporter to help you try them."
+        },
+        {
+          "id": "stage-4",
+          "title": "Tip 4: Understand costs and ‘Advance Payment’",
+          "body": "Some cars need an upfront payment. Ask the dealer to explain all costs clearly and what’s included (insurance, servicing, tyres)."
+        },
+        {
+          "id": "stage-5",
+          "title": "Tip 5: Add up to three named drivers",
+          "body": "Drivers can be family, carers, or support workers. Tell the scheme if your drivers change."
+        },
+        {
+          "id": "stage-6",
+          "title": "Tip 6: Review near the end of the lease",
+          "body": "Leases are usually 3 years. Plan early for renewal or changes if your needs have changed."
+        }
+      ]
+    }
+  },
+  {
+    "id": 21,
+    "title": "Bus & Coach Concessions",
+    "difficulty": 1,
+    "value": 3,
+    "info": "You may get free or discounted bus travel with a disabled person’s bus pass from your local council. Some areas also offer a companion pass. Separate coach discounts may be available (e.g., Disabled Coachcards). Apply through your council. <a href='https://www.gov.uk/apply-for-disabled-bus-pass' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk – disabled bus pass</a>.",
+    "slug": "bus-coach-concessions",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Tip 1: Apply via your local council",
+          "body": "Rules vary by area. Check the council website for forms, photos, and medical evidence needed."
+        },
+        {
+          "id": "stage-2",
+          "title": "Tip 2: Ask about a companion pass",
+          "body": "Some councils let a companion travel free when they support you. If you need this, ask for it when you apply."
+        },
+        {
+          "id": "stage-3",
+          "title": "Tip 3: Request communication support",
+          "body": "If you have aphasia, ask for help completing the form, Easy Read letters, or extra time at any interview."
+        },
+        {
+          "id": "stage-4",
+          "title": "Tip 4: Check coach discounts",
+          "body": "Coach companies may offer disabled discount cards. Compare costs and rules before you buy."
+        },
+        {
+          "id": "stage-5",
+          "title": "Tip 5: Carry your pass and evidence",
+          "body": "Keep your pass and any photo ID handy when you travel. If your needs change, tell your council at renewal."
         }
       ]
     }

@@ -19,7 +19,7 @@ const header = (
 
 const ratingBenefitValue = (row: Benefit) => {
   const value = Number(row.value) || 0; // coerce to number, fallback 0
-  return <Rating value={value} readOnly cancel={false} stars={4} />;
+  return <Rating value={value} readOnly cancel={false} stars={5} />;
 };
 
 const ratingBenefitDifficulty = (row: Benefit) => {
