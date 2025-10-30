@@ -10,53 +10,53 @@
       "sections": [
         {
           "id": "stage-1",
-          "title": "Tip 1: Check related support you may qualify for",
-          "body": "Before or alongside your PIP claim, check linked support such as a Blue Badge, Motability (if you receive the enhanced mobility component), a Freedom Pass (London), or a Disabled Person’s Railcard. These can strengthen your overall support plan."
+          "title": "Tip 1: Focus on activities (how you do tasks), not diagnosis",
+          "body": "PIP points come from daily-living and mobility activities (e.g., preparing food, washing, communicating, moving around). Say what you can and cannot do for each task."
         },
         {
           "id": "stage-2",
           "title": "Tip 2: Describe your worst days, not your best",
-          "body": "Explain how your condition affects you on bad days and how often they occur. Give concrete examples of difficulties with daily activities and moving around."
+          "body": "Write about your worst days. Say how many days each week or month are bad. Use real and emotional examples from your life."
         },
         {
           "id": "stage-3",
-          "title": "Tip 3: Keep records and organise correspondence",
-          "body": "Save copies of forms, letters, and decision notices. Keep a simple diary of symptoms, flare-ups, and how they affect activities like washing, dressing, preparing food, and getting around."
+          "title": "Tip 3: Be clear about ‘safely, repeatedly, in a reasonable time’",
+          "body": "If you can do a task only with pain, risk, very slowly, or not every time, say so. Note if you must stop and rest or need another person."
         },
         {
           "id": "stage-4",
-          "title": "Tip 4: Gather supporting evidence",
-          "body": "Ask your GP or relevant clinicians (e.g., SLT, OT, consultant) for letters that describe your functional difficulties and variability over time. Include care plans or therapy notes where possible."
+          "title": "Tip 4: Give short, concrete examples for each activity",
+          "body": "Use everyday details: cutting food safely, reading labels, getting in/out of the bath, steps and curbs, getting lost outside. Say what help or prompts you need."
         },
         {
           "id": "stage-5",
-          "title": "Tip 5: If an assessment location is unsuitable, ask for adjustments",
-          "body": "If travel or the venue is difficult, request a different location, reasonable adjustments, or a home assessment if appropriate. Explain why the standard location is not accessible to you."
+          "title": "Tip 5: Include aids and support you use",
+          "body": "List things like stick, rail, shower seat, orthotics, magnifier, communication support, or someone who supervises or prompts you. Aids can score points."
         },
         {
           "id": "stage-6",
-          "title": "Tip 6: Bring someone to the assessment",
-          "body": "A companion can help you communicate, take notes, and ensure key points are covered. Let them add observations if you forget details or fatigue."
+          "title": "Tip 6: Keep records and strong evidence together",
+          "body": "Save copies of forms and letters. Keep a simple diary with dates: what you tried, how long it took, pain or fatigue after, and if you needed help. Ask your GP, consultant, OT/physio, or SLT for letters that describe what you can/can’t do and how this changes over time."
         },
         {
           "id": "stage-7",
-          "title": "Tip 7: Challenge decisions promptly",
-          "body": "If you’re unhappy with the decision, request a Mandatory Reconsideration within the deadline. If needed, you can then appeal to a tribunal. Keep copies of everything you submit."
+          "title": "Tip 7: Make communication easier (aphasia support)",
+          "body": "Ask for adjustments: extra time, quiet room, video/phone if easier, or large-print/easy-read letters. You can use notes or pictures. Say if you need prompts or someone to help you communicate."
         },
         {
           "id": "stage-8",
-          "title": "Tip 8: Expect the process to take time",
-          "body": "PIP can be a slow and sometimes stressful process. Plan for delays, take breaks when completing forms, and seek support if you need it."
+          "title": "Tip 8: Ask for an assessment you can manage and bring someone with you",
+          "body": "If travel or the venue is hard, ask for a different location or a home visit and explain why (fatigue, mobility, communication). Bring a supporter to help you explain, remember details, and take notes."
         },
         {
           "id": "stage-9",
-          "title": "Tip 9: Get help if you need it",
-          "body": "Ask caregivers, family, or support organisations to help you describe your needs clearly. A second pair of eyes can spot missing details or examples."
+          "title": "Tip 9: Expect the process to take time",
+          "body": "PIP can be slow and stressful. Plan for delays. Take breaks when completing forms. Ask for help when you need it."
         },
         {
           "id": "stage-10",
-          "title": "Tip 10: Keep a simple daily diary",
-          "body": "Note pain, fatigue, communication challenges, and what tasks you struggled with. Real examples (dates, what happened, and impact) make your form and evidence stronger."
+          "title": "Tip 10: Challenge decisions on time",
+          "body": "If you disagree, ask for a Mandatory Reconsideration within the deadline. Keep copies. You can appeal after that."
         }
       ]
     },
@@ -64,6 +64,10 @@
       {
         "url": "/resources/PIP-Help-Sheet.pdf",
         "title": "Derbyshire County Council PIP Application Help Sheet (15 pages)"
+      },
+      {
+        "url": "/resources/Janet-Rockliffe-Tips-for-PIP.pdf",
+        "title": "Janet's PIP Application Tips"
       }
     ]
   },
@@ -79,42 +83,52 @@
         {
           "id": "stage-1",
           "title": "Tip 1: Check if you qualify automatically",
-          "body": "You may automatically qualify for a Blue Badge if you receive certain benefits such as the higher rate mobility component of Disability Living Allowance (DLA) or the enhanced rate mobility component of Personal Independence Payment (PIP). Check your eligibility before applying."
+          "body": "You may automatically qualify if you receive certain benefits (e.g., higher-rate mobility components) or meet specific criteria (e.g., being registered severely sight impaired). Check eligibility for your local council before applying."
         },
         {
           "id": "stage-2",
           "title": "Tip 2: You can still apply even if you don’t qualify automatically",
-          "body": "If you don’t meet the automatic criteria, you can apply under ‘further assessment’. You’ll need to describe how your condition affects your mobility and provide supporting evidence, such as medical reports or letters."
+          "body": "If you don’t meet automatic criteria, apply under ‘further assessment’. Describe how your condition affects mobility and include supporting evidence. If applying online via GOV.UK, use ‘save and return’ to finish later; if you can’t apply online, ask your council for telephone or in-person help."
         },
         {
           "id": "stage-3",
-          "title": "Tip 3: Be detailed about walking difficulties",
-          "body": "Describe how far you can walk, how long it takes, and what causes pain, fatigue, or breathlessness. Give examples of how your mobility varies from day to day."
+          "title": "Tip 3: Tell them about your worst possible day",
+          "body": "Describe your hardest (worst) days, not just good days. Explain how symptoms flare, how often they occur, and how they limit you. Use the first person (e.g., “I can only…”). Be truthful and consistent."
         },
         {
           "id": "stage-4",
-          "title": "Tip 4: Include supporting medical evidence",
-          "body": "Attach recent letters or reports from your GP, physiotherapist, or consultant that explain your condition and how it limits your walking or mobility. Evidence helps avoid unnecessary reassessment."
+          "title": "Tip 4: Be precise about walking distance and stopping",
+          "body": "State how far you can walk before you must stop, how long it takes and what happens (pain, breathlessness, fatigue, imbalance). Use everyday landmarks (e.g., from your front door to the car, to the bus stop) to keep it concrete and avoid rounding up."
         },
         {
           "id": "stage-5",
-          "title": "Tip 5: Keep copies of your application and evidence",
-          "body": "Save digital or paper copies of everything you submit. If there are delays or queries, you can refer back to what you originally sent."
+          "title": "Tip 5: Don’t overstate walking ability (no more than 20 metres)",
+          "body": "Never say you can walk more than 20 metres without stopping if you cannot do so safely, repeatedly, and in a reasonable time. Be clear if you need to pause, rest or lean on something, and how often."
         },
         {
           "id": "stage-6",
-          "title": "Tip 6: Know the costs and renewal process",
-          "body": "Blue Badges last up to three years. Renewal is not automatic—you must reapply before your badge expires. The fee depends on where you live (£10 in England, £20 in Scotland, free in Wales)."
+          "title": "Tip 6: Tell them both emotionally and physically how you feel",
+          "body": "Explain both physical and emotional impacts (pain, fatigue, anxiety, fear of falling, stress). Note after-effects (e.g., needing to lie down or recover for hours after a short walk)."
         },
         {
           "id": "stage-7",
-          "title": "Tip 7: Check how to display your badge correctly",
-          "body": "When using your badge, make sure the wheelchair symbol is visible and the expiry date faces up. Misuse, including lending it to others, can result in fines."
+          "title": "Tip 7: List your conditions, medications and aids you use",
+          "body": "Name all diagnosed conditions and current medications (include dosages if possible). Mention aids/adaptations you rely on—including wheelchair, stick, frame, orthotics, or help from another person—and any difficulties using them."
         },
         {
           "id": "stage-8",
-          "title": "Tip 8: Ask for help if you need support applying",
-          "body": "Local councils, Citizens Advice, and disability organisations can help you complete your application or appeal a decision if you’re refused."
+          "title": "Tip 8: Include strong evidence (consultant letters help)",
+          "body": "Consultant letters often carry weight. Attach recent clinic letters, GP notes, physiotherapy or OT reports, care plans, and relevant test results. If asked, also provide standard documents (proof of ID/address and a passport-style photo)."
+        },
+        {
+          "id": "stage-9",
+          "title": "Tip 9: Keep copies and a symptom diary",
+          "body": "Save copies of all forms and uploads (ID, photo, evidence). A short diary logging distances, times to stop, pain scores and after-effects can back up your statements and show patterns."
+        },
+        {
+          "id": "stage-10",
+          "title": "Tip 10: Get help if you need support—and know what happens next",
+          "body": "Local council teams, Citizens Advice and disability organisations can help with applications and challenges if refused. Councils may request extra evidence or invite you to a mobility assessment. Decisions often take several weeks; if approved, most badges last up to three years."
         }
       ]
     },
