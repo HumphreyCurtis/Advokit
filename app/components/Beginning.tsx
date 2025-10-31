@@ -5,7 +5,7 @@ export default function Beginning() {
       className={`not-prose rounded-xl border border-blue-200 bg-blue-50 p-4 text-base md:text-[17px] text-blue-900 shadow-sm print:border-black print:bg-white mt-4`}
     >
       <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-        Where to start, as you've just had a stroke...
+        Where to start, as you've just had a stroke
       </h2>{" "}
       <p className="mt-3">
         If you’ve just had a stroke and now have aphasia, start by talking to
