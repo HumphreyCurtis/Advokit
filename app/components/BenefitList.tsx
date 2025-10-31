@@ -6,7 +6,10 @@ export default function BenefitList() {
 
   return (
     <div>
-      <ol className="list-decimal pl-5 space-y-3">
+      <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+        Full list
+      </h2>
+      <ol className="list-decimal pl-5 space-y-3 mt-3">
         {benefits.map((benefit) => (
           <li key={String(benefit.id)}>
             <h3 className="font-semibold">

@@ -1,5 +1,7 @@
-import BenefitTable from "./sections/BenefitTable";
-import BenefitList from "./sections/BenefitList";
+import BenefitTable from "./components/BenefitTable";
+import BenefitList from "./components/BenefitList";
+import Disclaimer from "./components/Disclaimer";
+import Beginning from "./components/Beginning";
 
 export default function Home() {
   return (
@@ -12,20 +14,16 @@ export default function Home() {
             aphasia for fellow benefit applicants.
           </p>
         </header>
-        <div className="mt-10 space-y-12">
+        <Disclaimer />
+        <Beginning />
+        <div className="mt-5 space-y-12">
           <section id="benefits-list" className="scroll-mt-24">
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              Full list
-            </h2>
             <div className="mt-4 rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm">
               <BenefitList />
             </div>
           </section>
           <section id="benefits-table" className="scroll-mt-24">
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              Ranking table
-            </h2>
-            <div className="mt-4">
+            <div className="mt-2">
               <BenefitTable />
             </div>
           </section>

@@ -65,13 +65,16 @@ export default function BenefitTable() {
 
   return (
     <div className="card">
+      <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+        Benefit ranking table
+      </h2>
       <DataTable
         value={benefits}
         dataKey="id"
         removableSort
         stripedRows
         showGridlines
-        className="w-full text-xs sm:text-sm"
+        className="w-full text-xs sm:text-sm mt-3"
         // header={header}
       >
         <Column
