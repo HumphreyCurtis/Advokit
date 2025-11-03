@@ -15,13 +15,13 @@
           "figure": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80https://unsplash.com/photos/Jztmx9yqjBw",
           "figureCaption": "Mountains at sunrise",
           "audio": "/halloween.mp3",
-          "audioCaption": "Halloween soundtrack"
+          "audioCaption": "Halloween soundtrack",
+          "youtubeVideo": "https://youtu.be/ar9mos9E2i0?si=dfadbHNc9Jm_twTr"
         },
         {
           "id": "stage-2",
           "title": "Tip 2: Describe your worst days, not your best",
-          "body": "Write about your worst days. Say how many days each week or month are bad. Use real and emotional examples from your life.",
-          "youtubeVideo": "https://youtube.com/shorts/hmsTUr7IR6Q?si=HokZw_o7z3lvd0q3"
+          "body": "Write about your worst days. Say how many days each week or month are bad. Use real and emotional examples from your life."
         },
         {
           "id": "stage-3",
@@ -51,7 +51,8 @@
         {
           "id": "stage-8",
           "title": "Tip 8: Ask for an assessment you can manage and bring someone with you",
-          "body": "If travel or the venue is hard, ask for a different location or a home visit and explain why (fatigue, mobility, communication). Bring a supporter to help you explain, remember details, and take notes."
+          "body": "If travel or the venue is hard, ask for a different location or a home visit and explain why (fatigue, mobility, communication). Bring a supporter to help you explain, remember details, and take notes.",
+          "youtubeVideo": "https://youtu.be/G5HGLJ0ZHAU?si=_HAPVxuzggdlpGXN"
         },
         {
           "id": "stage-9",
@@ -73,6 +74,18 @@
       {
         "url": "/resources/Janet-Rockliffe-Tips-for-PIP.pdf",
         "title": "Janet's PIP Application Tips (10 pages)"
+      },
+      {
+        "url": "https://youtube.com/playlist?list=PLeysxjNpEPy8Y73-Ywm7OeAGjFc1Xc-It&si=NhY1IbwablicpFAg",
+        "title": "DWP PIP YouTube Playlist"
+      },
+      {
+        "url": "https://benefitsandwork.co.uk",
+        "title": "Benefits and Work Guides"
+      },
+      {
+        "url": "https://www.benefitsandwork.co.uk/pip-test-form",
+        "title": "Benefits and Work PIP Test Form"
       }
     ]
   },
