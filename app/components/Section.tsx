@@ -1,5 +1,6 @@
 import type { Section } from "../types";
 import AudioPlayer from "./AudioPlayer";
+import YouTube from "./Youtube";
 
 export default function Section({
   id,
@@ -9,6 +10,7 @@ export default function Section({
   figureCaption,
   audio,
   audioCaption,
+  youtubeVideo,
 }: Section) {
   return (
     <section
@@ -37,6 +39,7 @@ export default function Section({
       {audio && audioCaption && (
         <AudioPlayer src={audio} caption={audioCaption} />
       )}
+      {youtubeVideo && <YouTube url={youtubeVideo} title="Demo clip" />}
     </section>
   );
 }
