@@ -14,7 +14,8 @@
           "body": "PIP points come from daily-living and mobility activities (e.g., preparing food, washing, communicating, moving around). Say what you can and cannot do for each task.",
           "figure": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80https://unsplash.com/photos/Jztmx9yqjBw",
           "figureCaption": "Mountains at sunrise",
-          "audio": "/halloween.mp3"
+          "audio": "/halloween.mp3",
+          "audioCaption": "Halloween soundtrack"
         },
         {
           "id": "stage-2",

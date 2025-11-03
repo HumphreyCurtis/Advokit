@@ -78,6 +78,7 @@ export default async function BenefitPage({
                 figure={s.figure ?? ""}
                 figureCaption={s.figureCaption ?? ""}
                 audio={s.audio ?? ""}
+                audioCaption={s.audioCaption ?? ""}
               />
             ))}
           </div>

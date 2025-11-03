@@ -8,6 +8,7 @@ export default function Section({
   figure,
   figureCaption,
   audio,
+  audioCaption,
 }: Section) {
   return (
     <section
@@ -33,7 +34,9 @@ export default function Section({
           )}
         </figure>
       )}
-      {audio && <AudioPlayer src={audio} />}
+      {audio && audioCaption && (
+        <AudioPlayer src={audio} caption={audioCaption} />
+      )}
     </section>
   );
 }

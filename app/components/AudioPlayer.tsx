@@ -2,13 +2,15 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-type Props = { src: string };
+type Props = { src: string; caption: string };
 
-export default function AudioPlayer({ src }: Props) {
+export default function AudioPlayer({ src, caption }: Props) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [current, setCurrent] = useState(0);
+  console.log(src);
+  console.log(caption);
 
   // mm:ss formatter
   const fmt = (s: number) => {
@@ -74,7 +76,7 @@ export default function AudioPlayer({ src }: Props) {
         </button>
 
         <h2 className="flex-1 truncate text-sm font-mono text-gray-900">
-          Hello World
+          {caption}
         </h2>
 
         <div className="text-[11px] font-mono tabular-nums text-gray-500">
