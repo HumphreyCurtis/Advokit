@@ -1,4 +1,5 @@
 import type { Section } from "../types";
+import AudioPlayer from "./AudioPlayer";
 
 export default function Section({
   id,
@@ -6,6 +7,7 @@ export default function Section({
   body,
   figure,
   figureCaption,
+  audio,
 }: Section) {
   return (
     <section
@@ -31,6 +33,7 @@ export default function Section({
           )}
         </figure>
       )}
+      {audio && <AudioPlayer src={audio} />}
     </section>
   );
 }

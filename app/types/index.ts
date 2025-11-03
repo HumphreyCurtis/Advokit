@@ -18,6 +18,7 @@ export type Section = {
   className?: string;
   figure?: string;
   figureCaption?: string;
+  audio?: string;
 };
 
 export type InfoBox = {
@@ -29,3 +30,4 @@ export type Resource = {
   url: string;
   title?: string;
 };
+
