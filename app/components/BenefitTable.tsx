@@ -7,9 +7,11 @@ import Link from "next/link";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import "primereact/resources/themes/lara-light-blue/theme.css";
-import "primereact/resources/primereact.min.css";
 import { Rating } from "primereact/rating";
+
+import GreenTrafficLight from "@/public/ranking-table/traffic-light-green.png";
+import AmberTrafficLight from "@/public/ranking-table/traffic-light-amber.png";
+import RedTrafficLight from "@/public/ranking-table/traffic-light-red.png";
 
 const header = (
   <div className="flex flex-wrap align-items-center justify-content-between gap-2">
@@ -24,34 +26,34 @@ const ratingBenefitValue = (row: Benefit) => {
 
 const ratingBenefitDifficulty = (row: Benefit) => {
   const difficulty = Number(row.difficulty) || 0;
-
+  console.log(row);
   if (difficulty === 1) {
     return (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Traffic_lights_green.svg"
+        src={GreenTrafficLight.src}
         alt="custom-cancel-image"
-        width="15"
-        height="15"
+        width="25"
+        height="25"
         className="block mx-auto"
       />
     );
   } else if (difficulty == 2) {
     return (
       <img
-        src="https://wikieducator.org/images/1/11/Traffic_lights_amber.png"
+        src={AmberTrafficLight.src}
         alt="amber-traffic-light"
-        width="15"
-        height="15"
+        width="25"
+        height="25"
         className="block mx-auto"
       />
     );
   } else if (difficulty == 3) {
     return (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/4/45/Traffic_lights_red.svg"
+        src={RedTrafficLight.src}
         alt="red-traffic-light"
-        width="15"
-        height="15"
+        width="25"
+        height="25"
         className="block mx-auto"
       />
     );
@@ -62,7 +64,6 @@ const ratingBenefitDifficulty = (row: Benefit) => {
 
 export default function BenefitTable() {
   const benefits = getAllBenefits();
-
   return (
     <div className="card">
       <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
@@ -72,9 +73,14 @@ export default function BenefitTable() {
         value={benefits}
         dataKey="id"
         removableSort
-        stripedRows
         showGridlines
-        className="w-full text-xs sm:text-sm mt-3"
+        className="w-full text-sm md:text-base mt-3"
+        tableStyle={{ width: "100%" }}
+        rowClassName={(row: Benefit) => ({
+          "bg-red-50 text-red-900": row.difficulty === 3,
+          "bg-amber-50 text-amber-900": row.difficulty === 2,
+          "bg-emerald-50 text-emerald-900": row.difficulty === 1,
+        })}
         // header={header}
       >
         <Column

@@ -7,3 +7,42 @@
     page-break-inside: avoid; /* legacy but helps */
   }
 }
+
+/* Color the <td>s (PrimeReact themes often set cell backgrounds) */
+.p-datatable .p-datatable-tbody > tr.row-hard > td {
+  background-color: #fef2f2; /* red-50 */
+  color: #7f1d1d; /* red-900 */
+}
+.p-datatable .p-datatable-tbody > tr.row-med > td {
+  background-color: #fffbeb; /* amber-50 */
+  color: #78350f; /* amber-900 */
+}
+.p-datatable .p-datatable-tbody > tr.row-easy > td {
+  background-color: #ecfdf5; /* emerald-50 */
+  color: #064e3b; /* emerald-900 */
+}
+
+/* Head + body cell padding */
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.75rem 1rem; /* tweak to taste */
+  line-height: 1.35; /* avoids cramped text */
+}
+
+/* Optional: footer cells too */
+.p-datatable .p-datatable-tfoot > tr > td {
+  padding: 0.75rem 1rem;
+}
+
+/* Force clear gridlines even when we color the cells */
+.p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th,
+.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
+  border: 1px solid var(--surface-border); /* theme var, adjust below if too faint */
+}
+
+/* If the border is still too faint on your red/amber/green rows, bump just those */
+.p-datatable .p-datatable-tbody > tr.row-hard > td,
+.p-datatable .p-datatable-tbody > tr.row-med > td,
+.p-datatable .p-datatable-tbody > tr.row-easy > td {
+  border-color: #e5e7eb; /* Tailwind gray-200 for better contrast */
+}
