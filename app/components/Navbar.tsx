@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import AdvokitLogo from "@/public/advokit-logo.png";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -10,10 +12,23 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <nav className="flex h-14 items-center justify-between">
-          <Link href="/" className="font-semibold tracking-tight">
-            Advokit
+          {/* Brand (logo + wordmark) */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-semibold tracking-tight"
+            aria-label="Advokit home"
+          >
+            <Image
+              src={AdvokitLogo}        // /public/icon.png
+              alt="Advokit logo"
+              width={30}
+              height={30}
+              priority
+              sizes="28px"
+              className="rounded"     // remove if you want sharp corners
+            />
+            <span className="leading-none">Advokit</span>
           </Link>
-
           {/* Desktop */}
           <ul className="hidden items-center gap-6 md:flex">
             <li>
