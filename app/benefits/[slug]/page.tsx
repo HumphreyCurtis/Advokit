@@ -17,20 +17,22 @@ export default async function BenefitPage({
   const sections = benefit.article?.sections ?? [];
 
   return (
-    <article className="mx-auto w-full max-w-5xl px-4 md:px-6 lg:px-8">
+    <article className="mx-auto w-full max-w-5xl px-1 md:px-6 lg:px-8">
       <header className="pt-4 md:pt-6">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
           {benefit.title}
         </h1>
       </header>
-
       {/* Top utility bar */}
-      <div className="mt-4 flex flex-wrap items-center gap-3 border-y border-black-200 py-2 text-sm print:hidden">
-        <PrintButton />
+      <div className="mt-2 border-y border-black-200 py-2 print:hidden">
+        <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2">
+          <PrintButton />
+          <ReadAloud targetId="article-content" defaultRate={1} />
+        </div>
       </div>
 
       {/* Grid: Main content + (sticky) infobox */}
-      <div className="relative mt-6 grid grid-cols-1 gap-6 print:block">
+      <div className="relative mt-3 grid grid-cols-1 gap-6 print:block">
         {/* Main column */}
 
         <div>
@@ -39,14 +41,13 @@ export default async function BenefitPage({
 
         <div id="article-content" className="min-w-0">
           <section className="prose prose-gray max-w-none leading-relaxed">
+            <h1 className="text-xl mb-2 font-semibold">
+              About {benefit.title}
+            </h1>
             <p
               className="text-lg text-gray-700"
               dangerouslySetInnerHTML={{ __html: benefit.info }}
             ></p>
-            <div className="mt-4">
-              <ProgressiveTips sections={sections} />
-            </div>
-
             {/* Contents box (shows on md+) */}
             {sections.length > 0 ? (
               <div className="not-prose mt-6 hidden rounded-lg border border-gray-200 bg-white p-4 text-sm md:block">
@@ -73,8 +74,8 @@ export default async function BenefitPage({
             )}
           </section>
 
-          <div>
-            <ReadAloud targetId="article-content" defaultRate={1} />
+          <div className="mt-4">
+            <ProgressiveTips sections={sections} />
           </div>
 
           {/* Unwinding sections */}

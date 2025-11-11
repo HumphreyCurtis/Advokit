@@ -108,7 +108,7 @@ export default function ProgressiveTips({
         <div id="tip-content">
           <h3
             id={`tip-${current.id}-title`}
-            className="mb-2 text-3xl font-semibold text-gray-800 text-center"
+            className="mb-2 text-2xl font-semibold text-gray-800 text-center"
           >
             {current.title}
           </h3>
