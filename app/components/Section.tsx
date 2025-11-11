@@ -36,10 +36,6 @@ export default function Section({
           )}
         </figure>
       )}
-      {audio && audioCaption && (
-        <AudioPlayer src={audio} caption={audioCaption} />
-      )}
-      {youtubeVideo && <YouTube url={youtubeVideo} title="Demo clip" />}
     </section>
   );
 }

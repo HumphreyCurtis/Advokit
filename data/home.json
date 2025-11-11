@@ -12,11 +12,8 @@
           "id": "stage-1",
           "title": "Tip 1: Focus on activities (how you do tasks), not diagnosis",
           "body": "PIP points come from daily-living and mobility activities (e.g., preparing food, washing, communicating, moving around). Say what you can and cannot do for each task.",
-          "figure": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80https://unsplash.com/photos/Jztmx9yqjBw",
-          "figureCaption": "Mountains at sunrise",
           "audio": "/halloween.mp3",
-          "audioCaption": "Halloween soundtrack",
-          "youtubeVideo": "https://youtu.be/ar9mos9E2i0?si=dfadbHNc9Jm_twTr"
+          "audioCaption": "Halloween soundtrack"
         },
         {
           "id": "stage-2",
@@ -86,6 +83,12 @@
       {
         "url": "https://www.benefitsandwork.co.uk/pip-test-form",
         "title": "Benefits and Work PIP Test Form"
+      }
+    ],
+    "videos": [
+      {
+        "url": "https://youtu.be/G5HGLJ0ZHAU?si=_HAPVxuzggdlpGXN",
+        "title": "Video 1"
       }
     ]
   },

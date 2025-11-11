@@ -7,9 +7,7 @@ export default function KeyResources({ resources }: { resources: Resource[] }) {
       id="key-resources"
       className="not-prose mt-8 rounded-lg border border-gray-200 bg-white p-4"
     >
-      <h2 className="mb-3 text-lg font-semibold">
-        Further downloadable resources and links
-      </h2>
+      <h2 className="mb-3 text-lg font-semibold">Resources and links</h2>
       <ul className="list-disc pl-5 space-y-1">
         {resources.map((r, i) => {
           const url = typeof r === "string" ? r : r.url;

@@ -4,6 +4,7 @@ import PrintButton from "@/app/components/PrintButton";
 import { getBenefitDataBySlug } from "@/app/lib/benefits";
 import ReadAloud from "@/app/components/ReadAloud";
 import KeyResources from "@/app/components/KeyResources";
+import VideoPlayer from "@/app/components/VideoPlayer";
 
 export default async function BenefitPage({
   params,
@@ -28,9 +29,14 @@ export default async function BenefitPage({
       </div>
 
       {/* Grid: Main content + (sticky) infobox */}
-      <div className="relative mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] print:block">
+      <div className="relative mt-6 grid grid-cols-1 gap-6 print:block">
         {/* Main column */}
-        <div className="min-w-0">
+
+        <div>
+          <VideoPlayer videos={benefit.videos ?? []} />
+        </div>
+
+        <div id="article-content" className="min-w-0">
           <section className="prose prose-gray max-w-none leading-relaxed">
             <p
               className="text-lg text-gray-700"
@@ -63,12 +69,12 @@ export default async function BenefitPage({
             )}
           </section>
 
-          <div className="mb-3 flex justify-end">
+          <div>
             <ReadAloud targetId="article-content" defaultRate={1} />
           </div>
 
           {/* Unwinding sections */}
-          <div id="article-content">
+          <div>
             {sections.map((s) => (
               <Section
                 key={s.id}
@@ -79,16 +85,15 @@ export default async function BenefitPage({
                 figureCaption={s.figureCaption ?? ""}
                 audio={s.audio ?? ""}
                 audioCaption={s.audioCaption ?? ""}
-                youtubeVideo={s.youtubeVideo ?? ""}
               />
             ))}
           </div>
 
           <KeyResources resources={benefit.resources ?? []} />
         </div>
-
-        <Infobox status={"Active"} published={"2026"} />
       </div>
     </article>
   );
 }
+/*
+ */

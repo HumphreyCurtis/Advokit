@@ -7,6 +7,7 @@ export type Benefit = {
   slug: string;
   article?: Article;
   resources?: Resource[];
+  videos?: Video[];
 };
 
 export type Article = { sections: Section[] };
@@ -20,7 +21,6 @@ export type Section = {
   figureCaption?: string;
   audio?: string;
   audioCaption?: string;
-  youtubeVideo?: string;
 };
 
 export type InfoBox = {
@@ -29,6 +29,11 @@ export type InfoBox = {
 };
 
 export type Resource = {
+  url: string;
+  title?: string;
+};
+
+export type Video = {
   url: string;
   title?: string;
 };
