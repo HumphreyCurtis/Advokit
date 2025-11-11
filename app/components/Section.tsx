@@ -10,6 +10,7 @@ export default function Section({
   figureCaption,
   audio,
   audioCaption,
+  youtubeVideo,
 }: Section) {
   return (
     <section
@@ -20,21 +21,6 @@ export default function Section({
         {title}
       </h2>
       <p>{body}</p>
-      {figure && (
-        <figure className="mt-6 overflow-hidden rounded-lg border border-gray-200 bg-white">
-          <img
-            src={figure}
-            alt={figureCaption ?? ""} // accessible fallback
-            className="h-auto w-full"
-          />
-          {/* Only render caption if provided */}
-          {figureCaption && (
-            <figcaption className="px-4 py-3 text-sm text-gray-600">
-              {figureCaption}
-            </figcaption>
-          )}
-        </figure>
-      )}
     </section>
   );
 }

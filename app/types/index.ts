@@ -21,6 +21,7 @@ export type Section = {
   figureCaption?: string;
   audio?: string;
   audioCaption?: string;
+  youtubeVideo?: string;
 };
 
 export type InfoBox = {

@@ -5,6 +5,7 @@ import { getBenefitDataBySlug } from "@/app/lib/benefits";
 import ReadAloud from "@/app/components/ReadAloud";
 import KeyResources from "@/app/components/KeyResources";
 import VideoPlayer from "@/app/components/VideoPlayer";
+import ProgressiveTips from "@/app/components/ProgressiveTips";
 
 export default async function BenefitPage({
   params,
@@ -42,6 +43,9 @@ export default async function BenefitPage({
               className="text-lg text-gray-700"
               dangerouslySetInnerHTML={{ __html: benefit.info }}
             ></p>
+            <div className="mt-4">
+              <ProgressiveTips sections={sections} />
+            </div>
 
             {/* Contents box (shows on md+) */}
             {sections.length > 0 ? (
