@@ -27,7 +27,6 @@ const ratingBenefitValue = (row: Benefit) => {
 
 const ratingBenefitDifficulty = (row: Benefit) => {
   const difficulty = Number(row.difficulty) || 0;
-  console.log(row);
   if (difficulty === 1) {
     return (
       <img

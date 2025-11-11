@@ -54,6 +54,8 @@
   --advokit-green: 235 245 212;
 
   --advokit-page: 219 219 219;
+
+  --advokit-about: 255 250 255;
 }
 
 /* 2) Register utilities so they play nicely with Tailwind and opacity */
@@ -73,5 +75,9 @@
   .bg-advokit-page {
     --tw-bg-opacity: 1;
     background-color: rgb(var(--advokit-page) / var(--tw-bg-opacity));
+  }
+  .bg-advokit-about {
+    --tw-bg-opacity: 1;
+    background-color: rgb(var(--advokit-about) / var(--tw-bg-opacity));
   }
 }

@@ -23,7 +23,7 @@ export default async function BenefitPage({
       </header>
 
       {/* Top utility bar */}
-      <div className="mt-4 flex flex-wrap items-center gap-3 border-y border-gray-200 py-2 text-sm print:hidden">
+      <div className="mt-4 flex flex-wrap items-center gap-3 border-y border-black-200 py-2 text-sm print:hidden">
         <PrintButton />
       </div>
 
