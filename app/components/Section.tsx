@@ -10,7 +10,6 @@ export default function Section({
   figureCaption,
   audio,
   audioCaption,
-  youtubeVideo,
 }: Section) {
   return (
     <section
