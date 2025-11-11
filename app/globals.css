@@ -46,3 +46,32 @@
 .p-datatable .p-datatable-tbody > tr.row-easy > td {
   border-color: #e5e7eb; /* Tailwind gray-200 for better contrast */
 }
+
+/* 1) Define palette once */
+:root {
+  --advokit-red: 246 210 230;
+  --advokit-amber: 255 233 218;
+  --advokit-green: 235 245 212;
+
+  --advokit-page: 219 219 219;
+}
+
+/* 2) Register utilities so they play nicely with Tailwind and opacity */
+@layer utilities {
+  .bg-advokit-red {
+    --tw-bg-opacity: 1;
+    background-color: rgb(var(--advokit-red) / var(--tw-bg-opacity));
+  }
+  .bg-advokit-amber {
+    --tw-bg-opacity: 1;
+    background-color: rgb(var(--advokit-amber) / var(--tw-bg-opacity));
+  }
+  .bg-advokit-green {
+    --tw-bg-opacity: 1;
+    background-color: rgb(var(--advokit-green) / var(--tw-bg-opacity));
+  }
+  .bg-advokit-page {
+    --tw-bg-opacity: 1;
+    background-color: rgb(var(--advokit-page) / var(--tw-bg-opacity));
+  }
+}

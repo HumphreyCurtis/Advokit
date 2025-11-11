@@ -4,10 +4,10 @@ import KingsCollegeLondonImage from "@/public/kings-college-london.svg";
 
 export default function Footer() {
   return (
-    <footer className="mt-12 border-t border-gray-200">
+    <footer className="border-t border-gray-200">
       <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4 py-4">
-        <p className="text-center text-sm leading-snug text-gray-600 md:text-left m-0">
-          From Aphasia Re-Connect and KCL 
+        <p className="text-center text-sm leading-snug text-black-600 md:text-left m-0">
+          From Aphasia Re-Connect and KCL
         </p>
         <a
           href="https://aphasiareconnect.org/"

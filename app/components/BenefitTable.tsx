@@ -9,6 +9,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Rating } from "primereact/rating";
 
+// Importing traffic lights designed by Alistair
 import GreenTrafficLight from "@/public/ranking-table/traffic-light-green.png";
 import AmberTrafficLight from "@/public/ranking-table/traffic-light-amber.png";
 import RedTrafficLight from "@/public/ranking-table/traffic-light-red.png";
@@ -77,9 +78,9 @@ export default function BenefitTable() {
         className="w-full text-sm md:text-base mt-3"
         tableStyle={{ width: "100%" }}
         rowClassName={(row: Benefit) => ({
-          "bg-red-50 text-red-900": row.difficulty === 3,
-          "bg-amber-50 text-amber-900": row.difficulty === 2,
-          "bg-emerald-50 text-emerald-900": row.difficulty === 1,
+          "bg-advokit-red": row.difficulty === 3,
+          "bg-advokit-amber": row.difficulty === 2,
+          "bg-advokit-green": row.difficulty === 1,
         })}
         // header={header}
       >

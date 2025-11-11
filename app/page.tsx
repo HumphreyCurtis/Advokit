@@ -5,11 +5,11 @@ import Beginning from "./components/Beginning";
 
 export default function Home() {
   return (
-    <main className="bg-white text-gray-900">
+    <main className="bg-advokit-page text-black-900">
       <div className="mx-auto max-w-5xl px-2 py-5">
         <header className="space-y-3">
           <h1 className="text-4xl font-bold tracking-tight">Advokit</h1>
-          <p className="text-base text-gray-600 md:text-lg">
+          <p className="text-base text-black-600 md:text-lg">
             Community assembled advice, tips and resources made by people with
             aphasia for fellow benefit applicants.
           </p>
