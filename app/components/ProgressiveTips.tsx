@@ -76,30 +76,27 @@ export default function ProgressiveTips({
   return (
     <section
       aria-label={title}
-      className="rounded-2xl border border-gray-200 bg-white/90 p-4 shadow-sm backdrop-blur"
+      className="rounded-2xl border border-gray-200 bg-white/90 px-3 pb-3 pt-1 shadow-sm backdrop-blur"
     >
-      {/* Header */}
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
-          {title}
+      <div className="mb-2 mt-3 flex items-center gap-3">
+        <h2 className="text-base sm:text-lg font-semibold text-gray-900 shrink-0">
+          {title}: {idx + 1}/{total}
         </h2>
-        <div className="text-sm text-gray-600">
-          Tip {idx + 1} of {total}
+
+        <div className="flex-1">
+          <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+            <div
+              className="h-full bg-blue-600 transition-all"
+              style={{ width: `${((idx + 1) / total) * 100}%` }}
+              aria-hidden="true"
+            />
+          </div>
         </div>
       </div>
-      {/* Progress bar */}
-      <div className="mb-4 h-2 w-full overflow-hidden rounded-full bg-gray-100">
-        <div
-          className="h-full bg-blue-600 transition-all"
-          style={{ width: `${((idx + 1) / total) * 100}%` }}
-          aria-hidden="true"
-        />
-      </div>
-      {/* Read aloud just below header */}
-      <div className="mb-3 flex justify-left">
+
+      <div className="flex items-center">
         <ReadAloud targetId="tip-content" defaultRate={1} />
       </div>
-      {/* Slide */}
       <div
         role="group"
         aria-labelledby={`tip-${current.id}-title`}
@@ -161,56 +158,48 @@ export default function ProgressiveTips({
         )}
       </div>
       {/* Controls */}
-      <div className="mt-4 flex items-center justify-between gap-2">
+      <div className="mt-6 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={first}
-            disabled={idx === 0}
-            className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 disabled:opacity-40"
-          >
-            ⏮ First
-          </button>
           <button
             type="button"
             onClick={prev}
             disabled={idx === 0}
-            className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 disabled:opacity-40"
+            className="rounded-2xl px-8 py-4 text-2xl font-bold
+                 bg-red-600 text-white shadow-md
+                 hover:bg-red-700 active:scale-[0.98]
+                 disabled:bg-red-300 disabled:cursor-not-allowed disabled:opacity-70"
           >
             ← Prev
           </button>
         </div>
+
         {/* Dots */}
-        <ol className="hidden sm:flex items-center gap-1" aria-label="Steps">
+        <ol className="hidden sm:flex items-center gap-2" aria-label="Steps">
           {sections.map((s, i) => (
             <li key={s.id}>
               <button
                 type="button"
                 onClick={() => go(i)}
                 aria-label={`Go to tip ${i + 1}`}
-                className={`h-2.5 w-2.5 rounded-full ring-1 ring-gray-300 transition ${
+                className={`h-3 w-3 rounded-full ring-1 ring-gray-300 transition ${
                   i === idx ? "bg-blue-600" : "bg-gray-200 hover:bg-gray-300"
                 }`}
               />
             </li>
           ))}
         </ol>
+
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={next}
             disabled={idx === total - 1}
-            className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 disabled:opacity-40"
+            className="rounded-2xl px-8 py-4 text-2xl font-bold
+                 bg-green-600 text-white shadow-md
+                 hover:bg-green-700 active:scale-[0.98]
+                 disabled:bg-green-300 disabled:cursor-not-allowed disabled:opacity-70"
           >
             Next →
-          </button>
-          <button
-            type="button"
-            onClick={last}
-            disabled={idx === total - 1}
-            className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 disabled:opacity-40"
-          >
-            Last ⏭
           </button>
         </div>
       </div>

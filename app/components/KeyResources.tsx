@@ -3,11 +3,13 @@ import type { Resource } from "../types";
 export default function KeyResources({ resources }: { resources: Resource[] }) {
   if (!resources.length) return null;
   return (
-    <section
+    <details
       id="key-resources"
-      className="not-prose mt-8 rounded-lg border border-gray-200 bg-white p-4"
+      className="not-prose mt-4 rounded-lg border border-gray-200 bg-white p-4"
     >
-      <h2 className="mb-3 text-lg font-semibold">Resources and links</h2>
+      <summary className="text-l mb-2 font-semibold">
+        Further resources & links - helpful for caregivers
+      </summary>
       <ul className="list-disc pl-5 space-y-1">
         {resources.map((r, i) => {
           const url = typeof r === "string" ? r : r.url;
@@ -26,6 +28,6 @@ export default function KeyResources({ resources }: { resources: Resource[] }) {
           );
         })}
       </ul>
-    </section>
+    </details>
   );
 }

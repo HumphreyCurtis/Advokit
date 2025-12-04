@@ -11,6 +11,8 @@ type Props = {
   defaultRate?: number; // 0.5–1.5
 };
 
+const volume = "🔊";
+
 export default function ReadAloudBox({
   text,
   targetId,
@@ -109,16 +111,6 @@ export default function ReadAloudBox({
         <select className="max-w-56 rounded border px-2 py-1" disabled>
           <option>Loading voices…</option>
         </select>
-        <label className="ml-2 mr-1 font-medium">Rate</label>
-        <input
-          type="range"
-          min={0.5}
-          max={1.5}
-          step={0.1}
-          value={defaultRate}
-          readOnly
-          className="w-28"
-        />
         <span className="tabular-nums w-8 text-center">
           {defaultRate.toFixed(1)}×
         </span>
@@ -132,6 +124,17 @@ export default function ReadAloudBox({
     );
   }
 
+  // <label className="ml-2 mr-1 font-medium">Rate</label>
+  // <input
+  //   type="range"
+  //   min={0.5}
+  //   max={1.5}
+  //   step={0.1}
+  //   value={defaultRate}
+  //   readOnly
+  //   className="w-28"
+  // />
+
   // no API support?
   if (typeof window === "undefined" || !("speechSynthesis" in window)) {
     return (
@@ -142,13 +145,14 @@ export default function ReadAloudBox({
   }
 
   return (
-    <div className="my-3 inline-flex flex-wrap items-center gap-2 rounded-md border border-gray-200 bg-white p-3 text-sm w-fit max-w-full">
+    <div className="mb-2 flex w-full flex-wrap items-center gap-2 rounded-md border border-gray-200 bg-white p-3 text-sm">
       <label className="mr-1 font-medium" htmlFor="voice">
-        Voice
+        🔊
       </label>
+
       <select
         id="voice"
-        className="max-w-56 truncate rounded border border-gray-300 px-2 py-1"
+        className="min-w-0 flex-1 truncate rounded border border-gray-300 px-2 py-1"
         value={voiceIndex}
         onChange={(e) => setVoiceIndex(Number(e.target.value))}
         title={options[voiceIndex]?.name}
@@ -160,22 +164,7 @@ export default function ReadAloudBox({
         ))}
       </select>
 
-      <label className="ml-2 mr-1 font-medium" htmlFor="rate">
-        Rate
-      </label>
-      <input
-        id="rate"
-        type="range"
-        min={0.5}
-        max={1.5}
-        step={0.1}
-        value={rate}
-        onChange={(e) => setRate(Number(e.target.value))}
-        className="w-28 align-middle"
-      />
-      <span className="tabular-nums w-8 text-center">{rate.toFixed(1)}×</span>
-
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         {state === "idle" && (
           <button
             className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-700"
@@ -221,3 +210,18 @@ export default function ReadAloudBox({
     </div>
   );
 }
+
+// <label className="ml-2 mr-1 font-medium" htmlFor="rate">
+//   Rate
+// </label>
+// <input
+//   id="rate"
+//   type="range"
+//   min={0.5}
+//   max={1.5}
+//   step={0.1}
+//   value={rate}
+//   onChange={(e) => setRate(Number(e.target.value))}
+//   className="w-28 align-middle"
+// />
+// <span className="tabular-nums w-8 text-center">{rate.toFixed(1)}×</span>
