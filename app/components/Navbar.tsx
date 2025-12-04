@@ -43,6 +43,9 @@ export default function Navbar() {
             <li>
               <Link href="/benefits-table">Benefits table</Link>
             </li>
+            <li>
+              <Link href="/stories">Stories</Link>
+            </li>
           </ul>
 
           {/* Mobile hamburger button */}
@@ -97,6 +100,11 @@ export default function Navbar() {
             <li>
               <Link href="/benefits-table" onClick={() => setOpen(false)}>
                 Benefits table
+              </Link>
+            </li>
+            <li>
+              <Link href="/stories" onClick={() => setOpen(false)}>
+                Stories
               </Link>
             </li>
           </ul>
