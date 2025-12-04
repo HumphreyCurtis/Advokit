@@ -51,6 +51,7 @@ export default function ReadAloudBox({
   // selection + rate
   const [voiceIndex, setVoiceIndex] = useState(0);
   const [rate, setRate] = useState(defaultRate);
+
   useEffect(() => {
     if (!options.length) return;
     const gb = options.findIndex((v) =>
@@ -75,6 +76,8 @@ export default function ReadAloudBox({
 
   const speak = () => {
     const t = getText();
+
+    console.log(t);
     if (!t || !options.length) return;
     stop();
     const u = new SpeechSynthesisUtterance(t);

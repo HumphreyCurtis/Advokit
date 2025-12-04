@@ -18,10 +18,12 @@ export default async function BenefitPage({
 
   return (
     <article className="mx-auto w-full max-w-5xl px-1 md:px-6 lg:px-8">
-      <header className="pt-4 md:pt-6">
+      <header className="pt-4 md:pt-6 flex items-center justify-between gap-4">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
           {benefit.title}
         </h1>
+
+        <PrintButton />
       </header>
       <hr className="mt-2 border-y border-black-200" />
 
@@ -32,12 +34,8 @@ export default async function BenefitPage({
         <div id="article-content" className="min-w-0">
           <details className="mt-4 rounded-xl border border-gray-200 bg-white/70 p-4">
             <summary className="text-xl mb-2 font-semibold">Learn more</summary>
-            <div className="flex items-center mt-3">
-              <ReadAloud targetId="benefit-info" defaultRate={1} />
-            </div>
             <div id="benefit-info">
               <p
-                id="benefit-info"
                 className="text-lg text-gray-700"
                 dangerouslySetInnerHTML={{ __html: benefit.info }}
               ></p>

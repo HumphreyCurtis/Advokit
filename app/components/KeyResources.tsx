@@ -8,7 +8,7 @@ export default function KeyResources({ resources }: { resources: Resource[] }) {
       className="not-prose mt-4 rounded-lg border border-gray-200 bg-white p-4"
     >
       <summary className="text-l mb-2 font-semibold">
-        Further resources & links - helpful for caregivers
+        Further resources & links - helpful for caregivers!
       </summary>
       <ul className="list-disc pl-5 space-y-1">
         {resources.map((r, i) => {
