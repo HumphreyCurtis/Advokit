@@ -1,6 +1,6 @@
 import Image from "next/image";
-import AphasiaReconnectImage from "@/public/aphasia-reconnect-logo.png";
-import KingsCollegeLondonImage from "@/public/kings-college-london.svg";
+import AphasiaReconnectImage from "@/public/images/aphasia-reconnect-logo.png";
+import KingsCollegeLondonImage from "@/public/images/kings-college-london.svg";
 
 export default function Footer() {
   return (

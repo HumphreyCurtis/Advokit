@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import AdvokitLogo from "@/public/advokit-logo.png";
+import AdvokitLogo from "@/public/images/advokit-logo.png";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -19,13 +19,13 @@ export default function Navbar() {
             aria-label="Advokit home"
           >
             <Image
-              src={AdvokitLogo}        // /public/icon.png
+              src={AdvokitLogo} // /public/icon.png
               alt="Advokit logo"
               width={30}
               height={30}
               priority
               sizes="28px"
-              className="rounded"     // remove if you want sharp corners
+              className="rounded" // remove if you want sharp corners
             />
             <span className="leading-none">Advokit</span>
           </Link>
@@ -38,10 +38,10 @@ export default function Navbar() {
               <Link href="/about">About</Link>
             </li>
             <li>
-              <Link href="/#benefits-list">List of benefits</Link>
+              <Link href="/benefits-list">List of benefits</Link>
             </li>
             <li>
-              <Link href="/#benefits-table">Benefits table</Link>
+              <Link href="/benefits-table">Benefits table</Link>
             </li>
           </ul>
 
@@ -90,12 +90,12 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href="/#benefits-list" onClick={() => setOpen(false)}>
+              <Link href="/benefits-list" onClick={() => setOpen(false)}>
                 List of benefits
               </Link>
             </li>
             <li>
-              <Link href="/#benefits-table" onClick={() => setOpen(false)}>
+              <Link href="/benefits-table" onClick={() => setOpen(false)}>
                 Benefits table
               </Link>
             </li>
