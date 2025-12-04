@@ -15,20 +15,19 @@ export default function Home() {
           </p>
         </header>
         <Disclaimer />
-        <Beginning />
-        <div className="mt-5 space-y-12">
-          <section id="benefits-list" className="scroll-mt-24">
-            <div className="mt-4 rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm">
-              <BenefitList />
-            </div>
-          </section>
-          <section id="benefits-table" className="scroll-mt-24">
-            <div className="mt-2">
-              <BenefitTable />
-            </div>
-          </section>
-        </div>
       </div>
     </main>
   );
 }
+// <div className="mt-5 space-y-12">
+//   <section id="benefits-list" className="scroll-mt-24">
+//     <div className="mt-4 rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm">
+//       <BenefitList />
+//     </div>
+//   </section>
+//   <section id="benefits-table" className="scroll-mt-24">
+//     <div className="mt-2">
+//       <BenefitTable />
+//     </div>
+//   </section>
+// </div>
