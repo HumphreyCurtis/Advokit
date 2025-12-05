@@ -4,6 +4,7 @@ export type Benefit = {
   difficulty: number;
   value: number;
   info: string;
+  links: string; 
   slug: string;
   article?: Article;
   resources?: Resource[];

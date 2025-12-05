@@ -34,6 +34,12 @@ export default async function BenefitPage({
             <summary className="text-xl mb-2 font-semibold">Learn more</summary>
             <div id="benefit-info">
               <ReadAloud text={benefit.info} buttonLabel={"Read information"} />
+              
+              <h3 className="text-xl mt-3 font-semibold">Related links</h3>
+              <p
+                className="text-lg text-gray-700"
+                dangerouslySetInnerHTML={{ __html: benefit.links }}
+              ></p>
             </div>
           </details>
 
