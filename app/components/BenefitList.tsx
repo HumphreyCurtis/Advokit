@@ -1,4 +1,5 @@
 import Link from "next/link";
+import WorriedButton from "./WorriedButton";
 import { getAllBenefits } from "@/app/lib/benefits";
 
 export default function BenefitList() {
@@ -9,7 +10,6 @@ export default function BenefitList() {
       <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
         Full list
       </h2>
-
       {/* Tile grid */}
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {benefits.map((benefit, index) => (
@@ -35,6 +35,8 @@ export default function BenefitList() {
           </Link>
         ))}
       </div>
+
+      <WorriedButton />
     </div>
   );
 }

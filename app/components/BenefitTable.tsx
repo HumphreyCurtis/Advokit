@@ -13,6 +13,7 @@ import { Rating } from "primereact/rating";
 import GreenTrafficLight from "@/public/ranking-table/traffic-light-green.png";
 import AmberTrafficLight from "@/public/ranking-table/traffic-light-amber.png";
 import RedTrafficLight from "@/public/ranking-table/traffic-light-red.png";
+import WorriedButton from "./WorriedButton";
 
 const header = (
   <div className="flex flex-wrap align-items-center justify-content-between gap-2">
@@ -115,6 +116,8 @@ focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 roun
           sortable
         ></Column>
       </DataTable>
+
+      <WorriedButton />
     </div>
   );
 }

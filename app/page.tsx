@@ -4,10 +4,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import Disclaimer from "./components/Disclaimer";
-import ThinkingImage from "@/public/images/thinking.jpg";
-import ApplicationImage from "@/public/images/pen-paper.jpg";
-import CommunityImage from "@/public/images/community.jpg";
-import QuestionMark from "@/public/images/question-mark.jpg";
+import ThinkingImage from "@/public/images/thinking.png";
+import ApplicationImage from "@/public/images/applying.png";
+import CommunityImage from "@/public/images/community.png";
+import QuestionMark from "@/public/images/question-mark.png";
 
 const tiles = [
   {
@@ -68,16 +68,16 @@ export default function Home() {
                 href={tile.href}
                 className="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-advokit-page focus-visible:ring-black-900"
               >
-                <div className="relative flex h-36 sm:h-40 md:h-44 items-center justify-center bg-black/5">
+                <div className="relative flex h-36 sm:h-40 md:h-44 items-center justify-center bg-black/5 overflow-hidden">
                   <Image
                     src={tile.imageSrc}
                     alt={tile.imageAlt}
-                    width={240}
-                    height={160}
-                    className="max-h-full w-auto object-contain"
+                    width={400}
+                    height={400}
+                    className="h-full w-full object-cover"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/15 via-black/5 to-transparent" />
-                </div>{" "}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-transparent" />
+                </div>
                 <div className="p-4 md:p-5">
                   <h2 className="text-lg font-semibold tracking-tight">
                     {tile.title}
