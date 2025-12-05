@@ -68,23 +68,27 @@ export default function ReadAlong() {
 
     const utterance = new SpeechSynthesisUtterance();
     utterance.text = text;
+    utterance.rate = 0.9;
+    // Optional but can help Chrome: choose a voice + lang explicitly
+    // const voices = window.speechSynthesis.getVoices();
+    // const enVoice = voices.find(v => v.lang.startsWith("en"));
+    // if (enVoice) utterance.voice = enVoice;
+    // utterance.lang = enVoice?.lang ?? "en-US";
 
-    // Optional: adjust rate if you like
-    // utterance.rate = 1;
+    const words = text.split(/\s+/).filter(Boolean);
+    const wordMatches = [...text.matchAll(/\S+/g)]; // each match = a "word" with index
+    let boundaryWordIndex = 0;
+    let gotBoundary = false;
 
-    utterance.onstart = () => {
-      setIsSpeaking(true);
-      setCurrentWordIndex(0);
-
-      // Basic heuristic: time per word
-      const words = text.split(/\s+/).filter(Boolean);
+    const startFallbackTimer = () => {
+      // Fallback: approximate timing if no boundaries are received
       const wordCount = words.length || 1;
 
-      // Rough estimate: ~300ms per word at rate 1
-      const baseMsPerWord = 300;
+      const baseMsPerWord = 280;
       const estMsPerWord = baseMsPerWord / utterance.rate;
 
       let wIndex = 0;
+      setCurrentWordIndex(0);
 
       timerRef.current = window.setInterval(() => {
         wIndex += 1;
@@ -94,6 +98,38 @@ export default function ReadAlong() {
         }
         setCurrentWordIndex(wIndex);
       }, estMsPerWord) as unknown as number;
+    };
+
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+      setCurrentWordIndex(0);
+
+      // If we don't see any boundary events shortly after start,
+      // assume this voice/platform doesn't support them and
+      // fall back to the timer.
+      window.setTimeout(() => {
+        if (!gotBoundary && timerRef.current === null) {
+          startFallbackTimer();
+        }
+      }, 400);
+    };
+
+    // Use real boundaries when the voice supports them
+    utterance.onboundary = (event: SpeechSynthesisEvent) => {
+      gotBoundary = true;
+
+      const charIndex = event.charIndex;
+      if (charIndex == null) return;
+
+      // Advance boundaryWordIndex until we hit the word that contains charIndex
+      while (
+        boundaryWordIndex + 1 < wordMatches.length &&
+        wordMatches[boundaryWordIndex + 1].index! <= charIndex
+      ) {
+        boundaryWordIndex += 1;
+      }
+
+      setCurrentWordIndex(boundaryWordIndex);
     };
 
     const clearState = () => {
@@ -107,7 +143,6 @@ export default function ReadAlong() {
 
     window.speechSynthesis.speak(utterance);
   };
-
   const handleStop = () => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
     window.speechSynthesis.cancel();
