@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Section } from "../types";
-import ReadAloud from "@/app/components/ReadAloud";
+import { ReadAloud } from "@/app/components/ReadAloud";
 
 function toYouTubeEmbed(raw?: string): string | null {
   if (!raw) return null;
@@ -94,7 +94,7 @@ export default function ProgressiveTips({
         </div>
       </div>
 
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
         <ReadAloud targetId="tip-content" defaultRate={1} />
       </div>
       <div
@@ -113,50 +113,28 @@ export default function ProgressiveTips({
           <p className="mb-4 text-xl text-gray-800 leading-relaxed">
             {current.body}
           </p>
-        </div>
+        </div> */}
 
-        {/* Figure (optional, single) */}
-        {current.figure && (
-          <figure className="mb-4 overflow-hidden rounded-lg border border-gray-200 bg-white">
-            <img
-              src={current.figure}
-              alt={current.figureCaption}
-              loading="lazy"
-              className="h-auto w-full object-contain"
-            />
-            {current.figureCaption && (
-              <figcaption className="px-3 py-2 text-xs text-gray-600">
-                {current.figureCaption}
-              </figcaption>
-            )}
-          </figure>
-        )}
+      <div
+        role="group"
+        aria-labelledby={`tip-${current.id}-title`}
+        className="rounded-xl border border-gray-200 bg-white p-4"
+      >
+        <h3
+          id={`tip-${current.id}-title`}
+          className="mb-2 text-2xl font-semibold text-gray-800 text-center"
+        >
+          {current.title}
+        </h3>
 
-        {/* Media (optional) */}
-        {current.audio && (
-          <figure className="mb-4">
-            <figcaption className="mb-1 text-xs text-gray-600">
-              {current.audioCaption ?? "Audio"}
-            </figcaption>
-            <audio controls className="w-full">
-              <source src={current.audio} />
-              Your browser does not support the audio element.
-            </audio>
-          </figure>
-        )}
-
-        {embed && (
-          <div className="aspect-video w-full overflow-hidden rounded-lg ring-1 ring-gray-200">
-            <iframe
-              src={embed}
-              title={current.title ?? "YouTube video"}
-              className="h-full w-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </div>
-        )}
+        {/* Button + highlighted body */}
+        <ReadAloud
+          text={`${current.title}. ${current.body}`}
+          defaultRate={1}
+          buttonLabel="Read this tip"
+        />
       </div>
+
       {/* Controls */}
       <div className="mt-6 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">

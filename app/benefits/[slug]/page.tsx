@@ -2,7 +2,7 @@ import Infobox from "@/app/components/Infobox";
 import Section from "@/app/components/Section";
 import PrintButton from "@/app/components/PrintButton";
 import { getBenefitDataBySlug } from "@/app/lib/benefits";
-import ReadAloud from "@/app/components/ReadAloud";
+import ReadAloud from "@/app/components/ReadAloud-old";
 import KeyResources from "@/app/components/KeyResources";
 import VideoPlayer from "@/app/components/VideoPlayer";
 import ProgressiveTips from "@/app/components/ProgressiveTips";
