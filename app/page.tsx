@@ -29,7 +29,7 @@ const tiles = [
     href: "/stories",
     imageSrc: CommunityImage,
     imageAlt: "Group of people sharing experiences together",
-    description: "Hear from people with aphasia about their journeys.",
+    description: "Hear from people with aphasia about their welfare journeys.",
   },
   {
     title: "Who are we?",
@@ -76,8 +76,8 @@ export default function Home() {
                     height={160}
                     className="max-h-full w-auto object-contain"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                </div>
+                  <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/15 via-black/5 to-transparent" />
+                </div>{" "}
                 <div className="p-4 md:p-5">
                   <h2 className="text-lg font-semibold tracking-tight">
                     {tile.title}

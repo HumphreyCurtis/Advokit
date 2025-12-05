@@ -28,7 +28,7 @@ function ReadAlongText({
         return (
           <span
             key={i}
-            className={isActive ? "bg-yellow-200 rounded-sm px-0.5" : ""}
+            className={`rounded-sm px-0.5 ${isActive ? "bg-yellow-200" : ""}`}
           >
             {chunk}
           </span>
