@@ -90,7 +90,6 @@ export function ReadAloud({
 
     const startFallbackTimer = () => {
       const wordCount = words.length || 1;
-      // Faster default so it keeps up better
       const baseMsPerWord = 180;
       const estMsPerWord = baseMsPerWord / utterance.rate;
 
@@ -121,6 +120,10 @@ export function ReadAloud({
 
     utterance.onboundary = (event: SpeechSynthesisEvent) => {
       gotBoundary = true;
+
+      // as soon as boundaries work, stop the fallback timer
+      clearTimer();
+
       const charIndex = event.charIndex;
       if (charIndex == null) return;
 
@@ -146,7 +149,6 @@ export function ReadAloud({
     window.speechSynthesis.speak(utterance);
   };
 
-  // Safety: clear on unmount
   useEffect(() => {
     return () => {
       clearTimer();
