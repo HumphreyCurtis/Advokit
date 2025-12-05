@@ -1,10 +1,8 @@
-import Infobox from "@/app/components/Infobox";
 import Section from "@/app/components/Section";
 import PrintButton from "@/app/components/PrintButton";
 import { getBenefitDataBySlug } from "@/app/lib/benefits";
-import ReadAloud from "@/app/components/ReadAloud-old";
+import { ReadAloud } from "@/app/components/ReadAloud";
 import KeyResources from "@/app/components/KeyResources";
-import VideoPlayer from "@/app/components/VideoPlayer";
 import ProgressiveTips from "@/app/components/ProgressiveTips";
 
 export default async function BenefitPage({
@@ -35,16 +33,14 @@ export default async function BenefitPage({
           <details className="mt-4 rounded-xl border border-gray-200 bg-white/70 p-4">
             <summary className="text-xl mb-2 font-semibold">Learn more</summary>
             <div id="benefit-info">
-              <p
-                className="text-lg text-gray-700"
-                dangerouslySetInnerHTML={{ __html: benefit.info }}
-              ></p>
+              <ReadAloud text={benefit.info} buttonLabel={"Read information"} />
             </div>
           </details>
 
           <div className="mt-4">
             <ProgressiveTips sections={sections} />
           </div>
+
           {/* Unwinding sections */}
           <details className="mt-4 rounded-xl border border-gray-200 bg-white/70 p-4">
             <summary className="cursor-pointer text-m font-medium">
