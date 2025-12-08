@@ -47,8 +47,8 @@ export default function Home() {
         <header className="space-y-3">
           <h1 className="text-4xl font-bold tracking-tight">Advokit</h1>
           <p className="text-base text-black-600 md:text-lg">
-            Community assembled advice, tips and resources made by people with
-            aphasia for fellow benefit applicants.
+            This site is made by people with aphasia. It helps people apply for
+            benefits.
           </p>
         </header>
 

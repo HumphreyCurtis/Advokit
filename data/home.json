@@ -4,7 +4,7 @@
     "title": "PIP",
     "difficulty": 3,
     "value": 5,
-    "info": "Personal Independence Payment (PIP) helps with extra living costs if you have a long-term physical or mental health condition or disability that makes it hard to carry out everyday tasks or get around. You can receive PIP even if you’re working, have savings, or are getting most other benefits. To start a claim, call the ‘PIP new claims’ phone line using the webpage below. You’ll be asked a few basic questions about yourself and your condition. After that, you’ll receive a form where you can explain how your disability or condition affects your daily life and follow these tips.",
+    "info": "Personal Independence Payment (PIP) gives extra money to help with living costs. You can get PIP if you have a long-term physical or mental health condition or disability. PIP helps when it is  hard to carry out everyday tasks or get around. You can receive PIP even if: (1) you’re working, (2) have savings, (3) or are getting other benefits. To start a claim, call the ‘PIP new claims’ phone line using the webpage below. You’ll be asked a few basic questions about yourself and your condition. After that, you’ll receive a form where you can explain how your disability or condition affects your daily life and follow these tips.",
     "links": "<a href='https://www.gov.uk/pip' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Visit gov.uk/pip for all PIP-related information</a>",
     "slug": "pip",
     "article": {
@@ -22,7 +22,7 @@
         {
           "id": "stage-3",
           "title": "Be clear about ‘safely, repeatedly, in a reasonable time’",
-          "body": "If you can do a task only with pain, risk, very slowly, or not every time, say so. Note if you must stop and rest or need another person."
+          "body": "Say if you can only do a task only with pain, risk, very slowly, or not every time. Say if you need to stop and rest. Say if you need another person."
         },
         {
           "id": "stage-4",
@@ -95,7 +95,7 @@
     "title": "Blue Badge",
     "difficulty": 2,
     "value": 4,
-    "info": "Blue Badges help people with disabilities or health conditions park closer to their destination. You can apply for a badge for yourself, on behalf of somebody else, or for an organisation that transports disabled people. In England, Scotland, and Wales you can apply on Gov.uk/apply-blue-badge. A Blue Badge costs £10 in England, £20 in Scotland and is free in Wales.",
+    "info": "A Blue Badge helps people with disabilities or health conditions. It lets you park closer to where you need to go. You can apply for a badge: (1) for yourself, (2) on behalf of somebody else, (3) or for an organisation that transports disabled people. You can apply online in: England, Scotland, and Wales. A Blue Badge costs £10 in England, £20 in Scotland and is free in Wales.",
     "links": "<a href='https://www.gov.uk/apply-blue-badge' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/apply-blue-badge</a>",
     "slug": "blue-badge",
     "article": {
@@ -103,52 +103,52 @@
         {
           "id": "stage-1",
           "title": "Check if you qualify automatically",
-          "body": "You may automatically qualify if you receive certain benefits (e.g., higher-rate mobility components) or meet specific criteria (e.g., being registered severely sight impaired). Check eligibility for your local council before applying."
+          "body": "Some people get a Blue Badge automatically. This happens if you get certain benefits (like higher-rate mobility benefits) or if you meet specific rules (for example, being registered severely sight impaired). Check your local council’s rules before you apply."
         },
         {
           "id": "stage-2",
           "title": "You can still apply even if you don’t qualify automatically",
-          "body": "If you don’t meet automatic criteria, apply under ‘further assessment’. Describe how your condition affects mobility and include supporting evidence. If applying online via GOV.UK, use ‘save and return’ to finish later; if you can’t apply online, ask your council for telephone or in-person help."
+          "body": "If you do not qualify automatically, you can still apply. Use the “further assessment” route. Explain how your condition affects your walking or movement. Include any evidence you have. If you apply online on GOV.UK, you can “save and return” later. If online is hard, ask your council for help by phone or in person."
         },
         {
           "id": "stage-3",
           "title": "Tell them about your worst possible day",
-          "body": "Describe your hardest (worst) days, not just good days. Explain how symptoms flare, how often they occur, and how they limit you. Use the first person (e.g., “I can only…”). Be truthful and consistent."
+          "body": "Describe your hardest days, not your good days. Say how often your bad days happen.   Explain what your symptoms are like and how they stop you from moving around. Use “I” statements (for example: “I can only walk a few steps”). Be truthful and keep your answers the same across the form."
         },
         {
           "id": "stage-4",
           "title": "Be precise about walking distance and stopping",
-          "body": "State how far you can walk before you must stop, how long it takes and what happens (pain, breathlessness, fatigue, imbalance). Use everyday landmarks (e.g., from your front door to the car, to the bus stop) to keep it concrete and avoid rounding up."
+          "body": "Say how far you can walk before you must stop. Say how long it takes you. Describe what happens (pain, breathlessness, tiredness, feeling unsteady). Use everyday landmarks to explain distance (for example: “from my front door to the car”)."
         },
         {
           "id": "stage-5",
           "title": "Don’t overstate walking ability (no more than 20 metres)",
-          "body": "Never say you can walk more than 20 metres without stopping if you cannot do so safely, repeatedly, and in a reasonable time. Be clear if you need to pause, rest or lean on something, and how often."
+          "body": "If you cannot walk more than 20 metres safely, do not say that you can. Tell them if you need to stop, rest, or lean on something. Say how often you need to pause."
         },
         {
           "id": "stage-6",
           "title": "Tell them both emotionally and physically how you feel",
-          "body": "Explain both physical and emotional impacts (pain, fatigue, anxiety, fear of falling, stress). Note after-effects (e.g., needing to lie down or recover for hours after a short walk)."
+          "body": "Explain the physical effects (pain, fatigue, breathlessness). Explain the emotional effects too (anxiety, worry about falling, stress)."
         },
         {
           "id": "stage-7",
           "title": "List your conditions, medications and aids you use",
-          "body": "Name all diagnosed conditions and current medications (include dosages if possible). Mention aids/adaptations you rely on—including wheelchair, stick, frame, orthotics, or help from another person—and any difficulties using them."
+          "body": "List all your diagnosed conditions. List your medications (add doses if you know them). Say what aids you use: wheelchair, stick, frame, orthotics, or support from another person. Say if you struggle to use any of these aids."
         },
         {
           "id": "stage-8",
           "title": "Include strong evidence (consultant letters help)",
-          "body": "Consultant letters often carry weight. Attach recent clinic letters, GP notes, physiotherapy or OT reports, care plans, and relevant test results. If asked, also provide standard documents (proof of ID/address and a passport-style photo)."
+          "body": "Attach recent medical letters if you have them. Good evidence includes consultant letters, GP notes, physio or OT reports, care plans and test results. You may also need to upload ID, proof of address, and a passport-style photo."
         },
         {
           "id": "stage-9",
           "title": "Keep copies and a symptom diary",
-          "body": "Save copies of all forms and uploads (ID, photo, evidence). A short diary logging distances, times to stop, pain scores and after-effects can back up your statements and show patterns."
+          "body": "Keep copies of everything you send, including evidence and photos. A short diary can help. Write down: (1) How far you walked, (2) how long before you stopped, (3) pain or tiredness levels and (4) what happened afterwards."
         },
         {
           "id": "stage-10",
           "title": "Get help if you need support—and know what happens next",
-          "body": "Local council teams, Citizens Advice and disability organisations can help with applications and challenges if refused. Councils may request extra evidence or invite you to a mobility assessment. Decisions often take several weeks; if approved, most badges last up to three years."
+          "body": "You can get help from: (1) Your local council, (2) Citizens Advice and (3) Disability organisations. The council may ask for more evidence or invite you to a mobility assessment.Decisions can take several weeks. If your application is approved, a Blue Badge usually lasts up to three years."
         }
       ]
     },
@@ -177,12 +177,12 @@
         {
           "id": "stage-2",
           "title": "Keep your GP updated about your condition",
-          "body": "Regularly share changes in your symptoms, medications, or daily challenges. This helps your GP keep accurate records that can support referrals and benefit applications."
+          "body": "Tell your GP about any changes in: (1) Your symptoms, (2) Your medication and (3) Your daily difficulties. This helps them keep good records and support referrals or benefit forms."
         },
         {
           "id": "stage-3",
           "title": "Ask for clear explanations",
-          "body": "If you don’t understand a diagnosis or treatment plan, ask your GP to explain in plain language or write it down. You can request an interpreter or communication support if needed."
+          "body": "If you do not understand something, ask your GP to explain it in simple words. You can ask them to write it down for you. You can also ask for an interpreter or communication support."
         },
         {
           "id": "stage-4",
@@ -192,7 +192,7 @@
         {
           "id": "stage-5",
           "title": "Make use of referrals and allied health professionals",
-          "body": "GPs can refer you to specialists such as physiotherapists, occupational therapists, or speech and language therapists. These services can provide reports and advice that strengthen your care plan."
+          "body": "Your GP can refer you to: (1) Physiotherapists, (2) Occupational therapists, (3) Speech and language therapists and (4) Specialists. These professionals can give reports and advice to support your care."
         },
         {
           "id": "stage-6",
@@ -217,7 +217,7 @@
         {
           "id": "stage-10",
           "title": "Seek advocacy or support if appointments feel difficult",
-          "body": "If you struggle to communicate or feel anxious at appointments, you can ask for a patient advocate, communication partner, or support worker. Many local NHS trusts or charities offer this service."
+          "body": "If appointments make you feel anxious or if communication is hard, ask for help. You can ask for: a patient advocate, a communication partner or a support worker. Many NHS teams and charities offer this support."
         }
       ]
     }
@@ -250,7 +250,7 @@
         {
           "id": "stage-4",
           "title": "Keep a record of advice and next steps",
-          "body": "Write down the name of your adviser, what was agreed, and any follow-up actions. This makes it easier to continue your case if you speak to a different adviser later or need to appeal a decision."
+          "body": "Write down: (1) the adviser’s name, (2) what they told you and (3) what you need to do next. This helps if you speak to another adviser later or need to appeal."
         },
         {
           "id": "stage-5",

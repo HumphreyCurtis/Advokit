@@ -76,7 +76,7 @@ export function ReadAloud({
 
     const synth = window.speechSynthesis;
     const voices = synth.getVoices();
- 
+
     if (!voices.length) return null;
 
     // voices.forEach(v =>
@@ -85,12 +85,10 @@ export function ReadAloud({
 
     // Only consider local English voices
     const englishVoice = voices.filter(
-      (v) =>
-        v.lang &&
-        v.lang.toLowerCase().startsWith("en")
+      (v) => v.lang && v.lang.toLowerCase().startsWith("en"),
     );
 
-    console.log(englishVoice)
+    console.log(englishVoice);
 
     if (englishVoice.length > 0) {
       return englishVoice[0];
@@ -122,7 +120,7 @@ export function ReadAloud({
         voice.name,
         voice.lang,
         "local:",
-        (voice as any).localService
+        (voice as any).localService,
       );
       utterance.voice = voice; // <-- safe: only local voices
     } else {
