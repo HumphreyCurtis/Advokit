@@ -233,43 +233,45 @@ export default function ClaimHelperChat() {
   }
 
   return (
-    <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col px-4 py-6">
-      {/* Safety banner */}
-      <div className="mb-4 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-        <strong>⚠️ Safety note:</strong> Please do not share National Insurance
-        numbers, full addresses, bank details, passwords, or other personal
-        details. Describe your situation in general terms.
-      </div>
-      {/* Chat window */}
-      <div className="flex-1 space-y-3 overflow-y-auto rounded-lg border bg-white p-4">
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={`flex ${
-              m.role === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
+    <main className="bg-advokit-page text-gray-900">
+      <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col px-4 py-6">
+        {/* Safety banner */}
+        <div className="mb-4 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+          <strong>⚠️ Safety note:</strong> Please do not share National
+          Insurance numbers, full addresses, bank details, passwords, or other
+          personal details. Describe your situation in general terms.
+        </div>
+        {/* Chat window */}
+        <div className="flex-1 space-y-3 overflow-y-auto rounded-lg border bg-white p-4">
+          {messages.map((m) => (
             <div
-              className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm md:text-base ${
-                m.role === "user"
-                  ? "bg-purple-300 text-white"
-                  : m.role === "assistant"
-                    ? "bg-gray-100 text-gray-900"
-                    : "bg-gray-200 text-gray-800"
+              key={m.id}
+              className={`flex ${
+                m.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              <ReadAloud text={m.content} buttonLabel={""} />
+              <div
+                className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm md:text-base ${
+                  m.role === "user"
+                    ? "bg-purple-300 text-white"
+                    : m.role === "assistant"
+                      ? "bg-gray-100 text-gray-900"
+                      : "bg-gray-200 text-gray-800"
+                }`}
+              >
+                <ReadAloud text={m.content} buttonLabel={""} />
+              </div>
             </div>
-          </div>
-        ))}
-        {isLoading && <div className="text-sm text-gray-500">Thinking…</div>}
+          ))}
+          {isLoading && <div className="text-sm text-gray-500">Thinking…</div>}
+        </div>
+        {/* Input */}
+        <ChatInput
+          onboardingComplete={onboardingComplete}
+          disabled={isLoading}
+          onSend={handleSend}
+        />
       </div>
-      {/* Input */}
-      <ChatInput
-        onboardingComplete={onboardingComplete}
-        disabled={isLoading}
-        onSend={handleSend}
-      />
     </main>
   );
 }

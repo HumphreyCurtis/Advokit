@@ -116,11 +116,11 @@ export default function ChatInput({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           rows={2}
-          className="min-h-12 w-full flex-1 rounded-md border border-gray-300 px-3 py-6 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-white min-h-12 w-full flex-1 rounded-md border border-gray-300 px-3 py-6 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder={
             onboardingComplete
-              ? "Type your question or describe what you’d like help writing…"
-              : "Type your answer here…"
+              ? "⌨  Type your question or 💬 describe what you’d like help writing…"
+              : "⌨  Type your answer here…"
           }
         />
 
