@@ -46,6 +46,9 @@ export default function Navbar() {
             <li>
               <Link href="/stories">Stories</Link>
             </li>
+            <li>
+              <Link href="/chatbot">Chatbot</Link>
+            </li>
           </ul>
 
           {/* Mobile hamburger button */}
@@ -105,6 +108,11 @@ export default function Navbar() {
             <li>
               <Link href="/stories" onClick={() => setOpen(false)}>
                 Stories
+              </Link>
+            </li>
+            <li>
+              <Link href="/chatbot" onClick={() => setOpen(false)}>
+                Chatbot
               </Link>
             </li>
           </ul>
