@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ReadAloud } from "../components/ReadAloud";
+import ChatInput from "../components/ChatInput";
 
 type Role = "user" | "assistant" | "system";
 
@@ -206,6 +207,31 @@ export default function ClaimHelperChat() {
     }
   }
 
+  async function handleSend(text: string) {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+
+    const newUserMessage: ChatMessage = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      content: trimmed,
+    };
+
+    setMessages((prev) => [...prev, newUserMessage]);
+
+    if (!onboardingComplete) {
+      handleOnboardingAnswer(trimmed);
+      return;
+    }
+
+    await sendToBackend(
+      [...messages, newUserMessage],
+      caseContext,
+      setMessages,
+      setIsLoading,
+    );
+  }
+
   return (
     <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col px-4 py-6">
       {/* Safety banner */}
@@ -214,7 +240,6 @@ export default function ClaimHelperChat() {
         numbers, full addresses, bank details, passwords, or other personal
         details. Describe your situation in general terms.
       </div>
-
       {/* Chat window */}
       <div className="flex-1 space-y-3 overflow-y-auto rounded-lg border bg-white p-4">
         {messages.map((m) => (
@@ -239,8 +264,12 @@ export default function ClaimHelperChat() {
         ))}
         {isLoading && <div className="text-sm text-gray-500">Thinking…</div>}
       </div>
-
       {/* Input */}
+      <ChatInput
+        onboardingComplete={onboardingComplete}
+        disabled={isLoading}
+        onSend={handleSend}
+      />
     </main>
   );
 }
