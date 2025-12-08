@@ -68,6 +68,38 @@ export function ReadAloud({
     setCurrentWordIndex(null);
   };
 
+  // 🔹 Helper: pick a *local* English voice if available, otherwise let browser default
+  function getLocalEnglishVoice(): SpeechSynthesisVoice | null {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+      return null;
+    }
+
+    const synth = window.speechSynthesis;
+    const voices = synth.getVoices();
+ 
+    if (!voices.length) return null;
+
+    // voices.forEach(v =>
+    //   console.log(v.name, v.lang, "local:", v.localService)
+    // );
+
+    // Only consider local English voices
+    const englishVoice = voices.filter(
+      (v) =>
+        v.lang &&
+        v.lang.toLowerCase().startsWith("en")
+    );
+
+    console.log(englishVoice)
+
+    if (englishVoice.length > 0) {
+      return englishVoice[0];
+    }
+
+    // If no local English, don't force a cloud voice – let browser choose
+    return null;
+  }
+
   const handleSpeak = () => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) {
       alert("Text-to-speech is not supported in this browser.");
@@ -75,13 +107,27 @@ export function ReadAloud({
     }
     if (!text.trim()) return;
 
-    // Stop any existing utterance + timer
     window.speechSynthesis.cancel();
     clearTimer();
 
     const utterance = new SpeechSynthesisUtterance();
     utterance.text = text;
     utterance.rate = defaultRate;
+
+    // 🔹 Try to use a local English voice, otherwise use browser default
+    const voice = getLocalEnglishVoice();
+    if (voice) {
+      console.log(
+        "[TTS] using voice:",
+        voice.name,
+        voice.lang,
+        "local:",
+        (voice as any).localService
+      );
+      utterance.voice = voice; // <-- safe: only local voices
+    } else {
+      console.log("[TTS] using browser default voice");
+    }
 
     const words = text.split(/\s+/).filter(Boolean);
     const wordMatches = [...text.matchAll(/\S+/g)];
@@ -90,7 +136,7 @@ export function ReadAloud({
 
     const startFallbackTimer = () => {
       const wordCount = words.length || 1;
-      const baseMsPerWord = 180;
+      const baseMsPerWord = 400;
       const estMsPerWord = baseMsPerWord / utterance.rate;
 
       let wIndex = 0;
@@ -110,18 +156,17 @@ export function ReadAloud({
       setIsSpeaking(true);
       setCurrentWordIndex(0);
 
-      // If no boundary events arrive, fall back to timer
       window.setTimeout(() => {
         if (!gotBoundary && timerRef.current === null) {
+          console.log("[TTS] no boundaries; starting fallback timer");
           startFallbackTimer();
         }
       }, 400);
     };
 
     utterance.onboundary = (event: SpeechSynthesisEvent) => {
+      console.log("[TTS] boundary", event.charIndex);
       gotBoundary = true;
-
-      // as soon as boundaries work, stop the fallback timer
       clearTimer();
 
       const charIndex = event.charIndex;
@@ -161,7 +206,6 @@ export function ReadAloud({
   return (
     <div className="space-y-3">
       <ReadAlongText text={text} currentWordIndex={currentWordIndex} />
-
       <div className="flex justify-end items-center">
         {!isSpeaking ? (
           <button
