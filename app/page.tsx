@@ -59,8 +59,12 @@ export default function Home() {
         {/* Tile grid */}
         <section
           aria-label="Choose where you are in your benefits journey"
-          className="mt-8 md:mt-10"
+          className="mt-8 md:mt-5"
         >
+          <h2 className="text-2xl font-bold tracking-tight">Pick below</h2>
+          <p className="mt-1 text-sm text-black-600 mb-3">
+            What describes your current situation?
+          </p>
           <div className="grid gap-4 sm:grid-cols-2">
             {tiles.map((tile) => (
               <Link
@@ -79,7 +83,7 @@ export default function Home() {
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-transparent" />
                 </div>
                 <div className="p-4 md:p-5">
-                  <h2 className="text-lg font-semibold tracking-tight">
+                  <h2 className="text-xl font-semibold tracking-tight">
                     {tile.title}
                   </h2>
                   <p className="mt-1 text-sm text-black-600">

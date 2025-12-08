@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <nav className="flex h-14 items-center justify-between">
+        <nav className="flex h-16 items-center justify-between">
           {/* Brand (logo + wordmark) */}
           <Link
             href="/"
@@ -21,16 +21,16 @@ export default function Navbar() {
             <Image
               src={AdvokitLogo} // /public/icon.png
               alt="Advokit logo"
-              width={30}
-              height={30}
+              width={50}
+              height={50}
               priority
               sizes="28px"
               className="rounded" // remove if you want sharp corners
             />
-            <span className="leading-none">Advokit</span>
+            <span className="leading-none text-2xl">Advokit</span>
           </Link>
           {/* Desktop */}
-          <ul className="hidden items-center gap-6 md:flex">
+          <ul className="hidden items-center gap-6 md:flex text-lg">
             <li>
               <Link href="/">Home</Link>
             </li>
