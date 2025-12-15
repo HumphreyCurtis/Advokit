@@ -6,7 +6,6 @@ export default function About() {
         <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
           About Advokit
         </h1>
-        <hr className="mt-2 border-y border-black-30" />
         <p className="mt-3 text-gray-800">
           Advokit is a community-built toolkit to help people with aphasia and
           their supporters navigate disability benefits and public services. It
