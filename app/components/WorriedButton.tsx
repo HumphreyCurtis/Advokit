@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import WorriedPerson from "@/public/images/worried.png";
+import WorriedPerson from "@/public/images/barriers.png";
 
 export default function WorriedButton() {
   return (

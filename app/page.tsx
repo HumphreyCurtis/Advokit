@@ -4,10 +4,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import Disclaimer from "./components/Disclaimer";
-import ThinkingImage from "@/public/images/thinking.png";
-import ApplicationImage from "@/public/images/applying.png";
-import CommunityImage from "@/public/images/community.png";
-import QuestionMark from "@/public/images/question-mark.png";
+import ThinkingImage from "@/public/images/help-with-form.png";
+import ApplicationImage from "@/public/images/mountain.png";
+import CommunityImage from "@/public/images/sunflower.png";
+import QuestionMark from "@/public/images/speech-therapy.png";
 
 const tiles = [
   {
