@@ -4,7 +4,7 @@ export type Benefit = {
   difficulty: number;
   value: number;
   info: string;
-  links: string; 
+  links: string;
   slug: string;
   article?: Article;
   resources?: Resource[];
@@ -38,4 +38,5 @@ export type Resource = {
 export type Video = {
   url: string;
   title?: string;
+  transcript?: string;
 };
