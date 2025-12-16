@@ -1,8 +1,11 @@
-// app/read-along/page.tsx
 import type { Video } from "../types";
 import YouTube from "../components/Youtube";
 
+/* Stories page on Advokit website */
 export default function Stories() {
+  /* Hard coded video data as an array
+   * Links to YouTube and transcripts of people's benefit stories to be included below
+   */
   const videos: Video[] = [
     {
       title: "Three Strokes, Three PIP Attempts",
@@ -10,12 +13,13 @@ export default function Stories() {
       transcript: "none.pdf",
     },
   ];
+
   return (
     <main className="bg-advokit-page text-black-900 min-h-screen">
       <div className="mx-auto max-w-5xl px-2 py-5 md:px-4 md:py-8">
         <section aria-label="Benefit Stories">
           <div className="mx-auto max-w-6xl">
-            {/* Header */}
+            {/* Header and title */}
             <header className="mb-4 flex items-end justify-between gap-4">
               <div className="min-w-0">
                 <h1 className="text-3xl font-semibold tracking-tight text-gray-900">
@@ -32,7 +36,9 @@ export default function Stories() {
               </p>
             </header>
 
-            {/* Grid (one column) */}
+            {/* Maps through video array building one column grids
+             * of title, url and transcript data
+             */}
             <div className="space-y-6">
               {videos.map(({ title, url, transcript }, i) => (
                 <article
@@ -46,11 +52,13 @@ export default function Stories() {
                       </h2>
                     </div>
 
+                    {/* YouTube component */}
                     <YouTube
                       url={url}
                       title={title ?? `YouTube video ${i + 1}`}
                     />
 
+                    {/* Transcript button */}
                     <a
                       href={transcript}
                       download

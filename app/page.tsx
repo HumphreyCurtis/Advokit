@@ -1,6 +1,3 @@
-// import BenefitTable from "./components/BenefitTable";
-// import BenefitList from "./components/BenefitList";
-// import Beginning from "./components/Beginning";
 import Link from "next/link";
 import Image from "next/image";
 import Disclaimer from "./components/Disclaimer";
@@ -9,6 +6,7 @@ import ApplicationImage from "@/public/images/mountain.png";
 import CommunityImage from "@/public/images/sunflower.png";
 import QuestionMark from "@/public/images/speech-therapy.png";
 
+/* Data for homescreen tiles */
 const tiles = [
   {
     title: "I'm thinking of applying...",
@@ -65,6 +63,8 @@ export default function Home() {
           <p className="mt-1 text-sm text-black-600 mb-3">
             What describes your current situation?
           </p>
+
+          {/* Maps through tiles array to build 2X2 grid of tiles on homescreen */}
           <div className="grid gap-4 sm:grid-cols-2">
             {tiles.map((tile) => (
               <Link
@@ -80,7 +80,7 @@ export default function Home() {
                     height={400}
                     className="h-full w-full object-cover"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/25 via-black/5 to-transparent" />
                 </div>
                 <div className="p-4 md:p-5">
                   <h2 className="text-xl font-semibold tracking-tight">
@@ -98,15 +98,3 @@ export default function Home() {
     </main>
   );
 }
-// <div className="mt-5 space-y-12">
-//   <section id="benefits-list" className="scroll-mt-24">
-//     <div className="mt-4 rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm">
-//       <BenefitList />
-//     </div>
-//   </section>
-//   <section id="benefits-table" className="scroll-mt-24">
-//     <div className="mt-2">
-//       <BenefitTable />
-//     </div>
-//   </section>
-// </div>
