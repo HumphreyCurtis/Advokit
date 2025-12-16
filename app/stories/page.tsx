@@ -10,28 +10,28 @@ export default function Stories() {
     {
       title: "Three Strokes, Three PIP Attempts",
       url: "https://youtu.be/sHKnGP8aepM",
-      transcript: "none.pdf",
+      transcript: "/transcript/Advokit_ThreeStrokes_ThreePIPAttempts_transcript.pdf",
     },
     {
       title: "A Husband’s Guide to Blue Badge Applications & Appeals",
       url: "https://youtu.be/jIGUuHiU9xk",
-      transcript: "none.pdf",
+      transcript: "/transcript/Advokit_AHusbandsGuideToBlueBadgeApplicationsAppeals_transcript.pdf",
     },
     {
       title: "3 PIP Rejections, Then Success — Why Appealing Matters",
       url: "https://youtu.be/yvJ6XPNVDSA",
-      transcript: "none.pdf",
+      transcript: "/transcript/Advokit_3PIPRejectionsThenSuccess_transcript.pdf",
     },
     {
       title:
         "An SLT’s Best Advice for Benefit Applicants (20+ Years Supporting Applications)",
       url: "https://youtu.be/CUzAT_R89sM",
-      transcript: "none.pdf",
+      transcript: "/transcript/Advokit_SLTsAdviceForBenefitApplicants_transcript.pdf",
     },
     {
       title: "A Young Man’s Story Living with Aphasia & Hidden Disability",
       url: "https://youtu.be/DcXJFVfYbCs",
-      transcript: "none.pdf",
+      transcript: "/transcript/Advokit_YoungMansStoryLivingWithAphasia_transcript.pdf",
     },
   ];
 
