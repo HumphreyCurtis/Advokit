@@ -1,5 +1,6 @@
 import type { Video } from "../types";
 import YouTube from "../components/Youtube";
+import { hrtime } from "process";
 
 /* Stories page on Advokit website */
 export default function Stories() {
@@ -10,31 +11,40 @@ export default function Stories() {
     {
       title: "Three Strokes, Three PIP Attempts",
       url: "https://youtu.be/sHKnGP8aepM",
-      transcript: "/transcript/Advokit_ThreeStrokes_ThreePIPAttempts_transcript.pdf",
+      info: "In this video, we speak with a woman living with severe aphasia after three strokes (2011, 2014, 2020). She explains what applying for Personal Independence Payment (PIP) was like after being refused, why she decided to try again, and what helped her keep going. We also discuss the role of partner support and community organisations in gathering evidence and coping with the stress of the process. This interview is part of Advokit: a growing, plain-language library of real experiences and practical tips to make disability benefit journeys less overwhelming for applicants and their families.",
+      transcript:
+        "/transcript/Advokit_ThreeStrokes_ThreePIPAttempts_transcript.pdf",
     },
     {
       title: "A Husband’s Guide to Blue Badge Applications & Appeals",
       url: "https://youtu.be/jIGUuHiU9xk",
-      transcript: "/transcript/Advokit_AHusbandsGuideToBlueBadgeApplicationsAppeals_transcript.pdf",
+      info: "In this video, a husband and carer shares how he supported his wife (who lives with aphasia) through the Blue Badge process. He talks through the application, what happened when they were rejected, and how they approached the appeal—including what evidence made the biggest difference. We also connect day-to-day impacts of aphasia (fatigue, anxiety in noisy places, confidence, communication barriers) to mobility, planning journeys, and accessing services fairly. This interview is part of Advokit: real stories and practical guidance to reduce stress and help people feel more prepared.",
+      transcript:
+        "/transcript/Advokit_AHusbandsGuideToBlueBadgeApplicationsAppeals_transcript.pdf",
     },
     {
       title: "3 PIP Rejections, Then Success — Why Appealing Matters",
       url: "https://youtu.be/yvJ6XPNVDSA",
-      transcript: "/transcript/Advokit_3PIPRejectionsThenSuccess_transcript.pdf",
+      info: "In this video, a man shares his experience of applying for Personal Independence Payment (PIP) after a stroke that led to aphasia. He describes applying multiple times, being refused repeatedly, and eventually succeeding through the appeals process. We discuss what support helped (including Citizens Advice and an aphasia advocate), what he wishes he’d known earlier, and why it can be worth challenging decisions when you can. This interview is part of Advokit: a plain-language resource built from lived experience to help applicants, families, and friends navigate benefits with more confidence.",
+      transcript:
+        "/transcript/Advokit_3PIPRejectionsThenSuccess_transcript.pdf",
     },
     {
       title:
         "An SLT’s Best Advice for Benefit Applicants (20+ Years Supporting Applications)",
       url: "https://youtu.be/CUzAT_R89sM",
-      transcript: "/transcript/Advokit_SLTsAdviceForBenefitApplicants_transcript.pdf",
+      info: "In this video, Sally, a Speech & Language Therapist (SLT) with 20+ years’ experience supporting benefit applications, shares practical advice for navigating disability benefits—especially PIP—for people with aphasia and other hidden disabilities. We cover why applications can be so difficult (long forms, deadlines, collecting information), how communication needs are often underestimated, and what strong evidence can look like in practice. We also discuss ways to get support and reduce the burden on applicants and families. This interview is part of Advokit: a growing library of plain-language tips and real stories to make the process feel more manageable.",
+      transcript:
+        "/transcript/Advokit_SLTsAdviceForBenefitApplicants_transcript.pdf",
     },
     {
       title: "A Young Man’s Story Living with Aphasia & Hidden Disability",
       url: "https://youtu.be/DcXJFVfYbCs",
-      transcript: "/transcript/Advokit_YoungMansStoryLivingWithAphasia_transcript.pdf",
+      info: "In this video, a young man living with aphasia and epilepsy after a traumatic brain injury (TBI) shares his experience of navigating PIP. He describes learning what support existed, how difficult the process felt when doing it alone, and how getting help changed things. We also talk about reassessments and the stress of potentially losing support, plus practical tips (for example: answering from your “worst day” and bringing someone with you). He also mentions other support options such as the Hidden Disabilities Sunflower and a CEA Card for accessible venues. This interview is part of Advokit: real experiences and practical guidance to help others feel less alone and more prepared.",
+      transcript:
+        "/transcript/Advokit_YoungMansStoryLivingWithAphasia_transcript.pdf",
     },
   ];
-
   return (
     <main className="bg-advokit-page text-black-900 min-h-screen">
       <div className="mx-auto max-w-5xl px-2 py-5 md:px-4 md:py-8">
@@ -61,17 +71,16 @@ export default function Stories() {
              * of title, url and transcript data
              */}
             <div className="space-y-6">
-              {videos.map(({ title, url, transcript }, i) => (
-                <article
-                  key={url ?? i}
-                  className="rounded-2xl border border-gray-200 bg-white"
-                >
-                  <div className="p-5 sm:p-6">
-                    <div className="mb-4 flex items-baseline justify-between gap-4">
-                      <h2 className="min-w-0 text-2xl font-semibold text-gray-900">
+              {videos.map(({ title, url, info, transcript }, i) => (
+                <article key={url ?? i} className="rounded-2xl bg-white">
+                  <div className="p-5">
+                    <details className="bg-white/70">
+                      <summary className="cursor-pointer text-2xl font-semibold mb-2">
                         {title ?? "Untitled video"}
-                      </h2>
-                    </div>
+                      </summary>
+
+                      <div className="pt-2">{info ?? "No information"}</div>
+                    </details>
 
                     {/* YouTube component */}
                     <YouTube
