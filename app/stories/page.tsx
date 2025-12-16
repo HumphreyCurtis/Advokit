@@ -5,7 +5,7 @@ import YouTube from "../components/Youtube";
 export default function Stories() {
   const videos: Video[] = [
     {
-      title: "PIP Story",
+      title: "Three Strokes, Three PIP Attempts",
       url: "https://www.youtube.com/watch?v=J0zNOyxtF94",
       transcript: "none.pdf",
     },
