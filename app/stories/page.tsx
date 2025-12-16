@@ -9,7 +9,28 @@ export default function Stories() {
   const videos: Video[] = [
     {
       title: "Three Strokes, Three PIP Attempts",
-      url: "https://www.youtube.com/watch?v=J0zNOyxtF94",
+      url: "https://youtu.be/sHKnGP8aepM",
+      transcript: "none.pdf",
+    },
+    {
+      title: "A Husband’s Guide to Blue Badge Applications & Appeals",
+      url: "https://youtu.be/jIGUuHiU9xk",
+      transcript: "none.pdf",
+    },
+    {
+      title: "3 PIP Rejections, Then Success — Why Appealing Matters",
+      url: "https://youtu.be/yvJ6XPNVDSA",
+      transcript: "none.pdf",
+    },
+    {
+      title:
+        "An SLT’s Best Advice for Benefit Applicants (20+ Years Supporting Applications)",
+      url: "https://youtu.be/CUzAT_R89sM",
+      transcript: "none.pdf",
+    },
+    {
+      title: "A Young Man’s Story Living with Aphasia & Hidden Disability",
+      url: "https://youtu.be/DcXJFVfYbCs",
       transcript: "none.pdf",
     },
   ];
