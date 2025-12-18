@@ -15,12 +15,6 @@ import AmberTrafficLight from "@/public/ranking-table/traffic-light-amber.png";
 import RedTrafficLight from "@/public/ranking-table/traffic-light-red.png";
 import WorriedButton from "./WorriedButton";
 
-const header = (
-  <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-    <span className="text-xl text-900 font-bold">Benefits Table</span>
-  </div>
-);
-
 const ratingBenefitValue = (row: Benefit) => {
   const value = Number(row.value) || 0; // coerce to number, fallback 0
   return <Rating value={value} readOnly cancel={false} stars={5} />;
