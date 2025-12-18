@@ -1,6 +1,6 @@
 import type { Video } from "../types";
 import YouTube from "../components/Youtube";
-import { hrtime } from "process";
+import { ReadAloud } from "../components/ReadAloud";
 
 /* Stories page on Advokit website */
 export default function Stories() {
@@ -79,7 +79,11 @@ export default function Stories() {
                         {title ?? "Untitled video"}
                       </summary>
 
-                      <div className="pt-2">{info ?? "No information"}</div>
+                      <ReadAloud
+                        text={info ?? "No informaton"}
+                        defaultRate={1}
+                        buttonLabel="Video synopsis"
+                      />
                     </details>
 
                     {/* YouTube component */}
