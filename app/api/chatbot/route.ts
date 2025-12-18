@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 interface ChatMessage {
   id: string;
@@ -52,14 +52,15 @@ export async function POST(req: NextRequest) {
 
     console.log(system);
 
-    const response = await client.responses.create({
-      model: "gpt-4o-mini",
-      input: [
-        { role: "system", content: system },
-        ...messages.map((m) => ({ role: m.role, content: m.content })),
-      ],
-      max_output_tokens: 600,
-    });
+    // Comment back!!!
+    // const response = await client.responses.create({
+    //   model: "gpt-4o-mini",
+    //   input: [
+    //     { role: "system", content: system },
+    //     ...messages.map((m) => ({ role: m.role, content: m.content })),
+    //   ],
+    //   max_output_tokens: 600,
+    // });
     // return NextResponse.json({ reply: response.output_text });
     return NextResponse.json({ reply: system });
   } catch (err) {
