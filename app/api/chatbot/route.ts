@@ -60,8 +60,8 @@ export async function POST(req: NextRequest) {
       ],
       max_output_tokens: 600,
     });
-    return NextResponse.json({ reply: response.output_text });
-    // return NextResponse.json({ reply: system });
+    // return NextResponse.json({ reply: response.output_text });
+    return NextResponse.json({ reply: system });
   } catch (err) {
     console.error("[claim-assistant] Error handling POST", err);
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
