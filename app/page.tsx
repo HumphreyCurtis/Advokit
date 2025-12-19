@@ -60,7 +60,7 @@ export default function Home() {
             What is Advokit?
           </h2>
           <YouTube
-            url="https://youtu.be/6HGGceI0wac"
+            url="https://youtu.be/ABHzo2Y0Y-U"
             title="Introducing Advokit"
           />
         </div>
