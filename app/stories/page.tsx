@@ -11,7 +11,7 @@ export default function Stories() {
     {
       title: "Three Strokes, Three PIP Attempts",
       url: "https://youtu.be/sHKnGP8aepM",
-      info: "In this video, we speak with a woman living with severe aphasia after three strokes (2011, 2014, 2020). She explains what applying for Personal Independence Payment (PIP) was like after being refused, why she decided to try again, and what helped her keep going. We also discuss the role of partner support and community organisations in gathering evidence and coping with the stress of the proces.",
+      info: "In this video, we speak with a woman living with severe aphasia after three strokes (2011, 2014, 2020). She explains what applying for Personal Independence Payment (PIP) was like after being refused, why she decided to try again, and what helped her keep going. We also discuss the role of partner support and community organisations in gathering evidence and coping with the stress of the process.",
       transcript:
         "/transcript/Advokit_ThreeStrokes_ThreePIPAttempts_transcript.pdf",
     },
