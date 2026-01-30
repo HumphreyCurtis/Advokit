@@ -1,25 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ReadAloud } from "../components/ReadAloud";
 import ChatInput from "../components/ChatInput";
 
 type Role = "user" | "assistant" | "system";
 
+// Shape of a chat message
 interface ChatMessage {
   id: string;
   role: Role;
   content: string;
 }
 
+// Context collected during onboarding and sent to backend
 interface CaseContext {
   benefitName?: string;
   claimStage?: string;
   conditions?: string;
   dailyImpact?: string;
-  stylePreference?: "simple" | "detailed";
 }
 
+// Fixed onboarding flow shown before free chat
 interface OnboardingQuestion {
   id: keyof CaseContext | "conditions" | "dailyImpact";
   prompt: string;
@@ -47,21 +49,11 @@ const onboardingQuestions: OnboardingQuestion[] = [
     prompt:
       "🧩 How do these conditions affect your day-to-day life? You can mention things like communication, understanding information, moving around, washing, dressing, cooking, etc.",
   },
-  {
-    id: "stylePreference",
-    prompt:
-      "✍️ How would you like me to write suggestions: in simple short sentences, or longer detailed explanations?",
-    helper: 'You can say "simple" or "detailed".',
-  },
 ];
 
-function normaliseStylePreference(
-  input: string,
-): CaseContext["stylePreference"] {
-  const t = input.toLowerCase();
-  if (t.includes("simple") || t.includes("short")) return "simple";
-  if (t.includes("detail")) return "detailed";
-  return undefined;
+// Simple unique ID generator for messages
+function uid(prefix: string) {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 }
 
 export default function ClaimHelperChat() {
@@ -91,69 +83,80 @@ export default function ClaimHelperChat() {
     },
   ]);
 
+  // Keep a ref to the latest messages array
+  // This avoids stale state when sending messages asynchronously
+  const messagesRef = useRef<ChatMessage[]>(messages);
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
+
   const [caseContext, setCaseContext] = useState<CaseContext>({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [onboardingComplete, setOnboardingComplete] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = input.trim();
-    if (!trimmed) return;
+  const hasAssistantMessage = useMemo(
+    () => messages.some((m) => m.role === "assistant"),
+    [messages],
+  );
+
+  // Handles *all* user input (typed text and button-triggered commands)
+  async function handleSend(text: string) {
+    const trimmed = text.trim();
+    if (!trimmed || isLoading) return;
 
     const newUserMessage: ChatMessage = {
-      id: `user-${Date.now()}`,
+      id: uid("user"),
       role: "user",
       content: trimmed,
     };
 
-    setMessages((prev) => [...prev, newUserMessage]);
-    setInput("");
+    // Add user message immediately
+    setMessages((prev) => {
+      console.log("[chat] +user", newUserMessage);
+      return [...prev, newUserMessage];
+    });
 
-    // Phase 1: collect onboarding questions
+    // Onboarding phase
     if (!onboardingComplete) {
       handleOnboardingAnswer(trimmed);
       return;
     }
 
-    // Phase 2: normal chat with backend
-    await sendToBackend(
-      [...messages, newUserMessage],
-      caseContext,
-      setMessages,
-      setIsLoading,
-    );
+    // Normal chat phase
+    const nextMessages = [...messagesRef.current, newUserMessage];
+    await sendToBackend(nextMessages, caseContext, setMessages, setIsLoading);
   }
 
+  // Records onboarding answers and advances the question flow
   function handleOnboardingAnswer(answer: string) {
     const currentQ = onboardingQuestions[currentQuestionIndex];
+    console.log("Onboarding Question Triggered");
 
-    setCaseContext((prev) => {
-      const updated: CaseContext = { ...prev };
+    const updatedCtx: CaseContext = {
+      ...caseContext,
+      ...(currentQ.id === "conditions"
+        ? { conditions: answer }
+        : currentQ.id === "dailyImpact"
+          ? { dailyImpact: answer }
+          : currentQ.id === "benefitName"
+            ? { benefitName: answer }
+            : currentQ.id === "claimStage"
+              ? { claimStage: answer }
+              : {}),
+    };
 
-      if (currentQ.id === "stylePreference") {
-        updated.stylePreference =
-          normaliseStylePreference(answer) ?? prev.stylePreference;
-      } else if (currentQ.id === "conditions") {
-        updated.conditions = answer;
-      } else if (currentQ.id === "dailyImpact") {
-        updated.dailyImpact = answer;
-      } else if (currentQ.id === "benefitName") {
-        updated.benefitName = answer;
-      } else if (currentQ.id === "claimStage") {
-        updated.claimStage = answer;
-      }
-
-      return updated;
-    });
+    setCaseContext(updatedCtx);
 
     const nextIndex = currentQuestionIndex + 1;
 
+    // Ask the next onboarding question
     if (nextIndex < onboardingQuestions.length) {
       const nextQuestion = onboardingQuestions[nextIndex];
+      console.log(nextQuestion);
 
       setCurrentQuestionIndex(nextIndex);
+
       setMessages((prev) => [
         ...prev,
         {
@@ -165,24 +168,10 @@ export default function ClaimHelperChat() {
         },
       ]);
     } else {
-      // Onboarding complete
+      // Onboarding finished: show summary and transition to free chat
       setOnboardingComplete(true);
 
-      const summary = buildCaseSummary({
-        ...caseContext,
-        // include last answer too (state update is async, so we add it manually)
-        ...(currentQ.id === "stylePreference"
-          ? { stylePreference: normaliseStylePreference(answer) }
-          : currentQ.id === "conditions"
-            ? { conditions: answer }
-            : currentQ.id === "dailyImpact"
-              ? { dailyImpact: answer }
-              : currentQ.id === "benefitName"
-                ? { benefitName: answer }
-                : currentQ.id === "claimStage"
-                  ? { claimStage: answer }
-                  : {}),
-      });
+      const summary = buildCaseSummary(updatedCtx);
 
       setMessages((prev) => [
         ...prev,
@@ -207,31 +196,6 @@ export default function ClaimHelperChat() {
     }
   }
 
-  async function handleSend(text: string) {
-    const trimmed = text.trim();
-    if (!trimmed) return;
-
-    const newUserMessage: ChatMessage = {
-      id: `user-${Date.now()}`,
-      role: "user",
-      content: trimmed,
-    };
-
-    setMessages((prev) => [...prev, newUserMessage]);
-
-    if (!onboardingComplete) {
-      handleOnboardingAnswer(trimmed);
-      return;
-    }
-
-    await sendToBackend(
-      [...messages, newUserMessage],
-      caseContext,
-      setMessages,
-      setIsLoading,
-    );
-  }
-
   return (
     <main className="bg-advokit-page text-gray-900">
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col px-4 py-6">
@@ -241,14 +205,13 @@ export default function ClaimHelperChat() {
           Insurance numbers, full addresses, bank details, passwords, or other
           personal details. Describe your situation in general terms.
         </div>
+
         {/* Chat window */}
         <div className="flex-1 space-y-3 overflow-y-auto rounded-lg border bg-white p-4">
           {messages.map((m) => (
             <div
               key={m.id}
-              className={`flex ${
-                m.role === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
                 className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm md:text-base ${
@@ -263,8 +226,64 @@ export default function ClaimHelperChat() {
               </div>
             </div>
           ))}
-          {isLoading && <div className="text-sm text-gray-500">Thinking…</div>}
+          {isLoading && <div className="text-lg text-gray-500">Thinking…</div>}
         </div>
+
+        {/* Controls row aligned with input */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            disabled={isLoading || !onboardingComplete || !hasAssistantMessage}
+            onClick={() =>
+              handleSend(
+                "Good response ✅ -- lets see another answer in this style.",
+              )
+            }
+            className="rounded-md border border-green-300 bg-green-50 px-3 py-2 text-sm text-green-800 hover:bg-green-100 disabled:opacity-50"
+          >
+            👍 Good response
+          </button>
+
+          <button
+            type="button"
+            disabled={isLoading || !onboardingComplete || !hasAssistantMessage}
+            onClick={() =>
+              handleSend(
+                "Bad response — try again with a different approach and wording. Rewrite the previous answer.",
+              )
+            }
+            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800 hover:bg-red-100 disabled:opacity-50"
+          >
+            👎 Bad response ↺
+          </button>
+
+          <button
+            type="button"
+            disabled={isLoading || !onboardingComplete || !hasAssistantMessage}
+            onClick={() =>
+              handleSend(
+                "More detail — expand the previous answer. Add 2–4 more short paragraphs and one concrete example.",
+              )
+            }
+            className="rounded-md border border-blue-300 bg-blue-50 px-3 py-2 text-sm text-blue-800 hover:bg-blue-100 disabled:opacity-50"
+          >
+            📘 More detail
+          </button>
+
+          <button
+            type="button"
+            disabled={isLoading || !onboardingComplete || !hasAssistantMessage}
+            onClick={() =>
+              handleSend(
+                "Less detail — shorten the previous answer. Keep 1 short paragraph + up to 3 bullet points.",
+              )
+            }
+            className="rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50"
+          >
+            📄 Less detail
+          </button>
+        </div>
+
         {/* Input */}
         <ChatInput
           onboardingComplete={onboardingComplete}
@@ -276,35 +295,17 @@ export default function ClaimHelperChat() {
   );
 }
 
+// Builds a readable summary of the collected case context
 function buildCaseSummary(ctx: CaseContext): string {
   const lines: string[] = [];
-
-  if (ctx.benefitName) {
-    lines.push(`• Benefit: ${ctx.benefitName}`);
-  }
-  if (ctx.claimStage) {
-    lines.push(`• Claim stage: ${ctx.claimStage}`);
-  }
-  if (ctx.conditions) {
-    lines.push(`• Conditions: ${ctx.conditions}`);
-  }
-  if (ctx.dailyImpact) {
-    lines.push(`• Impact on daily life: ${ctx.dailyImpact}`);
-  }
-  if (ctx.stylePreference) {
-    lines.push(
-      `• Writing style preference: ${ctx.stylePreference === "simple" ? "simple, short sentences" : "more detailed explanations"}`,
-    );
-  }
-
-  if (lines.length === 0) {
-    return "No case details recorded yet.";
-  }
-
-  return lines.join("\n");
+  if (ctx.benefitName) lines.push(`• Benefit: ${ctx.benefitName}`);
+  if (ctx.claimStage) lines.push(`• Claim stage: ${ctx.claimStage}`);
+  if (ctx.conditions) lines.push(`• Conditions: ${ctx.conditions}`);
+  if (ctx.dailyImpact) lines.push(`• Impact on daily life: ${ctx.dailyImpact}`);
+  return lines.length ? lines.join("\n") : "No case details recorded yet.";
 }
 
-// This is just a stub. You will later connect it to your LLM API.
+// Sends the full conversation + context to the backend API
 async function sendToBackend(
   messages: ChatMessage[],
   caseContext: CaseContext,
@@ -314,7 +315,13 @@ async function sendToBackend(
   try {
     setIsLoading(true);
 
-    console.log("[client] Sending to API", { messages, caseContext });
+    // Logging everything to the console
+    const payload = { messages, caseContext };
+
+    console.log(
+      "[client → api/chatbot] payload",
+      JSON.stringify(payload, null, 2),
+    );
 
     const res = await fetch("/api/chatbot", {
       method: "POST",
@@ -322,16 +329,14 @@ async function sendToBackend(
       body: JSON.stringify({ messages, caseContext }),
     });
 
-    if (!res.ok) {
-      throw new Error("Request failed");
-    }
+    if (!res.ok) throw new Error("Request failed");
 
     const data = await res.json();
 
-    console.log("[client] API response", data);
+    console.log("[client] API reply >>>", data.reply);
 
     const assistantMessage: ChatMessage = {
-      id: `assistant-${Date.now()}`,
+      id: uid("assistant"),
       role: "assistant",
       content: data.reply ?? "Sorry, I couldn't generate a reply.",
     };
@@ -342,7 +347,7 @@ async function sendToBackend(
     setMessages((prev) => [
       ...prev,
       {
-        id: `error-${Date.now()}`,
+        id: uid("error"),
         role: "assistant",
         content: "Sorry, something went wrong while generating a reply.",
       },
@@ -351,24 +356,3 @@ async function sendToBackend(
     setIsLoading(false);
   }
 }
-
-// <form onSubmit={handleSubmit} className="mt-4 flex gap-2">
-//   <textarea
-//     value={input}
-//     onChange={(e) => setInput(e.target.value)}
-//     rows={2}
-//     className="min-h-12 flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-//     placeholder={
-//       onboardingComplete
-//         ? "💬 Type your question or describe what you’d like help writing…"
-//         : "⌨  Type your answer here…"
-//     }
-//   />
-//   <button
-//     type="submit"
-//     disabled={isLoading || !input.trim()}
-//     className="self-end rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
-//   >
-//     Send
-//   </button>
-// </form>
