@@ -100,6 +100,18 @@ export default function ClaimHelperChat() {
     [messages],
   );
 
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  async function handleCopy(id: string, text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 1200);
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
+  }
+
   // Handles *all* user input (typed text and button-triggered commands)
   async function handleSend(text: string) {
     const trimmed = text.trim();
@@ -214,14 +226,25 @@ export default function ClaimHelperChat() {
               className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm md:text-base ${
+                className={`relative max-w-[90%] min-w-40 rounded-2xl px-4 py-3 text-sm md:text-base ${
                   m.role === "user"
-                    ? "bg-purple-300 text-white"
+                    ? "bg-teal-600 text-white"
                     : m.role === "assistant"
                       ? "bg-gray-100 text-gray-900"
                       : "bg-gray-200 text-gray-800"
                 }`}
               >
+                {/* Copy button */}
+                <button
+                  type="button"
+                  onClick={() => handleCopy(m.id, m.content)}
+                  className="absolute left-2 bottom-2.5 rounded-lg px-2.5 py-1.5 text-sm font-semibold bg-white text-gray-900 border border-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-blue-600 focus:ring-offset-2"
+                  aria-label="Copy message text"
+                >
+                  {copiedId === m.id ? "✅" : "📋"}
+                </button>
+
+                {/* Message content */}
                 <ReadAloud text={m.content} buttonLabel={""} />
               </div>
             </div>

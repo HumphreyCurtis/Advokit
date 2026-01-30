@@ -209,7 +209,7 @@ export function ReadAloud({
           <button
             type="button"
             onClick={handleSpeak}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+            className="rounded-lg bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white hover:bg-blue-700"
           >
             🔊 {buttonLabel}
           </button>
@@ -217,7 +217,7 @@ export function ReadAloud({
           <button
             type="button"
             onClick={handleStop}
-            className="rounded-lg bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-300"
+            className="rounded-lg bg-gray-200 px-2.5 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-300"
           >
             Stop
           </button>
