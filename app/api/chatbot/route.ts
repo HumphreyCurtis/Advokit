@@ -26,9 +26,10 @@ export async function POST(req: NextRequest) {
       messages?: ChatMessage[];
       caseContext?: CaseContext;
       participant?: Participant;
+      sessionId?: string;
     };
 
-    const { messages = [], caseContext = {}, participant } = body;
+    const { messages = [], caseContext = {}, participant, sessionId } = body;
 
     // // 🔍 DEBUG: log full incoming payload
     // console.log(
@@ -114,6 +115,7 @@ Context:
     await mongoClient.db(dbName).collection("chat_logs").insertOne({
       createdAt: new Date(),
       participant, // includes participantId + optional name + consent time
+      sessionId,
       caseContext,
       messages: safeMessages,
       reply: response.output_text,

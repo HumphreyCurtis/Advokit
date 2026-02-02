@@ -60,13 +60,15 @@ function uid(prefix: string) {
 export default function ClaimHelperChat() {
   // MongoDB databasing
   const [participant, setParticipant] = useState<Participant | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [showGate, setShowGate] = useState(true);
 
   useEffect(() => {
-    const raw = localStorage.getItem("advokit_participant");
-    if (raw) {
-      setParticipant(JSON.parse(raw));
-    }
+    const rawP = localStorage.getItem("advokit_participant");
+    if (rawP) setParticipant(JSON.parse(rawP));
+
+    const rawS = localStorage.getItem("advokit_sessionId");
+    if (rawS) setSessionId(rawS);
   }, []);
 
   function startAnonymous() {
@@ -76,9 +78,13 @@ export default function ClaimHelperChat() {
       consentedAtISO: new Date().toISOString(),
     } satisfies Participant;
 
+    const sid = crypto.randomUUID(); // ✅ new session each time they pass gate
+
     localStorage.setItem("advokit_participant", JSON.stringify(p));
-    console.log(p);
+    localStorage.setItem("advokit_sessionId", sid);
+
     setParticipant(p);
+    setSessionId(sid);
     setShowGate(false);
   }
 
@@ -90,9 +96,14 @@ export default function ClaimHelperChat() {
       mode: clean ? "named" : "anonymous",
       consentedAtISO: new Date().toISOString(),
     } satisfies Participant;
-    console.log(p);
+
+    const sid = crypto.randomUUID();
+
     localStorage.setItem("advokit_participant", JSON.stringify(p));
+    localStorage.setItem("advokit_sessionId", sid);
+
     setParticipant(p);
+    setSessionId(sid);
     setShowGate(false);
   }
 
@@ -153,7 +164,7 @@ export default function ClaimHelperChat() {
 
   // Handles *all* user input (typed text and button-triggered commands)
   async function handleSend(text: string) {
-    if (!participant) return;
+    if (!participant || !sessionId) return;
 
     const trimmed = text.trim();
     if (!trimmed || isLoading) return;
@@ -182,6 +193,7 @@ export default function ClaimHelperChat() {
       nextMessages,
       caseContext,
       participant,
+      sessionId,
       setMessages,
       setIsLoading,
     );
@@ -424,6 +436,7 @@ async function sendToBackend(
   messages: ChatMessage[],
   caseContext: CaseContext,
   participant: Participant,
+  sessionId: string,
   setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
   setIsLoading: (v: boolean) => void,
 ) {
@@ -431,7 +444,7 @@ async function sendToBackend(
     setIsLoading(true);
 
     // Logging everything to the console
-    const payload = { messages, caseContext, participant };
+    const payload = { messages, caseContext, participant, sessionId };
 
     console.log(
       "[client → api/chatbot] payload",
