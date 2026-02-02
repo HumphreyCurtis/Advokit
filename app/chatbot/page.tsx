@@ -238,7 +238,7 @@ export default function ClaimHelperChat() {
                 <button
                   type="button"
                   onClick={() => handleCopy(m.id, m.content)}
-                  className="absolute left-2 bottom-2.5 rounded-lg px-2.5 py-1.5 text-sm font-semibold bg-white text-gray-900 border border-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-blue-600 focus:ring-offset-2"
+                  className="absolute left-2 bottom-3 rounded-lg px-2 py-1 text-sm font-semibold bg-white text-gray-900 border border-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-blue-600 focus:ring-offset-2"
                   aria-label="Copy message text"
                 >
                   {copiedId === m.id ? "✅" : "📋"}
@@ -262,7 +262,7 @@ export default function ClaimHelperChat() {
                 "Good response ✅ -- lets see another answer in this style.",
               )
             }
-            className="rounded-md border border-green-300 bg-green-50 px-3 py-2 text-sm text-green-800 hover:bg-green-100 disabled:opacity-50"
+            className="rounded-md border border-green-300 bg-green-50 px-3 py-2 text-m text-green-800 hover:bg-green-100 disabled:opacity-50"
           >
             👍 Good response
           </button>
@@ -275,7 +275,7 @@ export default function ClaimHelperChat() {
                 "Bad response — try again with a different approach and wording. Rewrite the previous answer.",
               )
             }
-            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800 hover:bg-red-100 disabled:opacity-50"
+            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-m text-red-800 hover:bg-red-100 disabled:opacity-50"
           >
             👎 Bad response ↺
           </button>
@@ -288,7 +288,7 @@ export default function ClaimHelperChat() {
                 "More detail — expand the previous answer. Add 2–4 more short paragraphs and one concrete example.",
               )
             }
-            className="rounded-md border border-blue-300 bg-blue-50 px-3 py-2 text-sm text-blue-800 hover:bg-blue-100 disabled:opacity-50"
+            className="rounded-md border border-blue-300 bg-blue-50 px-3 py-2 text-m text-blue-800 hover:bg-blue-100 disabled:opacity-50"
           >
             📘 More detail
           </button>
@@ -301,7 +301,7 @@ export default function ClaimHelperChat() {
                 "Less detail — shorten the previous answer. Keep 1 short paragraph + up to 3 bullet points.",
               )
             }
-            className="rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50"
+            className="rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-m text-gray-800 hover:bg-gray-100 disabled:opacity-50"
           >
             📄 Less detail
           </button>
