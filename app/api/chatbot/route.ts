@@ -61,8 +61,8 @@ export async function POST(req: NextRequest) {
       }));
 
     // Base style rule (default)
-    let stylePreference =
-      "Write at least 2–3 short paragraphs of draft text. Make it clear and easy to scan.";
+    // let stylePreference =
+    //   "Write at least 2–3 short paragraphs of draft text. Make it clear and easy to scan.";
 
     // ---- Final system prompt ----
     const system = `
@@ -72,6 +72,10 @@ Rules:
 - If the user says “More detail”, expand your previous answer.
 - If the user says “Less detail”, shorten your previous answer.
 - If the user says “Bad response / try again”, rewrite your previous answer using a different approach.
+
+Guidance:
+- Follow the principles used in Advokit’s benefit guidance (e.g., focusing on functional impact and real-life difficulties).
+- When relevant, encourage users to describe their worst days rather than their best days, and to explain how their condition affects them over time and across situations.
 
 Context:
 - benefitName: ${caseContext.benefitName ?? "unknown"}

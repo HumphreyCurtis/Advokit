@@ -110,33 +110,24 @@ export default function ChatInput({
 
   return (
     <form onSubmit={handleSubmit} className="mt-4 flex items-end gap-2">
-      {/* Text area + camera + mic */}
+      {/* Input cluster */}
       <div className="flex flex-1 items-end gap-2">
+        {/* Text input */}
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           rows={2}
-          className="bg-white min-h-12 w-full flex-1 rounded-md border border-gray-300 px-3 py-6 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="min-h-12 w-full flex-1 resize-none rounded-md border border-gray-300 bg-white px-3 py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder={
             onboardingComplete
-              ? "⌨  Type your question or 💬 describe what you’d like help writing…"
-              : "⌨  Type your answer here…"
+              ? "⌨ Type your question or describe what you’d like help writing…"
+              : "⌨ Type your answer here…"
           }
         />
 
+        {/* Input tools */}
         <div className="flex flex-col gap-2">
-          {/* Camera / document photo */}
-          <button
-            type="button"
-            onClick={handleOpenCamera}
-            disabled={disabled}
-            className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-white text-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
-          >
-            <span aria-hidden="true">📷</span>
-            <span className="sr-only">Upload a photo of a document</span>
-          </button>
-
-          {/* Speech to text */}
+          {/* Mic */}
           <button
             type="button"
             onClick={handleToggleRecording}
@@ -153,23 +144,36 @@ export default function ChatInput({
             </span>
           </button>
 
-          {/* Hidden file input */}
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            capture="environment"
-            className="hidden"
-            onChange={handleFileChange}
-          />
+          {/*
+        // 📷 Camera / document upload
+        // Disabled for now — OCR / vision not yet implemented
+        <button
+          type="button"
+          onClick={handleOpenCamera}
+          disabled={disabled}
+          className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-white text-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+        >
+          <span aria-hidden="true">📷</span>
+          <span className="sr-only">Upload a photo of a document</span>
+        </button>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          className="hidden"
+          onChange={handleFileChange}
+        />
+        */}
         </div>
       </div>
 
-      {/* Send button */}
+      {/* Send */}
       <button
         type="submit"
         disabled={disabled || !input.trim()}
-        className="self-end rounded-md bg-blue-600 px-5 py-9 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+        className="h-10 rounded-md bg-blue-600 px-4 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
       >
         Send
       </button>
