@@ -39,3 +39,10 @@ export type Video = {
   url: string;
   title?: string;
 };
+
+export type Participant = {
+  participantId: string;     // pseudonymous id
+  displayName?: string;      // optional, user-chosen
+  mode: "anonymous" | "named";
+  consentedAtISO: string;
+};

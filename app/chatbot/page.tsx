@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ReadAloud } from "../components/ReadAloud";
 import ChatInput from "../components/ChatInput";
+import { Participant } from "../types";
 
 type Role = "user" | "assistant" | "system";
 
@@ -57,6 +58,44 @@ function uid(prefix: string) {
 }
 
 export default function ClaimHelperChat() {
+  // MongoDB databasing
+  const [participant, setParticipant] = useState<Participant | null>(null);
+  const [showGate, setShowGate] = useState(true);
+
+  useEffect(() => {
+    const raw = localStorage.getItem("advokit_participant");
+    if (raw) {
+      setParticipant(JSON.parse(raw));
+      setShowGate(false);
+    }
+  }, []);
+
+  function startAnonymous() {
+    const p = {
+      participantId: crypto.randomUUID(),
+      mode: "anonymous",
+      consentedAtISO: new Date().toISOString(),
+    } satisfies Participant;
+
+    localStorage.setItem("advokit_participant", JSON.stringify(p));
+    setParticipant(p);
+    setShowGate(false);
+  }
+
+  function startNamed(name: string) {
+    const clean = name.trim().slice(0, 60);
+    const p = {
+      participantId: crypto.randomUUID(),
+      displayName: clean || undefined,
+      mode: clean ? "named" : "anonymous",
+      consentedAtISO: new Date().toISOString(),
+    } satisfies Participant;
+
+    localStorage.setItem("advokit_participant", JSON.stringify(p));
+    setParticipant(p);
+    setShowGate(false);
+  }
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "intro-1",
@@ -114,6 +153,8 @@ export default function ClaimHelperChat() {
 
   // Handles *all* user input (typed text and button-triggered commands)
   async function handleSend(text: string) {
+    if (!participant) return;
+
     const trimmed = text.trim();
     if (!trimmed || isLoading) return;
 
@@ -210,6 +251,50 @@ export default function ClaimHelperChat() {
 
   return (
     <main className="bg-advokit-page text-gray-900">
+      {showGate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-lg">
+            <h2 className="text-lg font-semibold">
+              Continue anonymously, or enter a name?
+            </h2>
+
+            <p className="mt-2 text-sm text-gray-700">
+              We are storing your chat interactions for research. Please don’t
+              include highly sensitive personal details.
+            </p>
+
+            <div className="mt-4 space-y-3">
+              <button
+                className="w-full rounded-md bg-gray-900 px-4 py-2 text-white"
+                onClick={startAnonymous}
+              >
+                Continue anonymously
+              </button>
+
+              <div>
+                <label className="text-sm font-medium">Name (optional)</label>
+                <input
+                  id="participant-name"
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                  placeholder="e.g. Sam"
+                />
+
+                <button
+                  className="mt-2 w-full rounded-md border px-4 py-2"
+                  onClick={() => {
+                    const el = document.getElementById(
+                      "participant-name",
+                    ) as HTMLInputElement | null;
+                    startNamed(el?.value ?? "");
+                  }}
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col px-4 py-6">
         {/* Safety banner */}
         <div className="mb-4 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">

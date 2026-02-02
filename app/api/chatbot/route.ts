@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import clientPromise from "@/app/lib/mongodb";
 import OpenAI from "openai";
+import { Participant } from "@/app/types";
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -23,9 +25,10 @@ export async function POST(req: NextRequest) {
     const body = (await req.json()) as {
       messages?: ChatMessage[];
       caseContext?: CaseContext;
+      participant?: Participant;
     };
 
-    const { messages = [], caseContext = {} } = body;
+    const { messages = [], caseContext = {}, participant = null } = body;
 
     // // 🔍 DEBUG: log full incoming payload
     // console.log(
@@ -33,6 +36,18 @@ export async function POST(req: NextRequest) {
     //   JSON.stringify(body, null, 2),
     //   "<<< END RAW REQUEST BODY",
     // );
+
+    console.log("🔥 /api/chatbot POST hit");
+
+    // ✅ TEMP: MongoDB connectivity check
+    const mongoClient = await clientPromise;
+    await mongoClient
+      .db(process.env.MONGODB_DB || "advokit")
+      .collection("ping")
+      .insertOne({
+        ok: true,
+        at: new Date(),
+      });
 
     // ✅ Don’t accept system messages from the client (prevents prompt injection)
     const safeMessages = messages
@@ -89,6 +104,19 @@ Context:
       response.output_text,
       "<<< END OPENAI OUTPUT TEXT",
     );
+
+    // Log to MongoDB
+    // const mongoClient = await clientPromise;
+    // const dbName = process.env.MONGODB_DB || "advokit";
+
+    // await mongoClient.db(dbName).collection("chat_logs").insertOne({
+    //   createdAt: new Date(),
+    //   participant, // includes participantId + optional name + consent time
+    //   caseContext,
+    //   messages: safeMessages,
+    //   reply: response.output_text,
+    //   model: "gpt-4o-mini",
+    // });
 
     return NextResponse.json({ reply: response.output_text });
   } catch (err) {
