@@ -4,7 +4,7 @@ export type Benefit = {
   difficulty: number;
   value: number;
   info: string;
-  links: string; 
+  links: string;
   slug: string;
   article?: Article;
   resources?: Resource[];
@@ -41,8 +41,8 @@ export type Video = {
 };
 
 export type Participant = {
-  participantId: string;     // pseudonymous id
-  displayName?: string;      // optional, user-chosen
+  participantId: string; // pseudonymous id
+  displayName?: string; // optional, user-chosen
   mode: "anonymous" | "named";
   consentedAtISO: string;
 };

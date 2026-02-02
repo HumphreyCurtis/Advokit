@@ -66,7 +66,6 @@ export default function ClaimHelperChat() {
     const raw = localStorage.getItem("advokit_participant");
     if (raw) {
       setParticipant(JSON.parse(raw));
-      setShowGate(false);
     }
   }, []);
 
@@ -78,6 +77,7 @@ export default function ClaimHelperChat() {
     } satisfies Participant;
 
     localStorage.setItem("advokit_participant", JSON.stringify(p));
+    console.log(p);
     setParticipant(p);
     setShowGate(false);
   }
@@ -90,7 +90,7 @@ export default function ClaimHelperChat() {
       mode: clean ? "named" : "anonymous",
       consentedAtISO: new Date().toISOString(),
     } satisfies Participant;
-
+    console.log(p);
     localStorage.setItem("advokit_participant", JSON.stringify(p));
     setParticipant(p);
     setShowGate(false);
@@ -178,7 +178,13 @@ export default function ClaimHelperChat() {
 
     // Normal chat phase
     const nextMessages = [...messagesRef.current, newUserMessage];
-    await sendToBackend(nextMessages, caseContext, setMessages, setIsLoading);
+    await sendToBackend(
+      nextMessages,
+      caseContext,
+      participant,
+      setMessages,
+      setIsLoading,
+    );
   }
 
   // Records onboarding answers and advances the question flow
@@ -417,6 +423,7 @@ function buildCaseSummary(ctx: CaseContext): string {
 async function sendToBackend(
   messages: ChatMessage[],
   caseContext: CaseContext,
+  participant: Participant,
   setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
   setIsLoading: (v: boolean) => void,
 ) {
@@ -424,7 +431,7 @@ async function sendToBackend(
     setIsLoading(true);
 
     // Logging everything to the console
-    const payload = { messages, caseContext };
+    const payload = { messages, caseContext, participant };
 
     console.log(
       "[client → api/chatbot] payload",
@@ -434,7 +441,7 @@ async function sendToBackend(
     const res = await fetch("/api/chatbot", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages, caseContext }),
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) throw new Error("Request failed");
