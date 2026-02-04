@@ -12,6 +12,7 @@ interface ChatMessage {
   id: string;
   role: Role;
   content: string;
+  createdAtISO?: string; 
 }
 
 // Context collected during onboarding and sent to backend
@@ -107,31 +108,38 @@ export default function ClaimHelperChat() {
     setShowGate(false);
   }
 
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: "intro-1",
-      role: "assistant",
-      content:
-        "👋 Hello, I’m the Advokit claim helper. I can help you think through your situation and draft clear wording for your disability benefit claim.",
-    },
-    {
-      id: "intro-2",
-      role: "assistant",
-      content:
-        "⚠️ Important: please do NOT share very sensitive details such as your National Insurance number, full home address, bank details, or passwords. You only need to describe your situation in general terms.",
-    },
-    {
-      id: "intro-3",
-      role: "assistant",
-      content:
-        "🙋 To start, I’ll ask a few short questions about your benefit and your situation. Then we can work together on specific answers 💬 for your form or appeal.",
-    },
-    {
-      id: "q-0",
-      role: "assistant",
-      content: onboardingQuestions[0].prompt,
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
+    const now = new Date().toISOString();
+    return [
+      {
+        id: "intro-1",
+        role: "assistant",
+        content:
+          "👋 Hello, I’m the Advokit claim helper. I can help you think through your situation and draft clear wording for your disability benefit claim.",
+        createdAtISO: now,
+      },
+      {
+        id: "intro-2",
+        role: "assistant",
+        content:
+          "⚠️ Important: please do NOT share very sensitive details such as your National Insurance number, full home address, bank details, or passwords. You only need to describe your situation in general terms.",
+        createdAtISO: now,
+      },
+      {
+        id: "intro-3",
+        role: "assistant",
+        content:
+          "🙋 To start, I’ll ask a few short questions about your benefit and your situation. Then we can work together on specific answers 💬 for your form or appeal.",
+        createdAtISO: now,
+      },
+      {
+        id: "q-0",
+        role: "assistant",
+        content: onboardingQuestions[0].prompt,
+        createdAtISO: now,
+      },
+    ];
+  });
 
   // Keep a ref to the latest messages array
   // This avoids stale state when sending messages asynchronously
@@ -173,6 +181,7 @@ export default function ClaimHelperChat() {
       id: uid("user"),
       role: "user",
       content: trimmed,
+      createdAtISO: new Date().toISOString(),
     };
 
     // Add user message immediately
@@ -201,6 +210,7 @@ export default function ClaimHelperChat() {
 
   // Records onboarding answers and advances the question flow
   function handleOnboardingAnswer(answer: string) {
+    const now = new Date().toISOString(); 
     const currentQ = onboardingQuestions[currentQuestionIndex];
     console.log("Onboarding Question Triggered");
 
@@ -236,6 +246,7 @@ export default function ClaimHelperChat() {
           content:
             nextQuestion.prompt +
             (nextQuestion.helper ? " " + nextQuestion.helper : ""),
+          createdAtISO: now, // ✅ timestamped
         },
       ]);
     } else {
@@ -251,17 +262,20 @@ export default function ClaimHelperChat() {
           role: "assistant",
           content:
             "✅ Thank you. Here is a short summary of what you’ve told me. I’ll use this to tailor my suggestions:",
+          createdAtISO: now
         },
         {
           id: "case-summary",
           role: "assistant",
           content: `📋 Summary:\n${summary}`,
+          createdAtISO: now
         },
         {
           id: "next-step",
           role: "assistant",
           content:
             '💬 You can now ask for help with specific questions on your form or appeal. For example, you might say: "Help me write about how my communication is affected".',
+          createdAtISO: now
         },
       ]);
     }
@@ -467,6 +481,7 @@ async function sendToBackend(
       id: uid("assistant"),
       role: "assistant",
       content: data.reply ?? "Sorry, I couldn't generate a reply.",
+      createdAtISO: new Date().toISOString(),
     };
 
     setMessages((prev) => [...prev, assistantMessage]);
