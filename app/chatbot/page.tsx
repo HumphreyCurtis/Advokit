@@ -12,7 +12,7 @@ interface ChatMessage {
   id: string;
   role: Role;
   content: string;
-  createdAtISO?: string; 
+  createdAtISO?: string;
 }
 
 // Context collected during onboarding and sent to backend
@@ -210,7 +210,7 @@ export default function ClaimHelperChat() {
 
   // Records onboarding answers and advances the question flow
   function handleOnboardingAnswer(answer: string) {
-    const now = new Date().toISOString(); 
+    const now = new Date().toISOString();
     const currentQ = onboardingQuestions[currentQuestionIndex];
     console.log("Onboarding Question Triggered");
 
@@ -262,20 +262,20 @@ export default function ClaimHelperChat() {
           role: "assistant",
           content:
             "✅ Thank you. Here is a short summary of what you’ve told me. I’ll use this to tailor my suggestions:",
-          createdAtISO: now
+          createdAtISO: now,
         },
         {
           id: "case-summary",
           role: "assistant",
           content: `📋 Summary:\n${summary}`,
-          createdAtISO: now
+          createdAtISO: now,
         },
         {
           id: "next-step",
           role: "assistant",
           content:
             '💬 You can now ask for help with specific questions on your form or appeal. For example, you might say: "Help me write about how my communication is affected".',
-          createdAtISO: now
+          createdAtISO: now,
         },
       ]);
     }
@@ -445,6 +445,40 @@ function buildCaseSummary(ctx: CaseContext): string {
   return lines.length ? lines.join("\n") : "No case details recorded yet.";
 }
 
+function splitAnswerAndCoaching(raw: string): {
+  answer: string;
+  coaching?: string;
+} {
+  const text = (raw ?? "").trim();
+
+  const coachToken = "COACHING:";
+  const answerToken = "ANSWER:";
+
+  const coachIdx = text.indexOf(coachToken);
+  const answerIdx = text.indexOf(answerToken);
+
+  // If ANSWER is missing, just return everything as the answer
+  if (answerIdx === -1) {
+    return { answer: text };
+  }
+
+  // If COACHING is missing or comes after ANSWER, ignore it
+  if (coachIdx === -1 || coachIdx > answerIdx) {
+    return {
+      answer: text.slice(answerIdx + answerToken.length).trim(),
+    };
+  }
+
+  const coaching = text.slice(coachIdx + coachToken.length, answerIdx).trim();
+
+  const answer = text.slice(answerIdx + answerToken.length).trim();
+
+  return {
+    coaching: coaching || undefined,
+    answer,
+  };
+}
+
 // Sends the full conversation + context to the backend API
 async function sendToBackend(
   messages: ChatMessage[],
@@ -477,14 +511,37 @@ async function sendToBackend(
 
     console.log("[client] API reply >>>", data.reply);
 
-    const assistantMessage: ChatMessage = {
-      id: uid("assistant"),
-      role: "assistant",
-      content: data.reply ?? "Sorry, I couldn't generate a reply.",
-      createdAtISO: new Date().toISOString(),
-    };
+    // const assistantMessage: ChatMessage = {
+    //   id: uid("assistant"),
+    //   role: "assistant",
+    //   content: data.reply ?? "Sorry, I couldn't generate a reply.",
+    //   createdAtISO: new Date().toISOString(),
+    // };
 
-    setMessages((prev) => [...prev, assistantMessage]);
+    const rawReply = data.reply ?? "Sorry I could not generate a reply.";
+
+    const { coaching, answer } = splitAnswerAndCoaching(rawReply); // Splitting answer and coaching
+
+    const assistantMessages: ChatMessage[] = [];
+
+    if (coaching) {
+      assistantMessages.push({
+        id: uid("assistant-coaching"),
+        role: "assistant",
+        content: `💡 Coaching:\n${coaching}`,
+        createdAtISO: new Date().toISOString(),
+      });
+    }
+
+    assistantMessages.push({
+      id: uid("assistant-answer"),
+      role: "assistant",
+      content: answer || "Sorry I could not generate an answer.",
+      createdAtISO: new Date().toISOString(),
+    });
+
+    // Add messages to array
+    setMessages((prev) => [...prev, ...assistantMessages]);
   } catch (err) {
     console.error(err);
     setMessages((prev) => [

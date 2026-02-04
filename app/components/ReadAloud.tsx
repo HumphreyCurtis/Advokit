@@ -14,7 +14,7 @@ function ReadAlongText({
   let wordCounter = 0;
 
   return (
-    <p className="text-xl text-gray-800 leading-relaxed">
+    <p className="text-xl text-gray-800 leading-relaxed whitespace-pre-wrap">
       {chunks.map((chunk, i) => {
         const isWord = /\S/.test(chunk);
         let isActive = false;
