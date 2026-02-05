@@ -15,12 +15,6 @@ import AmberTrafficLight from "@/public/ranking-table/traffic-light-amber.png";
 import RedTrafficLight from "@/public/ranking-table/traffic-light-red.png";
 import WorriedButton from "./WorriedButton";
 
-const header = (
-  <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-    <span className="text-xl text-900 font-bold">Benefits Table</span>
-  </div>
-);
-
 const ratingBenefitValue = (row: Benefit) => {
   const value = Number(row.value) || 0; // coerce to number, fallback 0
   return <Rating value={value} readOnly cancel={false} stars={5} />;
@@ -91,7 +85,7 @@ export default function BenefitTable() {
           body={(benefit: Benefit) => (
             <Link
               href={`/benefits/${benefit.slug}`}
-              className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline underline-offset-2
+              className="text-xl inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline underline-offset-2
 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded transition"
               onClick={(e) => e.stopPropagation()}
               aria-label={`Open ${benefit.title}`}

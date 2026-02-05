@@ -6,7 +6,6 @@ export default function About() {
         <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
           About Advokit
         </h1>
-        <hr className="mt-2 border-y border-black-30" />
         <p className="mt-3 text-gray-800">
           Advokit is a community-built toolkit to help people with aphasia and
           their supporters navigate disability benefits and public services. It
@@ -227,9 +226,19 @@ export default function About() {
           <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
             Contact
           </h2>
-          <p className="mt-2 max-w-3xl text-gray-800">
+          <p className="mt-2 text-gray-800">
             To collaborate or share feedback from your community group, please
-            reach out.
+            reach out:{" "}
+            <a
+              href="mailto:filip.bircanin@kcl.ac.uk
+         ?subject=Advokit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-blue-700 shadow-sm hover:bg-blue-50"
+            >
+              Email Dr. Filip Bircanin at King's College London
+              <span aria-hidden="true">↗</span>
+            </a>
           </p>
         </section>
       </div>

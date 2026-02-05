@@ -38,6 +38,8 @@ export type Resource = {
 export type Video = {
   url: string;
   title?: string;
+  info?: string;
+  transcript?: string;
 };
 
 export type Participant = {

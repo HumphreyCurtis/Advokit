@@ -28,13 +28,12 @@ export default async function BenefitPage({
       {/* Grid: Main content + (sticky) infobox */}
       <div className="relative mt-1 grid grid-cols-1 gap-6 print:block">
         {/* Main column */}
-
         <div id="article-content" className="min-w-0">
           <details className="mt-4 rounded-xl border border-gray-200 bg-white/70 p-4">
             <summary className="text-xl mb-2 font-semibold">Learn more</summary>
             <div id="benefit-info">
               <ReadAloud text={benefit.info} buttonLabel={"Read information"} />
-              
+
               <h3 className="text-xl mt-3 font-semibold">Related links</h3>
               <p
                 className="text-lg text-gray-700"
@@ -43,11 +42,13 @@ export default async function BenefitPage({
             </div>
           </details>
 
+          {/* The progressive tips box that builds progressive tips
+           * for each article section of the benefit data */}
           <div className="mt-4">
             <ProgressiveTips sections={sections} />
           </div>
 
-          {/* Unwinding sections */}
+          {/* Unwinding sections as a list */}
           <details className="mt-4 rounded-xl border border-gray-200 bg-white/70 p-4">
             <summary className="cursor-pointer text-m font-medium">
               Show tips as a list
@@ -74,43 +75,3 @@ export default async function BenefitPage({
     </article>
   );
 }
-
-/* Top utility bar */
-// <div className="mt-2 border-y border-black-200 py-2 print:hidden">
-//   <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2">
-//     <PrintButton />
-//     <ReadAloud targetId="article-content" defaultRate={1} />
-//   </div>
-// </div>
-
-/*
- */
-
-// <div>
-//   <VideoPlayer videos={benefit.videos ?? []} />
-// </div>
-
-// {/* Contents box (shows on md+) */}
-// {sections.length > 0 ? (
-//   <div className="not-prose mt-6 hidden rounded-lg border border-gray-200 bg-white p-4 text-sm md:block">
-//     <div className="mb-2 font-semibold">
-//       Our community top {benefit.title} tips
-//     </div>
-//     <ol>
-//       {sections.map((section) => (
-//         <li key={section.id}>
-//           <a
-//             href={`#${section.id}`}
-//             className="text-blue-700 underline-offset-2 hover:underline"
-//           >
-//             {section.title}
-//           </a>
-//         </li>
-//       ))}
-//     </ol>
-//   </div>
-// ) : (
-//   <div className="mt-6 hidden text-sm text-gray-500 md:block">
-//     No contents available for this article.
-//   </div>
-// )}

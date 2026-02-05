@@ -24,7 +24,7 @@ export default function Navbar() {
               width={50}
               height={50}
               priority
-              sizes="28px"
+              sizes="50px"
               className="rounded" // remove if you want sharp corners
             />
             <span className="leading-none text-2xl">Advokit</span>

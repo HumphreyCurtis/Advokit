@@ -1,14 +1,13 @@
-// import BenefitTable from "./components/BenefitTable";
-// import BenefitList from "./components/BenefitList";
-// import Beginning from "./components/Beginning";
 import Link from "next/link";
 import Image from "next/image";
 import Disclaimer from "./components/Disclaimer";
-import ThinkingImage from "@/public/images/thinking.png";
-import ApplicationImage from "@/public/images/applying.png";
-import CommunityImage from "@/public/images/community.png";
-import QuestionMark from "@/public/images/question-mark.png";
+import ThinkingImage from "@/public/images/help-with-form.png";
+import ApplicationImage from "@/public/images/mountain.png";
+import CommunityImage from "@/public/images/sunflower.png";
+import QuestionMark from "@/public/images/speech-therapy.png";
+import YouTube from "./components/Youtube";
 
+/* Data for homescreen tiles */
 const tiles = [
   {
     title: "I'm thinking of applying...",
@@ -44,7 +43,7 @@ export default function Home() {
   return (
     <main className="bg-advokit-page text-black-900 min-h-screen">
       <div className="mx-auto max-w-5xl px-2 py-5 md:px-4 md:py-8">
-        <header className="space-y-3">
+        <header className="space-y-2">
           <h1 className="text-4xl font-bold tracking-tight">Advokit</h1>
           <p className="text-base text-black-600 md:text-lg">
             This site is made by people with aphasia. It helps people apply for
@@ -52,8 +51,18 @@ export default function Home() {
           </p>
         </header>
 
-        <div className="mt-6">
+        <div className="mb-5">
           <Disclaimer />
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">
+            What is Advokit?
+          </h2>
+          <YouTube
+            url="https://youtu.be/ABHzo2Y0Y-U"
+            title="Introducing Advokit"
+          />
         </div>
 
         {/* Tile grid */}
@@ -61,16 +70,20 @@ export default function Home() {
           aria-label="Choose where you are in your benefits journey"
           className="mt-8 md:mt-5"
         >
-          <h2 className="text-2xl font-bold tracking-tight">Pick below</h2>
+          <h2 className="text-2xl font-bold tracking-tight">
+            Pick an option below
+          </h2>
           <p className="mt-1 text-sm text-black-600 mb-3">
             What describes your current situation?
           </p>
+
+          {/* Maps through tiles array to build 2X2 grid of tiles on homescreen */}
           <div className="grid gap-4 sm:grid-cols-2">
             {tiles.map((tile) => (
               <Link
                 key={tile.href}
                 href={tile.href}
-                className="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-advokit-page focus-visible:ring-black-900"
+                className="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition hover:bg-blue-50 hover:ring-blue-400 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-900 focus-visible:ring-offset-2 focus-visible:ring-offset-advokit-page"
               >
                 <div className="relative flex h-36 sm:h-40 md:h-44 items-center justify-center bg-black/5 overflow-hidden">
                   <Image
@@ -80,7 +93,7 @@ export default function Home() {
                     height={400}
                     className="h-full w-full object-cover"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/25 via-black/5 to-transparent" />
                 </div>
                 <div className="p-4 md:p-5">
                   <h2 className="text-xl font-semibold tracking-tight">
@@ -98,15 +111,3 @@ export default function Home() {
     </main>
   );
 }
-// <div className="mt-5 space-y-12">
-//   <section id="benefits-list" className="scroll-mt-24">
-//     <div className="mt-4 rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm">
-//       <BenefitList />
-//     </div>
-//   </section>
-//   <section id="benefits-table" className="scroll-mt-24">
-//     <div className="mt-2">
-//       <BenefitTable />
-//     </div>
-//   </section>
-// </div>

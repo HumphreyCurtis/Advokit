@@ -18,7 +18,7 @@ export default function Disclaimer() {
         <div className="min-w-0">
           <h2 className="font-semibold tracking-tight">Disclaimer</h2>
           <p className="mt-1">
-            We co-design this site with people and communities living with
+            We co-designed this site with people and communities living with
             aphasia in London. The information here is general and may not fit
             every case. Rules and forms can change, and councils or assessors
             may do things differently.

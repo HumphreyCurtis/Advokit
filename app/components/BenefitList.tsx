@@ -8,7 +8,7 @@ export default function BenefitList() {
   return (
     <div>
       <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-        Full list
+        Benefits list
       </h2>
       {/* Tile grid */}
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -40,4 +40,3 @@ export default function BenefitList() {
     </div>
   );
 }
-
