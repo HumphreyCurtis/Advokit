@@ -47,7 +47,7 @@ export default function Navbar() {
               <Link href="/stories">Stories</Link>
             </li>
             <li>
-              <Link href="/chatbot">Chatbot</Link>
+              <Link href="/benefit-buddy">Benefit Buddy</Link>
             </li>
           </ul>
 

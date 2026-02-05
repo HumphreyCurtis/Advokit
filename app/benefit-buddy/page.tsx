@@ -80,7 +80,7 @@ interface InteractionEvent {
   inputMode?: InputMode; // typed vs speech
 }
 
-export default function ClaimHelperChat() {
+export default function BenefitBuddy() {
   // MongoDB databasing
   const [participant, setParticipant] = useState<Participant | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -152,7 +152,7 @@ export default function ClaimHelperChat() {
         id: "intro-1",
         role: "assistant",
         content:
-          "👋 Hello, I’m the Advokit claim helper. I can help you think through your situation and draft clear wording for your disability benefit claim.",
+          "👋 Hello, I’m Benefit Buddy. I can help you think through your situation and draft wording for your disability benefit claim.",
         createdAtISO: now,
       },
       {
@@ -331,23 +331,28 @@ export default function ClaimHelperChat() {
       {showGate && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-lg">
-            <h2 className="text-lg font-semibold">
-              Continue anonymously, or enter a name?
-            </h2>
-
             <p className="mt-2 text-sm text-gray-700">
-              We are storing your chat interactions for research. Please don’t
-              include highly sensitive personal details.
+              We are storing your chat interactions from <strong>Benefit Buddy</strong> for{" "}
+              <a
+                href="https://www.kcl.ac.uk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                King’s College London
+              </a>{" "}
+              research. Please don’t include highly sensitive personal details.
             </p>
+
 
             <div className="mt-4 space-y-3">
               <button
-                className="w-full rounded-md bg-gray-900 px-4 py-2 text-white"
+                className="w-full rounded-md px-4 py-2 border"
                 onClick={startAnonymous}
               >
                 Continue anonymously
               </button>
-
+              <hr />
               <div>
                 <label className="text-sm font-medium">Name (optional)</label>
                 <input
@@ -357,7 +362,7 @@ export default function ClaimHelperChat() {
                 />
 
                 <button
-                  className="mt-2 w-full rounded-md border px-4 py-2"
+                  className="mt-2 w-full rounded-md bg-gray-900 text-white px-4 py-2"
                   onClick={() => {
                     const el = document.getElementById(
                       "participant-name",
@@ -388,13 +393,12 @@ export default function ClaimHelperChat() {
               className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`relative max-w-[90%] min-w-40 rounded-2xl px-4 py-3 text-sm md:text-base ${
-                  m.role === "user"
-                    ? "bg-teal-600 text-white"
-                    : m.role === "assistant"
-                      ? "bg-gray-100 text-gray-900"
-                      : "bg-gray-200 text-gray-800"
-                }`}
+                className={`relative max-w-[90%] min-w-40 rounded-2xl px-4 py-3 text-sm md:text-base ${m.role === "user"
+                  ? "bg-teal-600 text-white"
+                  : m.role === "assistant"
+                    ? "bg-gray-100 text-gray-900"
+                    : "bg-gray-200 text-gray-800"
+                  }`}
               >
                 {/* Copy button */}
                 <button

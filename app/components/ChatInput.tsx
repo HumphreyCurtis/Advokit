@@ -118,77 +118,51 @@ export default function ChatInput({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 flex items-end gap-2">
-      {/* Input cluster */}
-      <div className="flex flex-1 items-end gap-2">
-        {/* Text input */}
-        <textarea
-          value={input}
-          onChange={(e) => {
-            lastInputModeRef.current = "typed"; // ✅ user is typing now
-            setInput(e.target.value);
-          }}
-          rows={2}
-          className="min-h-12 w-full flex-1 resize-none rounded-md border border-gray-300 bg-white px-3 py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder={
-            onboardingComplete
-              ? "⌨ Ask your question or describe what you’d like to draft…"
-              : "⌨ Type your answer here…"
-          }
-        />
+    <form onSubmit={handleSubmit} className="mt-1 flex items-end gap-2">
+      {/* Left: textarea */}
+      <textarea
+        value={input}
+        onChange={(e) => {
+          lastInputModeRef.current = "typed";
+          setInput(e.target.value);
+        }}
+        rows={2}
+        className="min-h-12 flex-1 resize-none rounded-md border border-gray-300 bg-white px-3 py-5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder={
+          onboardingComplete
+            ? "⌨ Ask your question or describe what you’d like to draft…"
+            : "⌨ Type your answer here…"
+        }
+      />
 
-        {/* Input tools */}
-        <div className="flex flex-col gap-2">
-          {/* Mic */}
-          <button
-            type="button"
-            onClick={handleToggleRecording}
-            disabled={disabled}
-            className={`flex h-10 w-10 items-center justify-center rounded-md border text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 ${
-              isRecording
-                ? "border-red-500 bg-red-50 text-red-700"
-                : "border-gray-300 bg-white hover:bg-gray-100"
-            }`}
-          >
-            <span aria-hidden="true">{isRecording ? "⏹️" : "🎤"}</span>
-            <span className="sr-only">
-              {isRecording ? "Stop dictation" : "Start dictation"}
-            </span>
-          </button>
-
-          {/*
-        // 📷 Camera / document upload
-        // Disabled for now — OCR / vision not yet implemented
+      {/* Right: actions (mic + send) */}
+      <div className="flex flex-col gap-2">
+        {/* Mic */}
         <button
           type="button"
-          onClick={handleOpenCamera}
+          onClick={handleToggleRecording}
           disabled={disabled}
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-white text-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+          className={`flex h-10 w-10 items-center justify-center rounded-md border text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 ${
+            isRecording
+              ? "border-red-500 bg-red-50 text-red-700"
+              : "border-gray-300 bg-white hover:bg-gray-100"
+          }`}
+          aria-label={isRecording ? "Stop dictation" : "Start dictation"}
         >
-          <span aria-hidden="true">📷</span>
-          <span className="sr-only">Upload a photo of a document</span>
+          <span aria-hidden="true">{isRecording ? "⏹️" : "🎤"}</span>
         </button>
 
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          className="hidden"
-          onChange={handleFileChange}
-        />
-        */}
-        </div>
+        {/* Send */}
+        <button
+          type="submit"
+          disabled={disabled || !input.trim()}
+          className="flex h-10 w-10 items-center justify-center rounded-md bg-blue-600 text-lg font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+          aria-label="Send"
+          title="Send"
+        >
+          <span aria-hidden="true">➡️</span>
+        </button>
       </div>
-
-      {/* Send */}
-      <button
-        type="submit"
-        disabled={disabled || !input.trim()}
-        className="h-10 rounded-md bg-blue-600 px-4 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
-      >
-        Send
-      </button>
     </form>
   );
 }
