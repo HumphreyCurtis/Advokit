@@ -42,12 +42,19 @@ type ReadAloudProps = {
   text: string;
   defaultRate?: number;
   buttonLabel?: string;
+
+  onStart?: () => void;
+  onEnd?: () => void;
+  onStop?: () => void;
 };
 
 export function ReadAloud({
   text,
   defaultRate = 0.9,
   buttonLabel = "Read aloud",
+  onStart,
+  onEnd,
+  onStop,
 }: ReadAloudProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState<number | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -62,6 +69,9 @@ export function ReadAloud({
 
   const handleStop = () => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+
+    onStop?.(); // ✅ log "user stopped"
+
     window.speechSynthesis.cancel();
     clearTimer();
     setIsSpeaking(false);
@@ -151,6 +161,8 @@ export function ReadAloud({
     };
 
     utterance.onstart = () => {
+      onStart?.();
+
       setIsSpeaking(true);
       setCurrentWordIndex(0);
 
@@ -184,6 +196,8 @@ export function ReadAloud({
       clearTimer();
       setIsSpeaking(false);
       setCurrentWordIndex(null);
+
+      onEnd?.();
     };
 
     utterance.onend = clearState;

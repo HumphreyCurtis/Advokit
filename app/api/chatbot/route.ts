@@ -21,16 +21,32 @@ interface CaseContext {
   dailyImpact?: string;
 }
 
+interface InteractionEvent {
+  id: string;
+  type: string;
+  createdAtISO: string;
+  messageId?: string;
+  value?: string;
+  inputMode?: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as {
       messages?: ChatMessage[];
+      interactions?: InteractionEvent[]; // ✅ add
       caseContext?: CaseContext;
       participant?: Participant;
       sessionId?: string;
     };
 
-    const { messages = [], caseContext = {}, participant, sessionId } = body;
+    const {
+      messages = [],
+      interactions = [],
+      caseContext = {},
+      participant,
+      sessionId,
+    } = body;
 
     // // 🔍 DEBUG: log full incoming payload
     // console.log(
@@ -179,6 +195,7 @@ Context:
         sessionId,
         caseContext,
         messages: [...loggedMessages, assistantLogged],
+        interactions,
         model: "gpt-4o-mini",
       });
 

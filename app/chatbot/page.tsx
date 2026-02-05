@@ -58,6 +58,28 @@ function uid(prefix: string) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 }
 
+// Logging interactions
+type InteractionType =
+  | "copy"
+  | "readaloud_start"
+  | "readaloud_end"
+  | "readaloud_stop"
+  | "feedback_button"
+  | "input_submit";
+
+type InputMode = "typed" | "speech" | "unknown";
+
+interface InteractionEvent {
+  id: string;
+  type: InteractionType;
+  createdAtISO: string;
+
+  // optional metadata
+  messageId?: string; // e.g. copied / read-aloud message
+  value?: string; // e.g. "good" | "bad" | "more" | "less"
+  inputMode?: InputMode; // typed vs speech
+}
+
 export default function ClaimHelperChat() {
   // MongoDB databasing
   const [participant, setParticipant] = useState<Participant | null>(null);
@@ -71,6 +93,21 @@ export default function ClaimHelperChat() {
     const rawS = localStorage.getItem("advokit_sessionId");
     if (rawS) setSessionId(rawS);
   }, []);
+
+  // Adding interaction logger to chat
+  const [interactions, setInteractions] = useState<InteractionEvent[]>([]);
+  const interactionsRef = useRef<InteractionEvent[]>([]);
+
+  function logInteraction(e: Omit<InteractionEvent, "id" | "createdAtISO">) {
+    const event: InteractionEvent = {
+      id: uid("evt"),
+      createdAtISO: new Date().toISOString(),
+      ...e,
+    };
+
+    interactionsRef.current.push(event); // ✅ simplest
+    setInteractions([...interactionsRef.current]); // keep state updated
+  }
 
   function startAnonymous() {
     const p = {
@@ -165,13 +202,18 @@ export default function ClaimHelperChat() {
       await navigator.clipboard.writeText(text);
       setCopiedId(id);
       setTimeout(() => setCopiedId(null), 1200);
+
+      logInteraction({ type: "copy", messageId: id });
     } catch (err) {
       console.error("Copy failed", err);
     }
   }
 
   // Handles *all* user input (typed text and button-triggered commands)
-  async function handleSend(text: string) {
+  async function handleSend(
+    text: string,
+    mode: "typed" | "speech" | "unknown" = "unknown",
+  ) {
     if (!participant || !sessionId) return;
 
     const trimmed = text.trim();
@@ -183,6 +225,8 @@ export default function ClaimHelperChat() {
       content: trimmed,
       createdAtISO: new Date().toISOString(),
     };
+
+    logInteraction({ type: "input_submit", inputMode: mode });
 
     // Add user message immediately
     setMessages((prev) => {
@@ -200,6 +244,7 @@ export default function ClaimHelperChat() {
     const nextMessages = [...messagesRef.current, newUserMessage];
     await sendToBackend(
       nextMessages,
+      interactionsRef.current,
       caseContext,
       participant,
       sessionId,
@@ -362,7 +407,19 @@ export default function ClaimHelperChat() {
                 </button>
 
                 {/* Message content */}
-                <ReadAloud text={m.content} buttonLabel={""} />
+                <ReadAloud
+                  text={m.content}
+                  buttonLabel=""
+                  onStart={() =>
+                    logInteraction({ type: "readaloud_start", messageId: m.id })
+                  }
+                  onEnd={() =>
+                    logInteraction({ type: "readaloud_end", messageId: m.id })
+                  }
+                  onStop={() =>
+                    logInteraction({ type: "readaloud_stop", messageId: m.id })
+                  }
+                />
               </div>
             </div>
           ))}
@@ -374,12 +431,13 @@ export default function ClaimHelperChat() {
           <button
             type="button"
             disabled={isLoading || !onboardingComplete || !hasAssistantMessage}
-            onClick={() =>
+            onClick={() => {
+              logInteraction({ type: "feedback_button", value: "good" });
               handleSend(
                 "Good response ✅ -- lets see another answer in this style.",
-              )
-            }
-            className="rounded-md border border-green-300 bg-green-50 px-3 py-2 text-m text-green-800 hover:bg-green-100 disabled:opacity-50"
+              );
+            }}
+            className="rounded-md border border-green-300 bg-green-50 px-3 py-2 text-sm text-green-800 hover:bg-green-100 disabled:opacity-50"
           >
             👍 Good response
           </button>
@@ -387,12 +445,13 @@ export default function ClaimHelperChat() {
           <button
             type="button"
             disabled={isLoading || !onboardingComplete || !hasAssistantMessage}
-            onClick={() =>
+            onClick={() => {
+              logInteraction({ type: "feedback_button", value: "bad" });
               handleSend(
                 "Bad response — try again with a different approach and wording. Rewrite the previous answer.",
-              )
-            }
-            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-m text-red-800 hover:bg-red-100 disabled:opacity-50"
+              );
+            }}
+            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800 hover:bg-red-100 disabled:opacity-50"
           >
             👎 Bad response ↺
           </button>
@@ -400,12 +459,13 @@ export default function ClaimHelperChat() {
           <button
             type="button"
             disabled={isLoading || !onboardingComplete || !hasAssistantMessage}
-            onClick={() =>
+            onClick={() => {
+              logInteraction({ type: "feedback_button", value: "more detail" });
               handleSend(
                 "More detail — expand the previous answer. Add 2–4 more short paragraphs and one concrete example.",
-              )
-            }
-            className="rounded-md border border-blue-300 bg-blue-50 px-3 py-2 text-m text-blue-800 hover:bg-blue-100 disabled:opacity-50"
+              );
+            }}
+            className="rounded-md border border-blue-300 bg-blue-50 px-3 py-2 text-sm text-blue-800 hover:bg-blue-100 disabled:opacity-50"
           >
             📘 More detail
           </button>
@@ -413,12 +473,13 @@ export default function ClaimHelperChat() {
           <button
             type="button"
             disabled={isLoading || !onboardingComplete || !hasAssistantMessage}
-            onClick={() =>
+            onClick={() => {
+              logInteraction({ type: "feedback_button", value: "less detail" });
               handleSend(
                 "Less detail — shorten the previous answer. Keep 1 short paragraph + up to 3 bullet points.",
-              )
-            }
-            className="rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-m text-gray-800 hover:bg-gray-100 disabled:opacity-50"
+              );
+            }}
+            className="rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50"
           >
             📄 Less detail
           </button>
@@ -482,6 +543,7 @@ function splitAnswerAndCoaching(raw: string): {
 // Sends the full conversation + context to the backend API
 async function sendToBackend(
   messages: ChatMessage[],
+  interactions: InteractionEvent[], // ✅ add
   caseContext: CaseContext,
   participant: Participant,
   sessionId: string,
@@ -492,7 +554,13 @@ async function sendToBackend(
     setIsLoading(true);
 
     // Logging everything to the console
-    const payload = { messages, caseContext, participant, sessionId };
+    const payload = {
+      messages,
+      caseContext,
+      participant,
+      sessionId,
+      interactions,
+    };
 
     console.log(
       "[client → api/chatbot] payload",

@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
+type InputMode = "typed" | "speech" | "unknown";
+
 interface ChatInputProps {
   onboardingComplete: boolean;
   disabled?: boolean; // e.g. isLoading from parent
-  onSend: (text: string) => void | Promise<void>;
+  onSend: (text: string, mode: InputMode) => void | Promise<void>;
 }
 
 type SimpleSpeechRecognitionEvent = {
@@ -22,6 +24,8 @@ export default function ChatInput({
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const recognitionRef = useRef<any>(null); // keep simple for now
+
+  const lastInputModeRef = useRef<InputMode>("unknown");
 
   // Speech recognition setup
   useEffect(() => {
@@ -45,6 +49,8 @@ export default function ChatInput({
       const firstResult = event.results[0];
       const firstAlternative = firstResult[0]; // SpeechRecognitionAlternative
       const transcript = firstAlternative.transcript;
+
+      lastInputModeRef.current = "speech"; // ✅ mark that speech contributed
 
       setInput((prev) => (prev ? prev + " " + transcript : transcript));
     };
@@ -74,8 +80,11 @@ export default function ChatInput({
     const trimmed = input.trim();
     if (!trimmed || disabled) return;
 
-    await onSend(trimmed);
+    const mode = lastInputModeRef.current ?? "unknown";
+    await onSend(trimmed, mode);
+
     setInput("");
+    lastInputModeRef.current = "unknown"; // reset for next message
   }
 
   function handleToggleRecording() {
@@ -115,12 +124,15 @@ export default function ChatInput({
         {/* Text input */}
         <textarea
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            lastInputModeRef.current = "typed"; // ✅ user is typing now
+            setInput(e.target.value);
+          }}
           rows={2}
           className="min-h-12 w-full flex-1 resize-none rounded-md border border-gray-300 bg-white px-3 py-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder={
             onboardingComplete
-              ? "⌨ Type your question or describe what you’d like help writing…"
+              ? "⌨ Ask your question or describe what you’d like to draft…"
               : "⌨ Type your answer here…"
           }
         />
