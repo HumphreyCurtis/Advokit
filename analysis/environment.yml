@@ -1,0 +1,9 @@
+name: advokit-logger
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pymongo
+  - pandas
+  - python-dotenv
+  - streamlit
