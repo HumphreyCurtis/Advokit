@@ -55,9 +55,9 @@ export async function POST(req: NextRequest) {
     //   "<<< END RAW REQUEST BODY",
     // );
 
-    console.log("🔥 /api/chatbot POST hit");
-    console.log(body);
-    console.log(participant);
+    // console.log("🔥 /api/chatbot POST hit");
+    // console.log(body);
+    // console.log(participant);
 
     // ✅ TEMP: MongoDB connectivity check
     // const mongoClient = await clientPromise;
@@ -153,15 +153,15 @@ export async function POST(req: NextRequest) {
     //     "\n<<< END SYSTEM PROMPT",
     // );
 
-    console.log(
-      "[claim-assistant] OPENAI INPUT (FULL) >>>",
-      JSON.stringify(
-        [{ role: "system", content: system }, ...modelMessages],
-        null,
-        2,
-      ),
-      "<<< END OPENAI INPUT",
-    );
+    // console.log(
+    //   "[claim-assistant] OPENAI INPUT (FULL) >>>",
+    //   JSON.stringify(
+    //     [{ role: "system", content: system }, ...modelMessages],
+    //     null,
+    //     2,
+    //   ),
+    //   "<<< END OPENAI INPUT",
+    // );
 
     const response = await client.responses.create({
       model: "gpt-4o-mini",
@@ -169,11 +169,11 @@ export async function POST(req: NextRequest) {
       max_output_tokens: 600,
     });
 
-    console.log(
-      "[claim-assistant] OPENAI OUTPUT TEXT >>>",
-      response.output_text,
-      "<<< END OPENAI OUTPUT TEXT",
-    );
+    // console.log(
+    //   "[claim-assistant] OPENAI OUTPUT TEXT >>>",
+    //   response.output_text,
+    //   "<<< END OPENAI OUTPUT TEXT",
+    // );
 
     const assistantLogged = {
       id: `assistant-${Date.now()}`,

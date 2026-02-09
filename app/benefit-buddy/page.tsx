@@ -230,7 +230,7 @@ export default function BenefitBuddy() {
 
     // Add user message immediately
     setMessages((prev) => {
-      console.log("[chat] +user", newUserMessage);
+      // console.log("[chat] +user", newUserMessage);
       return [...prev, newUserMessage];
     });
 
@@ -257,7 +257,7 @@ export default function BenefitBuddy() {
   function handleOnboardingAnswer(answer: string) {
     const now = new Date().toISOString();
     const currentQ = onboardingQuestions[currentQuestionIndex];
-    console.log("Onboarding Question Triggered");
+    // console.log("Onboarding Question Triggered");
 
     const updatedCtx: CaseContext = {
       ...caseContext,
@@ -279,7 +279,7 @@ export default function BenefitBuddy() {
     // Ask the next onboarding question
     if (nextIndex < onboardingQuestions.length) {
       const nextQuestion = onboardingQuestions[nextIndex];
-      console.log(nextQuestion);
+      // console.log(nextQuestion);
 
       setCurrentQuestionIndex(nextIndex);
 
@@ -332,7 +332,8 @@ export default function BenefitBuddy() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-lg">
             <p className="mt-2 text-sm text-gray-700">
-              We are storing your chat interactions from <strong>Benefit Buddy</strong> for{" "}
+              We are storing your chat interactions from{" "}
+              <strong>Benefit Buddy</strong> for{" "}
               <a
                 href="https://www.kcl.ac.uk"
                 target="_blank"
@@ -343,7 +344,6 @@ export default function BenefitBuddy() {
               </a>{" "}
               research. Please don’t include highly sensitive personal details.
             </p>
-
 
             <div className="mt-4 space-y-3">
               <button
@@ -377,14 +377,29 @@ export default function BenefitBuddy() {
           </div>
         </div>
       )}
-      <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col px-4 py-6">
-        {/* Safety banner */}
-        <div className="mb-4 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-          <strong>⚠️ Safety note:</strong> Please do not share National
-          Insurance numbers, full addresses, bank details, passwords, or other
-          personal details. Describe your situation in general terms.
-        </div>
 
+      <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col px-4 py-6">
+        {/* Safety banner + transcript */}
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex-1 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+            <strong>⚠️ Safety note:</strong> Please do not share National
+            Insurance numbers, full addresses, bank details, passwords, or other
+            personal details. Describe your situation in general terms.
+          </div>
+
+          <a
+            href={
+              "/transcript/Advokit_ThreeStrokes_ThreePIPAttempts_transcript.pdf"
+            }
+            download
+            className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-6 text-m font-semibold text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300"
+          >
+            <span className="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 font-mono text-xs text-gray-700">
+              [PDF]
+            </span>
+            Benefit Buddy Guide
+          </a>
+        </div>
         {/* Chat window */}
         <div className="flex-1 space-y-3 overflow-y-auto rounded-lg border bg-white p-4">
           {messages.map((m) => (
@@ -393,12 +408,13 @@ export default function BenefitBuddy() {
               className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`relative max-w-[90%] min-w-40 rounded-2xl px-4 py-3 text-sm md:text-base ${m.role === "user"
-                  ? "bg-teal-600 text-white"
-                  : m.role === "assistant"
-                    ? "bg-gray-100 text-gray-900"
-                    : "bg-gray-200 text-gray-800"
-                  }`}
+                className={`relative max-w-[90%] min-w-40 rounded-2xl px-4 py-3 text-sm md:text-base ${
+                  m.role === "user"
+                    ? "bg-teal-600 text-white"
+                    : m.role === "assistant"
+                      ? "bg-gray-100 text-gray-900"
+                      : "bg-gray-200 text-gray-800"
+                }`}
               >
                 {/* Copy button */}
                 <button
@@ -566,10 +582,10 @@ async function sendToBackend(
       interactions,
     };
 
-    console.log(
-      "[client → api/chatbot] payload",
-      JSON.stringify(payload, null, 2),
-    );
+    // console.log(
+    //   "[client → api/chatbot] payload",
+    //   JSON.stringify(payload, null, 2),
+    // );
 
     const res = await fetch("/api/chatbot", {
       method: "POST",
@@ -581,7 +597,7 @@ async function sendToBackend(
 
     const data = await res.json();
 
-    console.log("[client] API reply >>>", data.reply);
+    // console.log("[client] API reply >>>", data.reply);
 
     // const assistantMessage: ChatMessage = {
     //   id: uid("assistant"),

@@ -98,7 +98,7 @@ export function ReadAloud({
       (v) => v.lang && v.lang.toLowerCase().startsWith("en"),
     );
 
-    console.log(englishVoice);
+    // console.log(englishVoice);
 
     if (englishVoice.length > 0) {
       return englishVoice[0];
@@ -125,13 +125,13 @@ export function ReadAloud({
     // 🔹 Try to use a local English voice, otherwise use browser default
     const voice = getLocalEnglishVoice();
     if (voice) {
-      console.log(
-        "[TTS] using voice:",
-        voice.name,
-        voice.lang,
-        "local:",
-        (voice as any).localService,
-      );
+      // console.log(
+      //   "[TTS] using voice:",
+      //   voice.name,
+      //   voice.lang,
+      //   "local:",
+      //   (voice as any).localService,
+      // );
       utterance.voice = voice; // <-- safe: only local voices
     } else {
       console.log("[TTS] using browser default voice");
@@ -168,14 +168,14 @@ export function ReadAloud({
 
       window.setTimeout(() => {
         if (!gotBoundary && timerRef.current === null) {
-          console.log("[TTS] no boundaries; starting fallback timer");
+          // console.log("[TTS] no boundaries; starting fallback timer");
           startFallbackTimer();
         }
       }, 400);
     };
 
     utterance.onboundary = (event: SpeechSynthesisEvent) => {
-      console.log("[TTS] boundary", event.charIndex);
+      // console.log("[TTS] boundary", event.charIndex);
       gotBoundary = true;
       clearTimer();
 
