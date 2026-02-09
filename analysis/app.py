@@ -10,6 +10,7 @@ load_dotenv(dotenv_path=ENV_PATH)
 import os
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
+import pandas as pd
 
 import streamlit as st
 from pymongo import MongoClient, DESCENDING
@@ -180,10 +181,10 @@ def fmt_when(dt: Any) -> str:
 # ---------------- UI ----------------
 st.set_page_config(page_title="Advokit Data Viewer", layout="wide")
 
-tab_chat_logs, chat_viz = st.tabs(["Chat Logs", "Visualisations"])
+tab_chat_logs, tab_viz = st.tabs(["Chat Logs", "Visualisations"])
 
 with tab_chat_logs:
-    st.title("Benefit Buddy Chat Logs")
+    st.header("Benefit Buddy Chat Logs")
 
     # IMPORTANT: treat this as your Mongo collection
     col = get_full_data()  # ideally this returns db[DB_NAME][COLLECTION_NAME]
@@ -326,3 +327,90 @@ with tab_chat_logs:
                     st.caption(f"{i}. `{e.get('type','unknown')}` — {ts_str}")
                     with st.expander("details", expanded=False):
                         st.json(e)
+
+with tab_viz:
+    st.header("Benefit Buddy Visualisations")
+
+    col = get_full_data()  # your Mongo collection / data handle
+
+    viz_mode = st.radio(
+        "Data source",
+        ["Latest per session (recommended)", "All snapshots (debug)"],
+        horizontal=True,
+        key="viz_mode",
+    )
+
+    # 1) Get rows (list of dicts)
+    if viz_mode.startswith("Latest"):
+        rows = list_latest_sessions(col, limit=1000)
+    else:
+        rows = list_all_snapshots(col, limit=5000)
+
+    # 2) Convert to DataFrame
+    df = pd.DataFrame(rows)
+
+    if df.empty:
+        st.info("No data available to plot.")
+        st.stop()
+
+    # Ensure createdAt is datetime (UTC)
+    if "createdAt" in df.columns:
+        df["createdAt"] = pd.to_datetime(df["createdAt"], errors="coerce", utc=True)
+
+    # --- KPI cards ---
+    unique_sessions = df["sessionId"].nunique() if "sessionId" in df.columns else 0
+    total_docs = len(df)
+
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Unique user sessions", int(unique_sessions))
+    c2.metric("Documents count", int(total_docs))
+
+    if "n_messages" in df.columns and df["n_messages"].notna().any():
+        c3.metric("Median messages/session", int(df["n_messages"].median()))
+    else:
+        c3.metric("Median messages/session", "-")
+
+    st.divider()
+
+    # --- Sessions over time ---
+    if "createdAt" in df.columns and df["createdAt"].notna().any():
+        st.subheader("Sessions / snapshots over time")
+
+        by_day = (
+            df.dropna(subset=["createdAt"])
+              .assign(day=lambda d: d["createdAt"].dt.floor("D"))
+              .groupby("day")
+              .size()
+              .reset_index(name="count")
+              .sort_values("day")
+        )
+        st.line_chart(by_day.set_index("day")["count"])
+
+    # --- Messages distribution (only makes sense for latest-per-session rows) ---
+    if "n_messages" in df.columns and df["n_messages"].notna().any():
+        st.subheader("Messages per session (distribution)")
+        bins = [0, 5, 10, 20, 40, 80, 160, 10_000]
+        labels = ["0–4", "5–9", "10–19", "20–39", "40–79", "80–159", "160+"]
+        msg_bins = pd.cut(df["n_messages"].fillna(0), bins=bins, labels=labels, right=False)
+        hist = msg_bins.value_counts().reindex(labels).fillna(0).astype(int)
+        st.bar_chart(hist)
+
+    # --- Snapshots per session (only meaningful in All snapshots view) ---
+    if viz_mode.startswith("All") and "sessionId" in df.columns:
+        st.subheader("Snapshots per session (log frequency)")
+        st.caption("Top 20 sessions by number of snapshots")
+        # snaps = df.groupby("sessionId").size().sort_values(ascending=False)
+        snaps = (
+            df.groupby("sessionId", as_index=False)
+            .agg(
+                displayName=("displayName", lambda s: s.dropna().iloc[0] if s.dropna().size else "Unknown"),
+                snapshots=("docId", "size"),          # size counts rows per group
+                total_messages=("n_messages", "sum"),
+                total_events=("n_events", "sum"),
+            )
+            .sort_values("snapshots", ascending=False)
+            .head(20)
+        )
+        st.dataframe(snaps.head(20), width="stretch")
+      
+      # ---- Analysis of events ---- 
