@@ -15,7 +15,6 @@ import pandas as pd
 import streamlit as st
 from pymongo import MongoClient, DESCENDING
 
-
 # ---------------- CONFIG ----------------
 DB_NAME = "advokit"
 COLLECTION_NAME = "chat_logs"
@@ -60,46 +59,53 @@ def get_full_data():
     return client[DB_NAME][COLLECTION_NAME]
 
 
-def list_latest_sessions(col, limit: int = 200) -> List[Dict[str, Any]]:
+from typing import Any, Dict, List
+
+
+def list_latest_session_per_user(col, limit: int = 200) -> List[Dict[str, Any]]:
     """
-    Returns ONE row per sessionId, always the latest snapshot by createdAt.
-    This avoids dict-overwrite bugs by doing grouping in Mongo.
+    Returns ONE row per user (participantId), taking the newest document by createdAt.
+    That newest document implies the user's latest sessionId.
     """
     pipeline = [
-        # Ensure newest docs first
-        {"$sort": {CREATED_AT_FIELD: -1}},
-        # Group by sessionId and keep newest doc as "latest"
+        # Only keep docs that actually have a user id
+        {"$match": {"participant.participantId": {"$exists": True, "$ne": None}}},
+        # Ensure newest docs first (tie-break on _id to be safe)
+        {"$sort": {CREATED_AT_FIELD: -1, "_id": -1}},
+        # Group by user, keep newest doc as "latest"
         {
             "$group": {
-                "_id": f"${SESSION_ID_FIELD}",
+                "_id": "$participant.participantId",
                 "latest_doc": {"$first": "$$ROOT"},
-                "versions": {"$sum": 1},
+                "versions": {
+                    "$sum": 1
+                },  # count of snapshots/docs for that user (optional)
             }
         },
-        # Sort sessions by latest createdAt
-        {"$sort": {"latest_doc." + CREATED_AT_FIELD: -1}},
+        # Sort users by their latest activity
+        {"$sort": {f"latest_doc.{CREATED_AT_FIELD}": -1}},
         {"$limit": limit},
-        # Project to a nice shape
+        # Project to a nice row shape
         {
             "$project": {
                 "_id": 0,
-                "sessionId": "$_id",
-                "docId": "$latest_doc._id",
-                "createdAt": "$latest_doc." + CREATED_AT_FIELD,
+                "participantId": "$_id",
                 "displayName": "$latest_doc.participant.displayName",
-                "participantId": "$latest_doc.participant.participantId",
+                "sessionId": f"$latest_doc.{SESSION_ID_FIELD}",
+                "docId": "$latest_doc._id",
+                "createdAt": f"$latest_doc.{CREATED_AT_FIELD}",
                 "model": "$latest_doc.model",
                 "n_messages": {
-                    "$size": {"$ifNull": ["$latest_doc." + MESSAGES_FIELD, []]}
+                    "$size": {"$ifNull": [f"$latest_doc.{MESSAGES_FIELD}", []]}
                 },
                 "n_events": {
-                    "$size": {"$ifNull": ["$latest_doc." + INTERACTIONS_FIELD, []]}
+                    "$size": {"$ifNull": [f"$latest_doc.{INTERACTIONS_FIELD}", []]}
                 },
+                "events": {"$ifNull": [f"$latest_doc.{INTERACTIONS_FIELD}", []]}, 
                 "versions": 1,
             }
         },
     ]
-
     return list(col.aggregate(pipeline))
 
 
@@ -118,7 +124,7 @@ def list_all_snapshots(col, limit: int = 500) -> List[Dict[str, Any]]:
                 "participant.participantId": 1,
                 "model": 1,
                 MESSAGES_FIELD: 1,
-                INTERACTIONS_FIELD: 1,
+                INTERACTIONS_FIELD: 1,  # already included
             },
         )
         .sort(CREATED_AT_FIELD, DESCENDING)
@@ -127,6 +133,7 @@ def list_all_snapshots(col, limit: int = 500) -> List[Dict[str, Any]]:
 
     rows = []
     for d in cursor:
+        events = d.get(INTERACTIONS_FIELD) or []
         rows.append(
             {
                 "docId": d.get("_id"),
@@ -136,16 +143,21 @@ def list_all_snapshots(col, limit: int = 500) -> List[Dict[str, Any]]:
                 "participantId": (d.get("participant") or {}).get("participantId"),
                 "model": d.get("model"),
                 "n_messages": len(d.get(MESSAGES_FIELD) or []),
-                "n_events": len(d.get(INTERACTIONS_FIELD) or []),
+                "n_events": len(events),
+                "events": events,   # ✅ add this
                 "versions": None,
             }
         )
     return rows
 
 
+
 def load_doc_by_id(col, doc_id) -> Optional[Dict[str, Any]]:
     return col.find_one({"_id": doc_id})
+
+
 # → “Now fetch the real MongoDB document”
+
 
 def build_timeline(doc: Dict[str, Any]) -> List[Dict[str, Any]]:
     out: List[Dict[str, Any]] = []
@@ -203,7 +215,7 @@ with tab_chat_logs:
 
         mode = st.radio(
             "Dropdown mode",
-            ["Latest per user session", "All snapshots"],
+            ["Latest snapshot per user session", "All data snapshots"],
             index=0,
             key="chatlogs_mode",
         )
@@ -211,8 +223,10 @@ with tab_chat_logs:
         q = st.text_input("Filter (sessionId / name)", "", key="chatlogs_query")
 
         # Build rows for dropdown
-        if mode == "Latest per session":
-            rows = list_latest_sessions(col)  # 1 row per sessionId (latest snapshot)
+        if mode == "Latest snapshot per user session":
+            rows = list_latest_session_per_user(
+                col
+            )  # 1 row per sessionId (latest snapshot)
         else:
             rows = list_all_snapshots(col)  # 1 row per document snapshot
 
@@ -252,7 +266,7 @@ with tab_chat_logs:
         # Metrics (always correct)
         unique_sessions = len({r.get("sessionId") for r in rows if r.get("sessionId")})
         st.metric("Unique user sessions", unique_sessions)
-        st.metric("Documents shown", len(rows))
+        st.metric("Number of documents", len(rows))
 
         # View toggles
         show_messages = st.checkbox(
@@ -352,93 +366,120 @@ with tab_chat_logs:
                         st.json(e)
 
 with tab_viz:
-    st.header("Benefit Buddy Visualisations")
+    st.header("Benefit Buddy visualisations of all data snapshots)")
 
-    col = get_full_data()  # your Mongo collection / data handle
+    col = get_full_data()
 
-    viz_mode = st.radio(
-        "Data source",
-        ["Latest per session (recommended)", "All snapshots (debug)"],
-        horizontal=True,
-        key="viz_mode",
-    )
+    # Always use All snapshots (includes events)
+    rows = list_all_snapshots(col, limit=5000)
 
-    # 1) Get rows (list of dicts)
-    if viz_mode.startswith("Latest"):
-        rows = list_latest_sessions(col, limit=1000)
-    else:
-        rows = list_all_snapshots(col, limit=5000)
-
-    # 2) Convert to DataFrame
     df = pd.DataFrame(rows)
+
+    # Optional debug
+    # st.write(df.head())
+    # st.write(df.columns.tolist())
 
     if df.empty:
         st.info("No data available to plot.")
         st.stop()
 
-    # Ensure createdAt is datetime (UTC)
+    # --- Normalize dtypes once ---
     if "createdAt" in df.columns:
         df["createdAt"] = pd.to_datetime(df["createdAt"], errors="coerce", utc=True)
 
+    for colname in ["n_messages", "n_events"]:
+        if colname in df.columns:
+            df[colname] = pd.to_numeric(df[colname], errors="coerce")
+
     # --- KPI cards ---
-    unique_sessions = df["sessionId"].nunique() if "sessionId" in df.columns else 0
-    total_docs = len(df)
+    unique_sessions = int(df["sessionId"].nunique()) if "sessionId" in df.columns else 0
+    total_docs = int(len(df))
 
     c1, c2, c3 = st.columns(3)
-    c1.metric("Unique user sessions", int(unique_sessions))
-    c2.metric("Documents count", int(total_docs))
+    c1.metric("Unique sessions", unique_sessions)
+    c2.metric("Snapshot documents", total_docs)
 
-    if "n_messages" in df.columns and df["n_messages"].notna().any():
-        c3.metric("Median messages/session", int(df["n_messages"].median()))
+    if "n_messages" in df.columns and len(df["n_messages"].dropna()) > 0:
+        c3.metric("Median messages/snapshot", int(df["n_messages"].median()))
     else:
-        c3.metric("Median messages/session", "-")
+        c3.metric("Median messages/snapshot", "-")
 
     st.divider()
 
-    # --- Sessions over time ---
-    if "createdAt" in df.columns and df["createdAt"].notna().any():
-        st.subheader("Sessions / snapshots over time")
+    # --- Snapshots over time ---
+    if "createdAt" in df.columns and bool(df["createdAt"].notna().any()):
+        st.subheader("Snapshots over time")
 
+        df_time = df.assign(day=df["createdAt"].dt.floor("D"))
         by_day = (
-            df.dropna(subset=["createdAt"])
-            .assign(day=lambda d: d["createdAt"].dt.floor("D"))
-            .groupby("day")
-            .size()
-            .reset_index(name="count")
-            .sort_values("day")
+            df_time.dropna(subset=["day"])
+            .groupby("day", as_index=False)
+            .agg(count=("day", "size"))
         )
-        st.line_chart(by_day.set_index("day")["count"])
+        by_day = by_day.sort_values("day")
 
-    # --- Messages distribution (only makes sense for latest-per-session rows) ---
-    if "n_messages" in df.columns and df["n_messages"].notna().any():
-        st.subheader("Messages per session (distribution)")
+        st.line_chart(by_day.set_index("day")["count"])
+        
+    st.divider()
+
+    # --- Messages distribution (snapshot-level) ---
+    if "n_messages" in df.columns and bool(df["n_messages"].notna().any()):
+        st.subheader("Messages per snapshot (distribution)")
+
         bins = [0, 5, 10, 20, 40, 80, 160, 10_000]
         labels = ["0–4", "5–9", "10–19", "20–39", "40–79", "80–159", "160+"]
+
         msg_bins = pd.cut(
-            df["n_messages"].fillna(0), bins=bins, labels=labels, right=False
+            df["n_messages"].fillna(0).astype(int),
+            bins=bins,
+            labels=labels,
+            right=False,
+            include_lowest=True,
         )
         hist = msg_bins.value_counts().reindex(labels).fillna(0).astype(int)
         st.bar_chart(hist)
+    
+    st.divider()
 
-    # --- Snapshots per session (only meaningful in All snapshots view) ---
-    if viz_mode.startswith("All") and "sessionId" in df.columns:
+    # --- Snapshots per session ---
+    if "sessionId" in df.columns:
         st.subheader("Snapshots per session (log frequency)")
-        st.caption("Top 20 sessions by number of snapshots")
-        # snaps = df.groupby("sessionId").size().sort_values(ascending=False)
-        snaps = (
-            df.groupby("sessionId", as_index=False)
-            .agg(
-                displayName=(
-                    "displayName",
-                    lambda s: s.dropna().iloc[0] if s.dropna().size else "Unknown",
-                ),
-                snapshots=("docId", "size"),  # size counts rows per group
-                total_messages=("n_messages", "sum"),
-                total_events=("n_events", "sum"),
-            )
-            .sort_values("snapshots", ascending=False)
-            .head(20)
-        )
-        st.dataframe(snaps.head(20), width="stretch")
 
-    # ---- Analysis of events ----
+
+        snaps = df.groupby("sessionId", as_index=False).agg(
+            displayName=(
+                "displayName",
+                lambda s: s.dropna().iloc[0] if len(s.dropna()) else "Unknown",
+            ),
+            snapshots=("docId", "size"),
+            total_messages=("n_messages", "sum"),
+            total_events=("n_events", "sum"),
+        )
+
+        snaps = snaps.sort_values("snapshots", ascending=False)
+        st.dataframe(snaps, use_container_width=True)
+
+    st.divider()
+
+    # --- Event types (requires list_all_snapshots to include "events") ---
+    if "events" not in df.columns:
+        st.warning(
+            "No 'events' column found. Ensure list_all_snapshots adds "
+            "`'events': d.get(INTERACTIONS_FIELD) or []` to each row."
+        )
+    else:
+        st.subheader("Event types")
+
+        events = df["events"].explode()
+        types = events.apply(lambda e: e.get("type") if isinstance(e, dict) else None)
+        type_counts = types.value_counts(dropna=True)
+
+        type_table = (
+            type_counts.rename("count")
+            .reset_index()
+            .rename(columns={"index": "event_type"})
+            .sort_values("count", ascending=False)
+        )
+
+        st.dataframe(type_table, use_container_width=True)
+
