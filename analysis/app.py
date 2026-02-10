@@ -89,8 +89,12 @@ def list_latest_sessions(col, limit: int = 200) -> List[Dict[str, Any]]:
                 "displayName": "$latest_doc.participant.displayName",
                 "participantId": "$latest_doc.participant.participantId",
                 "model": "$latest_doc.model",
-                "n_messages": {"$size": {"$ifNull": ["$latest_doc." + MESSAGES_FIELD, []]}},
-                "n_events": {"$size": {"$ifNull": ["$latest_doc." + INTERACTIONS_FIELD, []]}},
+                "n_messages": {
+                    "$size": {"$ifNull": ["$latest_doc." + MESSAGES_FIELD, []]}
+                },
+                "n_events": {
+                    "$size": {"$ifNull": ["$latest_doc." + INTERACTIONS_FIELD, []]}
+                },
                 "versions": 1,
             }
         },
@@ -208,15 +212,16 @@ with tab_chat_logs:
 
         # Build rows for dropdown
         if mode == "Latest per session":
-            rows = list_latest_sessions(col)       # 1 row per sessionId (latest snapshot)
+            rows = list_latest_sessions(col)  # 1 row per sessionId (latest snapshot)
         else:
-            rows = list_all_snapshots(col)         # 1 row per document snapshot
+            rows = list_all_snapshots(col)  # 1 row per document snapshot
 
         # Apply filter
         if q.strip():
             qq = q.strip().lower()
             rows = [
-                r for r in rows
+                r
+                for r in rows
                 if qq in str(r.get("sessionId", "")).lower()
                 or qq in str(r.get("displayName", "")).lower()
             ]
@@ -250,7 +255,9 @@ with tab_chat_logs:
         st.metric("Documents shown", len(rows))
 
         # View toggles
-        show_messages = st.checkbox("Show messages", value=True, key="chatlogs_show_messages")
+        show_messages = st.checkbox(
+            "Show messages", value=True, key="chatlogs_show_messages"
+        )
         show_events = st.checkbox("Show events", value=True, key="chatlogs_show_events")
         unify = st.checkbox("Unified timeline", value=True, key="chatlogs_unify")
 
@@ -265,7 +272,7 @@ with tab_chat_logs:
 
     with meta_left:
         st.subheader((doc.get("participant") or {}).get("displayName") or "Unknown")
-        st.write(doc.get("sessionId")) 
+        st.write(doc.get("sessionId"))
         st.subheader("Loaded snapshot")
         st.caption(
             f"_id: {doc.get('_id')} | sessionId: {doc.get('sessionId')} | "
@@ -290,7 +297,11 @@ with tab_chat_logs:
                 if item["kind"] == "message" and show_messages:
                     role = item["role"]
                     ts = item["ts"]
-                    ts_str = ts.isoformat(sep=" ", timespec="seconds") if isinstance(ts, datetime) else ""
+                    ts_str = (
+                        ts.isoformat(sep=" ", timespec="seconds")
+                        if isinstance(ts, datetime)
+                        else ""
+                    )
 
                     if role == "user":
                         st.markdown(f"**{i}. User** — {ts_str}")
@@ -304,7 +315,11 @@ with tab_chat_logs:
 
                 if item["kind"] == "event" and show_events:
                     ts = item["ts"]
-                    ts_str = ts.isoformat(sep=" ", timespec="seconds") if isinstance(ts, datetime) else ""
+                    ts_str = (
+                        ts.isoformat(sep=" ", timespec="seconds")
+                        if isinstance(ts, datetime)
+                        else ""
+                    )
                     et = item.get("event_type", "unknown")
                     st.caption(f"🧾 Event — `{et}` — {ts_str}")
                     with st.expander("event details", expanded=False):
@@ -315,7 +330,11 @@ with tab_chat_logs:
                 for i, m in enumerate(doc.get("messages") or [], 1):
                     role = (m.get("role") or "unknown").lower()
                     ts = parse_iso(m.get("createdAtISO"))
-                    ts_str = ts.isoformat(sep=" ", timespec="seconds") if isinstance(ts, datetime) else ""
+                    ts_str = (
+                        ts.isoformat(sep=" ", timespec="seconds")
+                        if isinstance(ts, datetime)
+                        else ""
+                    )
                     st.markdown(f"**{i}. {role.title()}** — {ts_str}")
                     st.write(m.get("content", ""))
 
@@ -323,7 +342,11 @@ with tab_chat_logs:
                 st.markdown("### Interactions")
                 for i, e in enumerate(doc.get("interactions") or [], 1):
                     ts = parse_iso(e.get("createdAtISO"))
-                    ts_str = ts.isoformat(sep=" ", timespec="seconds") if isinstance(ts, datetime) else ""
+                    ts_str = (
+                        ts.isoformat(sep=" ", timespec="seconds")
+                        if isinstance(ts, datetime)
+                        else ""
+                    )
                     st.caption(f"{i}. `{e.get('type','unknown')}` — {ts_str}")
                     with st.expander("details", expanded=False):
                         st.json(e)
@@ -378,11 +401,11 @@ with tab_viz:
 
         by_day = (
             df.dropna(subset=["createdAt"])
-              .assign(day=lambda d: d["createdAt"].dt.floor("D"))
-              .groupby("day")
-              .size()
-              .reset_index(name="count")
-              .sort_values("day")
+            .assign(day=lambda d: d["createdAt"].dt.floor("D"))
+            .groupby("day")
+            .size()
+            .reset_index(name="count")
+            .sort_values("day")
         )
         st.line_chart(by_day.set_index("day")["count"])
 
@@ -391,7 +414,9 @@ with tab_viz:
         st.subheader("Messages per session (distribution)")
         bins = [0, 5, 10, 20, 40, 80, 160, 10_000]
         labels = ["0–4", "5–9", "10–19", "20–39", "40–79", "80–159", "160+"]
-        msg_bins = pd.cut(df["n_messages"].fillna(0), bins=bins, labels=labels, right=False)
+        msg_bins = pd.cut(
+            df["n_messages"].fillna(0), bins=bins, labels=labels, right=False
+        )
         hist = msg_bins.value_counts().reindex(labels).fillna(0).astype(int)
         st.bar_chart(hist)
 
@@ -403,8 +428,11 @@ with tab_viz:
         snaps = (
             df.groupby("sessionId", as_index=False)
             .agg(
-                displayName=("displayName", lambda s: s.dropna().iloc[0] if s.dropna().size else "Unknown"),
-                snapshots=("docId", "size"),          # size counts rows per group
+                displayName=(
+                    "displayName",
+                    lambda s: s.dropna().iloc[0] if s.dropna().size else "Unknown",
+                ),
+                snapshots=("docId", "size"),  # size counts rows per group
                 total_messages=("n_messages", "sum"),
                 total_events=("n_events", "sum"),
             )
@@ -412,5 +440,5 @@ with tab_viz:
             .head(20)
         )
         st.dataframe(snaps.head(20), width="stretch")
-      
-      # ---- Analysis of events ---- 
+
+    # ---- Analysis of events ----
