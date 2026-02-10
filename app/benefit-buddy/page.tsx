@@ -197,6 +197,31 @@ export default function BenefitBuddy() {
 
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  const chatRef = useRef<HTMLDivElement | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const shouldStickToBottomRef = useRef(true);
+
+  useEffect(() => {
+    const el = chatRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const distanceFromBottom =
+        el.scrollHeight - el.scrollTop - el.clientHeight;
+      // if user is within ~80px of bottom, we consider them "at bottom"
+      shouldStickToBottomRef.current = distanceFromBottom < 80;
+    };
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initialize
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!shouldStickToBottomRef.current) return;
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages.length, isLoading]);
+
   async function handleCopy(id: string, text: string) {
     try {
       await navigator.clipboard.writeText(text);
@@ -401,7 +426,10 @@ export default function BenefitBuddy() {
           </a>
         </div>
         {/* Chat window */}
-        <div className="flex-1 space-y-3 overflow-y-auto rounded-lg border bg-white p-4">
+        <div
+          ref={chatRef}
+          className="flex-1 space-y-3 overflow-y-auto rounded-lg border bg-white p-4"
+        >
           {messages.map((m) => (
             <div
               key={m.id}
@@ -444,6 +472,8 @@ export default function BenefitBuddy() {
             </div>
           ))}
           {isLoading && <div className="text-lg text-gray-500">Thinking…</div>}
+
+          <div ref={bottomRef} />
         </div>
 
         {/* Controls row aligned with input */}
