@@ -193,6 +193,48 @@ def fmt_when(dt: Any) -> str:
     return str(dt)
 
 
+def event_type_table(interactions: list[dict]) -> pd.DataFrame:
+    # count types robustly
+    types = [
+        (e.get("type") or "unknown")
+        for e in (interactions or [])
+        if isinstance(e, dict)
+    ]
+    if not types:
+        return pd.DataFrame(columns=["event_type", "count"])
+
+    s = pd.Series(types, name="event_type")
+    tbl = (
+        s.value_counts()
+        .rename("count")
+        .reset_index()
+        .rename(columns={"index": "event_type"})
+        .sort_values("count", ascending=False)
+    )
+    return tbl
+
+
+def conversation_bounds(doc) -> tuple[Optional[datetime], Optional[datetime]]:
+    times: list[datetime] = []
+
+    # Messages
+    for m in doc.get("messages") or []:
+        ts = parse_iso(m.get("createdAtISO"))
+        if isinstance(ts, datetime):
+            times.append(ts)
+
+    # Events / interactions
+    for e in doc.get("interactions") or []:
+        ts = parse_iso(e.get("createdAtISO"))
+        if isinstance(ts, datetime):
+            times.append(ts)
+
+    if not times:
+        return None, None
+
+    return min(times), max(times)
+
+
 # MISSING ANALYSIS OF EVENTS AND CONVERSATION LENGTHS / AVG TURN TIMES
 # ---------------- UI ----------------
 st.set_page_config(page_title="Advokit Data Viewer", layout="wide")
@@ -285,9 +327,27 @@ with tab_chat_logs:
     meta_left, meta_right = st.columns([1, 3], gap="large")
 
     with meta_left:
-        st.subheader((doc.get("participant") or {}).get("displayName") or "Unknown")
-        st.write(doc.get("sessionId"))
-        st.subheader("Loaded snapshot")
+        display_name = (doc.get("participant") or {}).get("displayName") or "Unknown"
+        session_id = doc.get("sessionId")
+
+        st.subheader(display_name)
+        st.write(session_id)
+
+        start_ts, end_ts = conversation_bounds(doc)
+
+        def fmt_ts(ts: Optional[datetime]) -> str:
+            return (
+                ts.isoformat(sep=" ", timespec="seconds")
+                if isinstance(ts, datetime)
+                else "—"
+            )
+
+        st.subheader("Timing")
+        st.caption(f"Started: **{fmt_ts(start_ts)}**  \n"
+              f"Ended: **{fmt_ts(end_ts)}**"
+        ) 
+
+        st.subheader("Snapshot")
         st.caption(
             f"_id: {doc.get('_id')} | sessionId: {doc.get('sessionId')} | "
             f"messages: {len(doc.get('messages') or [])} | events: {len(doc.get('interactions') or [])}"
@@ -303,67 +363,82 @@ with tab_chat_logs:
             }
         )
 
-    with meta_right:
-        st.subheader("Transcript")
-        if unify:
-            timeline = build_timeline(doc)
-            for i, item in enumerate(timeline, 1):
-                if item["kind"] == "message" and show_messages:
-                    role = item["role"]
-                    ts = item["ts"]
-                    ts_str = (
-                        ts.isoformat(sep=" ", timespec="seconds")
-                        if isinstance(ts, datetime)
-                        else ""
-                    )
+with meta_right:
+    st.subheader("Transcript")
 
-                    if role == "user":
-                        st.markdown(f"**{i}. User** — {ts_str}")
-                        st.write(item["content"])
-                    elif role == "assistant":
-                        st.markdown(f"**{i}. Assistant** — {ts_str}")
-                        st.write(item["content"])
-                    else:
-                        st.markdown(f"**{i}. {role.title()}** — {ts_str}")
-                        st.code(item["content"], language="text")
+    if unify:
+        timeline = build_timeline(doc)
 
-                if item["kind"] == "event" and show_events:
-                    ts = item["ts"]
-                    ts_str = (
-                        ts.isoformat(sep=" ", timespec="seconds")
-                        if isinstance(ts, datetime)
-                        else ""
-                    )
-                    et = item.get("event_type", "unknown")
-                    st.caption(f"🧾 Event — `{et}` — {ts_str}")
-                    with st.expander("event details", expanded=False):
-                        st.json(item["raw"])
-        else:
-            if show_messages:
-                st.markdown("### Messages")
-                for i, m in enumerate(doc.get("messages") or [], 1):
-                    role = (m.get("role") or "unknown").lower()
-                    ts = parse_iso(m.get("createdAtISO"))
-                    ts_str = (
-                        ts.isoformat(sep=" ", timespec="seconds")
-                        if isinstance(ts, datetime)
-                        else ""
-                    )
+        for i, item in enumerate(timeline, 1):
+            if item["kind"] == "message" and show_messages:
+                role = item["role"]
+                ts = item["ts"]
+                ts_str = (
+                    ts.isoformat(sep=" ", timespec="seconds")
+                    if isinstance(ts, datetime)
+                    else ""
+                )
+
+                if role == "user":
+                    st.markdown(f"**{i}. User** — {ts_str}")
+                    st.write(item["content"])
+                elif role == "assistant":
+                    st.markdown(f"**{i}. Assistant** — {ts_str}")
+                    st.write(item["content"])
+                else:
                     st.markdown(f"**{i}. {role.title()}** — {ts_str}")
-                    st.write(m.get("content", ""))
+                    st.code(item["content"], language="text")
 
-            if show_events:
-                st.markdown("### Interactions")
-                for i, e in enumerate(doc.get("interactions") or [], 1):
-                    ts = parse_iso(e.get("createdAtISO"))
-                    ts_str = (
-                        ts.isoformat(sep=" ", timespec="seconds")
-                        if isinstance(ts, datetime)
-                        else ""
-                    )
-                    st.caption(f"{i}. `{e.get('type','unknown')}` — {ts_str}")
-                    with st.expander("details", expanded=False):
-                        st.json(e)
+            elif item["kind"] == "event" and show_events:
+                ts = item["ts"]
+                ts_str = (
+                    ts.isoformat(sep=" ", timespec="seconds")
+                    if isinstance(ts, datetime)
+                    else ""
+                )
+                et = item.get("event_type", "unknown")
+                st.caption(f"🧾 Event — `{et}` — {ts_str}")
+                with st.expander("event details", expanded=False):
+                    st.json(item["raw"])
+
+    else:
+        if show_messages:
+            st.markdown("### Messages")
+            for i, m in enumerate(doc.get("messages") or [], 1):
+                role = (m.get("role") or "unknown").lower()
+                ts = parse_iso(m.get("createdAtISO"))
+                ts_str = (
+                    ts.isoformat(sep=" ", timespec="seconds")
+                    if isinstance(ts, datetime)
+                    else ""
+                )
+                st.markdown(f"**{i}. {role.title()}** — {ts_str}")
+                st.write(m.get("content", ""))
+
+        if show_events:
+            st.markdown("### Interactions")
+            for i, e in enumerate(doc.get("interactions") or [], 1):
+                ts = parse_iso(e.get("createdAtISO"))
+                ts_str = (
+                    ts.isoformat(sep=" ", timespec="seconds")
+                    if isinstance(ts, datetime)
+                    else ""
+                )
+                st.caption(f"{i}. `{e.get('type','unknown')}` — {ts_str}")
+                with st.expander("details", expanded=False):
+                    st.json(e)
+
+    # ---- Event type counts (belongs in meta_right) ----
+    st.divider()
+    interactions = doc.get("interactions") or []
+
+    st.subheader("Event type counts (this snapshot)")
+    type_tbl = event_type_table(interactions)
+
+    if type_tbl.empty:
+        st.caption("No events in this snapshot.")
+    else:
+        st.dataframe(type_tbl, width="stretch")
 
 with tab_viz:
     st.header("Benefit Buddy visualisations of all data snapshots)")
@@ -457,7 +532,7 @@ with tab_viz:
         )
 
         snaps = snaps.sort_values("snapshots", ascending=False)
-        st.dataframe(snaps, use_container_width=True)
+        st.dataframe(snaps, width="stretch")
 
     st.divider()
 
@@ -481,5 +556,5 @@ with tab_viz:
             .sort_values("count", ascending=False)
         )
 
-        st.dataframe(type_table, use_container_width=True)
+        st.dataframe(type_table, width="stretch")
 
