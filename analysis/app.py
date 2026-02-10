@@ -101,7 +101,7 @@ def list_latest_session_per_user(col, limit: int = 200) -> List[Dict[str, Any]]:
                 "n_events": {
                     "$size": {"$ifNull": [f"$latest_doc.{INTERACTIONS_FIELD}", []]}
                 },
-                "events": {"$ifNull": [f"$latest_doc.{INTERACTIONS_FIELD}", []]}, 
+                "events": {"$ifNull": [f"$latest_doc.{INTERACTIONS_FIELD}", []]},
                 "versions": 1,
             }
         },
@@ -144,12 +144,11 @@ def list_all_snapshots(col, limit: int = 500) -> List[Dict[str, Any]]:
                 "model": d.get("model"),
                 "n_messages": len(d.get(MESSAGES_FIELD) or []),
                 "n_events": len(events),
-                "events": events,   # ✅ add this
+                "events": events,  # ✅ add this
                 "versions": None,
             }
         )
     return rows
-
 
 
 def load_doc_by_id(col, doc_id) -> Optional[Dict[str, Any]]:
@@ -234,7 +233,10 @@ def conversation_bounds(doc) -> tuple[Optional[datetime], Optional[datetime]]:
 
     return min(times), max(times)
 
-def conversation_bounds_from_row(row: pd.Series) -> tuple[Optional[pd.Timestamp], Optional[pd.Timestamp]]:
+
+def conversation_bounds_from_row(
+    row: pd.Series,
+) -> tuple[Optional[pd.Timestamp], Optional[pd.Timestamp]]:
     times: list[pd.Timestamp] = []
 
     # Messages: expect createdAtISO (or fallback to createdAt)
@@ -260,6 +262,7 @@ def conversation_bounds_from_row(row: pd.Series) -> tuple[Optional[pd.Timestamp]
 
     return min(times), max(times)
 
+
 def _ts_from_obj(x: Any) -> Optional[pd.Timestamp]:
     """Best-effort timestamp parse -> pandas Timestamp (UTC)."""
     if x is None:
@@ -273,7 +276,6 @@ def _ts_from_obj(x: Any) -> Optional[pd.Timestamp]:
         return None
 
 
-# MISSING ANALYSIS OF EVENTS AND CONVERSATION LENGTHS / AVG TURN TIMES
 # ---------------- UI ----------------
 st.set_page_config(page_title="Advokit Data Viewer", layout="wide")
 
@@ -381,9 +383,9 @@ with tab_chat_logs:
             )
 
         st.subheader("Timing")
-        st.caption(f"Started: **{fmt_ts(start_ts)}**  \n"
-              f"Ended: **{fmt_ts(end_ts)}**"
-        ) 
+        st.caption(
+            f"Started: **{fmt_ts(start_ts)}**  \n" f"Ended: **{fmt_ts(end_ts)}**"
+        )
 
         st.subheader("Snapshot")
         st.caption(
@@ -476,7 +478,7 @@ with meta_right:
     if type_tbl.empty:
         st.caption("No events in this snapshot.")
     else:
-        st.dataframe(type_tbl, width="stretch")
+        st.dataframe(type_tbl, use_container_width=True)
 
 with tab_viz:
     st.header("Benefit Buddy visualisations (latest snapshot per user)")
@@ -501,14 +503,16 @@ with tab_viz:
 
     # --- KEEP ONLY LATEST SNAPSHOT PER USER ---
     if "participantId" not in df.columns:
-        st.error("No participantId column found — cannot select latest snapshot per user.")
+        st.error(
+            "No participantId column found — cannot select latest snapshot per user."
+        )
         st.stop()
 
     df_latest = (
-        df.dropna(subset=["participantId"])              # must have a user id
-          .sort_values(["createdAt", "docId"], ascending=[False, False])  # newest first
-          .drop_duplicates(subset=["participantId"], keep="first")        # 1 row per user
-          .reset_index(drop=True)
+        df.dropna(subset=["participantId"])  # must have a user id
+        .sort_values(["createdAt", "docId"], ascending=[False, False])  # newest first
+        .drop_duplicates(subset=["participantId"], keep="first")  # 1 row per user
+        .reset_index(drop=True)
     )
 
     if df_latest.empty:
@@ -517,7 +521,9 @@ with tab_viz:
 
     # --- KPI cards ---
     unique_users = int(df_latest["participantId"].nunique())
-    unique_sessions = int(df_latest["sessionId"].nunique()) if "sessionId" in df_latest.columns else 0
+    unique_sessions = (
+        int(df_latest["sessionId"].nunique()) if "sessionId" in df_latest.columns else 0
+    )
     total_docs = int(len(df))
 
     c1, c2, c3 = st.columns(3)
@@ -534,9 +540,9 @@ with tab_viz:
         df_time = df_latest.assign(day=df_latest["createdAt"].dt.floor("D"))
         by_day = (
             df_time.dropna(subset=["day"])
-                   .groupby("day", as_index=False)
-                   .agg(users=("participantId", "size"))
-                   .sort_values("day")
+            .groupby("day", as_index=False)
+            .agg(users=("participantId", "size"))
+            .sort_values("day")
         )
 
         st.line_chart(by_day.set_index("day")["users"])
@@ -544,7 +550,9 @@ with tab_viz:
     st.divider()
 
     # --- Messages distribution (latest snapshot per user) ---
-    if "n_messages" in df_latest.columns and bool(df_latest["n_messages"].notna().any()):
+    if "n_messages" in df_latest.columns and bool(
+        df_latest["n_messages"].notna().any()
+    ):
         st.subheader("Messages in latest snapshot per user (distribution)")
 
         bins = [0, 5, 10, 20, 40, 80, 160, 10_000]
@@ -585,7 +593,8 @@ with tab_viz:
         st.dataframe(type_table, use_container_width=True)
 
     st.divider()
-# ---- Build the latest-snapshot-per-user table ----
+
+    # ---- Build the latest-snapshot-per-user table ----
     df_latest_table = df_latest.copy()
 
     if "messages" not in df_latest_table.columns:
@@ -599,9 +608,8 @@ with tab_viz:
 
     # Duration (seconds) as a handy metric
     df_latest_table["duration_s"] = (
-        (df_latest_table["endedAt"] - df_latest_table["startedAt"])
-        .dt.total_seconds()
-    )
+        df_latest_table["endedAt"] - df_latest_table["startedAt"]
+    ).dt.total_seconds()
 
     # Select and rename columns for display
     summary_cols = [
