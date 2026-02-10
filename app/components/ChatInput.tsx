@@ -126,6 +126,14 @@ export default function ChatInput({
           lastInputModeRef.current = "typed";
           setInput(e.target.value);
         }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault(); // stop newline
+            // trigger the same submit logic
+            // (guard against disabled / empty inside handleSubmit already)
+            handleSubmit(e as unknown as React.FormEvent);
+          }
+        }}
         rows={2}
         className="min-h-12 flex-1 resize-none rounded-md border border-gray-300 bg-white px-3 py-5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholder={
