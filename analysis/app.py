@@ -234,6 +234,44 @@ def conversation_bounds(doc) -> tuple[Optional[datetime], Optional[datetime]]:
 
     return min(times), max(times)
 
+def conversation_bounds_from_row(row: pd.Series) -> tuple[Optional[pd.Timestamp], Optional[pd.Timestamp]]:
+    times: list[pd.Timestamp] = []
+
+    # Messages: expect createdAtISO (or fallback to createdAt)
+    msgs = row.get("messages") or []
+    if isinstance(msgs, list):
+        for m in msgs:
+            if isinstance(m, dict):
+                ts = _ts_from_obj(m.get("createdAtISO") or m.get("createdAt"))
+                if ts is not None:
+                    times.append(ts)
+
+    # Events / interactions: expect createdAtISO (or fallback to createdAt)
+    evs = row.get("events") or []
+    if isinstance(evs, list):
+        for e in evs:
+            if isinstance(e, dict):
+                ts = _ts_from_obj(e.get("createdAtISO") or e.get("createdAt"))
+                if ts is not None:
+                    times.append(ts)
+
+    if not times:
+        return None, None
+
+    return min(times), max(times)
+
+def _ts_from_obj(x: Any) -> Optional[pd.Timestamp]:
+    """Best-effort timestamp parse -> pandas Timestamp (UTC)."""
+    if x is None:
+        return None
+    try:
+        ts = pd.to_datetime(x, errors="coerce", utc=True)
+        if pd.isna(ts):
+            return None
+        return ts
+    except Exception:
+        return None
+
 
 # MISSING ANALYSIS OF EVENTS AND CONVERSATION LENGTHS / AVG TURN TIMES
 # ---------------- UI ----------------
@@ -441,18 +479,13 @@ with meta_right:
         st.dataframe(type_tbl, width="stretch")
 
 with tab_viz:
-    st.header("Benefit Buddy visualisations of all data snapshots)")
+    st.header("Benefit Buddy visualisations (latest snapshot per user)")
 
     col = get_full_data()
 
-    # Always use All snapshots (includes events)
+    # Pull snapshots (must include participantId + createdAt + events)
     rows = list_all_snapshots(col, limit=5000)
-
     df = pd.DataFrame(rows)
-
-    # Optional debug
-    # st.write(df.head())
-    # st.write(df.columns.tolist())
 
     if df.empty:
         st.info("No data available to plot.")
@@ -466,46 +499,59 @@ with tab_viz:
         if colname in df.columns:
             df[colname] = pd.to_numeric(df[colname], errors="coerce")
 
+    # --- KEEP ONLY LATEST SNAPSHOT PER USER ---
+    if "participantId" not in df.columns:
+        st.error("No participantId column found — cannot select latest snapshot per user.")
+        st.stop()
+
+    df_latest = (
+        df.dropna(subset=["participantId"])              # must have a user id
+          .sort_values(["createdAt", "docId"], ascending=[False, False])  # newest first
+          .drop_duplicates(subset=["participantId"], keep="first")        # 1 row per user
+          .reset_index(drop=True)
+    )
+
+    if df_latest.empty:
+        st.info("No valid participantId rows to plot.")
+        st.stop()
+
     # --- KPI cards ---
-    unique_sessions = int(df["sessionId"].nunique()) if "sessionId" in df.columns else 0
+    unique_users = int(df_latest["participantId"].nunique())
+    unique_sessions = int(df_latest["sessionId"].nunique()) if "sessionId" in df_latest.columns else 0
     total_docs = int(len(df))
 
     c1, c2, c3 = st.columns(3)
-    c1.metric("Unique sessions", unique_sessions)
-    c2.metric("Snapshot documents", total_docs)
-
-    if "n_messages" in df.columns and len(df["n_messages"].dropna()) > 0:
-        c3.metric("Median messages/snapshot", int(df["n_messages"].median()))
-    else:
-        c3.metric("Median messages/snapshot", "-")
+    c1.metric("Users (latest snapshot each)", unique_users)
+    c2.metric("Unique sessions", unique_sessions)
+    c3.metric("Total docs", total_docs)
 
     st.divider()
 
-    # --- Snapshots over time ---
-    if "createdAt" in df.columns and bool(df["createdAt"].notna().any()):
-        st.subheader("Snapshots over time")
+    # --- Latest snapshots over time (by day of last activity) ---
+    if "createdAt" in df_latest.columns and bool(df_latest["createdAt"].notna().any()):
+        st.subheader("Users' latest activity over time")
 
-        df_time = df.assign(day=df["createdAt"].dt.floor("D"))
+        df_time = df_latest.assign(day=df_latest["createdAt"].dt.floor("D"))
         by_day = (
             df_time.dropna(subset=["day"])
-            .groupby("day", as_index=False)
-            .agg(count=("day", "size"))
+                   .groupby("day", as_index=False)
+                   .agg(users=("participantId", "size"))
+                   .sort_values("day")
         )
-        by_day = by_day.sort_values("day")
 
-        st.line_chart(by_day.set_index("day")["count"])
-        
+        st.line_chart(by_day.set_index("day")["users"])
+
     st.divider()
 
-    # --- Messages distribution (snapshot-level) ---
-    if "n_messages" in df.columns and bool(df["n_messages"].notna().any()):
-        st.subheader("Messages per snapshot (distribution)")
+    # --- Messages distribution (latest snapshot per user) ---
+    if "n_messages" in df_latest.columns and bool(df_latest["n_messages"].notna().any()):
+        st.subheader("Messages in latest snapshot per user (distribution)")
 
         bins = [0, 5, 10, 20, 40, 80, 160, 10_000]
         labels = ["0–4", "5–9", "10–19", "20–39", "40–79", "80–159", "160+"]
 
         msg_bins = pd.cut(
-            df["n_messages"].fillna(0).astype(int),
+            df_latest["n_messages"].fillna(0).astype(int),
             bins=bins,
             labels=labels,
             right=False,
@@ -513,39 +559,19 @@ with tab_viz:
         )
         hist = msg_bins.value_counts().reindex(labels).fillna(0).astype(int)
         st.bar_chart(hist)
-    
-    st.divider()
-
-    # --- Snapshots per session ---
-    if "sessionId" in df.columns:
-        st.subheader("Snapshots per session (log frequency)")
-
-
-        snaps = df.groupby("sessionId", as_index=False).agg(
-            displayName=(
-                "displayName",
-                lambda s: s.dropna().iloc[0] if len(s.dropna()) else "Unknown",
-            ),
-            snapshots=("docId", "size"),
-            total_messages=("n_messages", "sum"),
-            total_events=("n_events", "sum"),
-        )
-
-        snaps = snaps.sort_values("snapshots", ascending=False)
-        st.dataframe(snaps, width="stretch")
 
     st.divider()
 
-    # --- Event types (requires list_all_snapshots to include "events") ---
-    if "events" not in df.columns:
+    # --- Event types (latest snapshot per user) ---
+    if "events" not in df_latest.columns:
         st.warning(
             "No 'events' column found. Ensure list_all_snapshots adds "
             "`'events': d.get(INTERACTIONS_FIELD) or []` to each row."
         )
     else:
-        st.subheader("Event types")
+        st.subheader("Event types (latest snapshot per user)")
 
-        events = df["events"].explode()
+        events = df_latest["events"].explode()
         types = events.apply(lambda e: e.get("type") if isinstance(e, dict) else None)
         type_counts = types.value_counts(dropna=True)
 
@@ -556,5 +582,51 @@ with tab_viz:
             .sort_values("count", ascending=False)
         )
 
-        st.dataframe(type_table, width="stretch")
+        st.dataframe(type_table, use_container_width=True)
 
+    st.divider()
+# ---- Build the latest-snapshot-per-user table ----
+    df_latest_table = df_latest.copy()
+
+    if "messages" not in df_latest_table.columns:
+        df_latest_table["messages"] = [[] for _ in range(len(df_latest_table))]
+    if "events" not in df_latest_table.columns:
+        df_latest_table["events"] = [[] for _ in range(len(df_latest_table))]
+
+    bounds = df_latest_table.apply(conversation_bounds_from_row, axis=1)
+    df_latest_table["startedAt"] = bounds.apply(lambda t: t[0])
+    df_latest_table["endedAt"] = bounds.apply(lambda t: t[1])
+
+    # Duration (seconds) as a handy metric
+    df_latest_table["duration_s"] = (
+        (df_latest_table["endedAt"] - df_latest_table["startedAt"])
+        .dt.total_seconds()
+    )
+
+    # Select and rename columns for display
+    summary_cols = [
+        "participantId",
+        "displayName",
+        "sessionId",
+        "startedAt",
+        "endedAt",
+        "duration_s",
+        "n_messages",
+        "n_events",
+    ]
+
+    # Only keep columns that actually exist
+    summary_cols = [c for c in summary_cols if c in df_latest_table.columns]
+
+    summary = df_latest_table[summary_cols].copy()
+
+    # Make it pretty
+    if "duration_s" in summary.columns:
+        summary["duration_s"] = summary["duration_s"].fillna(0).astype(int)
+
+    # Sort by most recent
+    if "endedAt" in summary.columns:
+        summary = summary.sort_values("endedAt", ascending=False)
+
+    st.subheader("Latest snapshot per user (summary)")
+    st.dataframe(summary, use_container_width=True)
