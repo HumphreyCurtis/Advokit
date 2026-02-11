@@ -413,9 +413,7 @@ export default function BenefitBuddy() {
           </div>
 
           <a
-            href={
-              "/transcript/Advokit_ThreeStrokes_ThreePIPAttempts_transcript.pdf"
-            }
+            href={"/guides/chatbot-instructions.pdf"}
             download
             className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-6 text-m font-semibold text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300"
           >
