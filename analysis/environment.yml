@@ -3,7 +3,9 @@ channels:
   - conda-forge
 dependencies:
   - python=3.11
-  - pymongo
   - pandas
+  - pymongo
   - python-dotenv
-  - streamlit
+  - pip
+  - pip:
+      - streamlit

@@ -4,6 +4,10 @@ from dotenv import load_dotenv
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 ENV_PATH = ROOT_DIR / ".env.local"
+
+if not ENV_PATH.exists():
+    raise FileNotFoundError(f".env.local not found at: {ENV_PATH}")
+
 load_dotenv(dotenv_path=ENV_PATH)
 
 # ---- standard imports ----
@@ -383,9 +387,7 @@ with tab_chat_logs:
             )
 
         st.subheader("Timing")
-        st.caption(
-            f"Started: **{fmt_ts(start_ts)}**  \n" f"Ended: **{fmt_ts(end_ts)}**"
-        )
+        st.caption(f"Started: **{fmt_ts(start_ts)}**  \nEnded: **{fmt_ts(end_ts)}**")
 
         st.subheader("Snapshot")
         st.caption(
@@ -464,7 +466,7 @@ with meta_right:
                     if isinstance(ts, datetime)
                     else ""
                 )
-                st.caption(f"{i}. `{e.get('type','unknown')}` — {ts_str}")
+                st.caption(f"{i}. `{e.get('type', 'unknown')}` — {ts_str}")
                 with st.expander("details", expanded=False):
                     st.json(e)
 
@@ -638,3 +640,31 @@ with tab_viz:
 
     st.subheader("Latest snapshot per user (summary)")
     st.dataframe(summary, use_container_width=True)
+
+    st.divider()
+
+    st.subheader("Feedback button counts (latest snapshot per user)")
+
+    if "events" not in df_latest.columns:
+        st.warning("No events column found.")
+    else:
+        # explode events into rows
+        ev = df_latest["events"].explode()
+
+        # keep only dicts
+        ev = ev[ev.apply(lambda x: isinstance(x, dict))]
+
+        # filter to feedback_button events
+        fb = ev[ev.apply(lambda e: e.get("type") == "feedback_button")]
+
+        # extract values and count
+        values = fb.apply(lambda e: e.get("value"))
+
+        counts = values.value_counts().reset_index()
+        counts.columns = ["feedback_value", "count"]
+
+        if counts.empty:
+            st.caption("No feedback_button events found.")
+        else:
+            st.dataframe(counts, use_container_width=True)
+            # st.bar_chart(counts.set_index("feedback_value")["count"])
