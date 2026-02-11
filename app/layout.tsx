@@ -41,7 +41,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={atkinsonHyperlegible.className}>
         <Navbar />
-        <ServiceWorkerPurge />
         {children}
         <Footer />
         <Analytics />

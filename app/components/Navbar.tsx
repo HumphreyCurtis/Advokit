@@ -111,8 +111,8 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href="/chatbot" onClick={() => setOpen(false)}>
-                Chatbot
+              <Link href="/benefit-buddy" onClick={() => setOpen(false)}>
+                Benefit Buddy
               </Link>
             </li>
           </ul>
