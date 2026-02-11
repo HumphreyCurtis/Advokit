@@ -6,6 +6,7 @@ import "primereact/resources/primereact.min.css";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ServiceWorkerPurge from "./components/ServiceWorkerPurge";
 
 import { Analytics } from "@vercel/analytics/next";
 
@@ -40,6 +41,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={atkinsonHyperlegible.className}>
         <Navbar />
+        <ServiceWorkerPurge />
         {children}
         <Footer />
         <Analytics />
