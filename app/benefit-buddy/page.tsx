@@ -405,23 +405,40 @@ export default function BenefitBuddy() {
 
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-3xl flex-col px-4 py-6">
         {/* Safety banner + transcript */}
-        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex-1 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-            <strong>⚠️ Safety note:</strong> Please do not share National
-            Insurance numbers, full addresses, bank details, passwords, or other
-            personal details. Describe your situation in general terms.
+        <div className="mb-4 grid gap-3 sm:grid-cols-[13fr_7fr]">
+          {/* Safety Note */}
+          <div className="flex h-full items-center rounded-md border border-amber-300 bg-amber-50 px-3 py-4 text-sm text-amber-900">
+            <p>
+              <strong>⚠️ Safety note:</strong> Please do not share National
+              Insurance numbers, full addresses, bank details, passwords, or
+              other personal details. Describe your situation in general terms.
+            </p>
           </div>
 
-          <a
-            href={"/guides/chatbot-instructions.pdf"}
-            download
-            className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-6 text-m font-semibold text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300"
-          >
-            <span className="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 font-mono text-xs text-gray-700">
-              [PDF]
-            </span>
-            Benefit Buddy Guide
-          </a>
+          {/* Right Column (Guide + Feedback) */}
+          <div className="grid h-full grid-rows-2 gap-3">
+            {/* Guide */}
+            <a
+              href={"/guides/chatbot-instructions.pdf"}
+              download
+              className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-4 text-base font-semibold text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300"
+            >
+              <span className="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 font-mono text-xs text-gray-700">
+                [PDF]
+              </span>
+              Benefit Buddy Guide
+            </a>
+
+            {/* Feedback */}
+            <a
+              href="https://forms.gle/thtQ3AX2aqjXvG4E8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-xl bg-blue-600 px-4 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              Share Feedback
+            </a>
+          </div>
         </div>
         {/* Chat window */}
         <div
@@ -473,7 +490,6 @@ export default function BenefitBuddy() {
 
           <div ref={bottomRef} />
         </div>
-
         {/* Controls row aligned with input */}
         <div className="mt-3 flex flex-wrap gap-2">
           <button
@@ -532,7 +548,6 @@ export default function BenefitBuddy() {
             📄 Less detail
           </button>
         </div>
-
         {/* Input */}
         <ChatInput
           onboardingComplete={onboardingComplete}

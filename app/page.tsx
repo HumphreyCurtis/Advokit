@@ -6,6 +6,7 @@ import ApplicationImage from "@/public/images/mountain.png";
 import CommunityImage from "@/public/images/sunflower.png";
 import QuestionMark from "@/public/images/speech-therapy.png";
 import YouTube from "./components/Youtube";
+import Feedback from "./components/Feedback";
 
 /* Data for homescreen tiles */
 const tiles = [
@@ -53,6 +54,10 @@ export default function Home() {
 
         <div className="mb-5">
           <Disclaimer />
+        </div>
+
+        <div className="mb-5">
+          <Feedback />
         </div>
 
         <div>
