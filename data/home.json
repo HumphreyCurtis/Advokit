@@ -779,5 +779,62 @@
         }
       ]
     }
+  },
+  {
+    "id": 22,
+    "title": "Disabled Taxicard",
+    "difficulty": 2,
+    "value": 3,
+    "info": "A Disabled Taxicard (sometimes called a Taxi Card) helps pay for taxi journeys if you have a disability that makes it hard to use public transport. The scheme and rules depend on where you live. For example, in London, Taxicard provides subsidised trips in licensed taxis or private hire vehicles for residents with serious mobility impairments or who are severely sight impaired, mainly for social trips like shopping or visiting friends and family. If you do not qualify automatically, you may still be able to apply with medical evidence and (sometimes) a mobility assessment.",
+    "links": "<a href='https://www.londoncouncils.gov.uk/services/taxicard' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>London Councils - Taxicard (London scheme)</a>",
+    "slug": "disabled-taxicard",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "Find the right scheme for your area",
+          "body": "Taxi card schemes are run locally, so start by checking your council's website. Search for: 'taxicard', 'taxi card', 'disabled taxi scheme', or 'taxi vouchers'. If you live in London, use the London Councils Taxicard pages to apply via your borough."
+        },
+        {
+          "id": "stage-2",
+          "title": "Check if you qualify automatically",
+          "body": "Many schemes have automatic routes if you get certain benefits or meet certain criteria. In London, automatic eligibility can include: higher-rate mobility DLA, 8+ points on PIP 'Moving Around', being registered Severely Sight Impaired/Blind, or War Pension Mobility Supplement. Some boroughs have extra criteria."
+        },
+        {
+          "id": "stage-3",
+          "title": "If you don't qualify automatically, apply with evidence",
+          "body": "You may still be eligible if public transport is hard due to your disability. Collect medical evidence (letters/reports) describing your functional difficulties (walking, balance, fatigue, communication, vision, transfers, anxiety) and how long they have lasted. Some areas may ask for a mobility assessment."
+        },
+        {
+          "id": "stage-4",
+          "title": "Prepare your documents before you start",
+          "body": "Most applications ask for: proof of ID, proof of address, and proof of eligibility (award letters or medical evidence). Take clear photos/scans. Keep copies of everything you send."
+        },
+        {
+          "id": "stage-5",
+          "title": "Learn what the card can and can't be used for",
+          "body": "Some schemes are intended for everyday/social trips and may not be reliable for time-critical appointments. Read the rules carefully so you know what is covered, whether trips must start/end in your area, and whether you can use taxis, private hire, or both."
+        },
+        {
+          "id": "stage-6",
+          "title": "Ask for communication support (aphasia support)",
+          "body": "If forms or phone calls are difficult, ask the council or operator for adjustments (extra time, someone to speak on your behalf, written summaries, Easy Read). A trusted person can often help you apply and manage bookings."
+        }
+      ]
+    },
+    "resources": [
+      {
+        "url": "https://www.londoncouncils.gov.uk/services/taxicard/what-taxicard",
+        "title": "London Councils - What is Taxicard?"
+      },
+      {
+        "url": "https://www.londoncouncils.gov.uk/services/taxicard/am-i-eligible-taxicard",
+        "title": "London Councils - Am I eligible for a Taxicard?"
+      },
+      {
+        "url": "https://www.gov.uk/find-local-council",
+        "title": "GOV.UK - Find your local council (to locate your local scheme)"
+      }
+    ]
   }
 ]

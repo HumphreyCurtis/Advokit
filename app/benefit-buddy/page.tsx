@@ -594,7 +594,6 @@ function splitAnswerAndCoaching(raw: string): {
   }
 
   const coaching = text.slice(coachIdx + coachToken.length, answerIdx).trim();
-
   const answer = text.slice(answerIdx + answerToken.length).trim();
 
   return {
