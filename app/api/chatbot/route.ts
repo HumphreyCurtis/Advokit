@@ -53,9 +53,6 @@ export async function POST(req: NextRequest) {
     //   "<<< END RAW REQUEST BODY",
     // );
 
-    // console.log("🔥 /api/chatbot POST hit");
-    // console.log(body);
-    // console.log(participant);
 
     // ✅ TEMP: MongoDB connectivity check
     // const mongoClient = await clientPromise;
@@ -67,13 +64,15 @@ export async function POST(req: NextRequest) {
     //     at: new Date(),
     //   });
 
-    // ✅ Don’t accept system messages from the client (prevents prompt injection)
-    const modelMessages = messages
+    
+    // Filter and map messages for the model
+    const modelMessages: OpenAI.Chat.ChatCompletionMessageParam[] = messages
       .filter((m) => m.role === "user" || m.role === "assistant")
       .map((m) => ({
         role: m.role as "user" | "assistant",
         content: m.content,
       }));
+
 
     const loggedMessages = messages
       .filter((m) => m.role === "user" || m.role === "assistant")
@@ -84,67 +83,40 @@ export async function POST(req: NextRequest) {
         createdAtISO: m.createdAtISO ?? new Date().toISOString(),
       }));
 
-    // Base style rule (default)
-    // let stylePreference =
-    //   "Write at least 2–3 short paragraphs of draft text. Make it clear and easy to scan.";
+  const system = `
+    You are Benefit Buddy, a friendly claim assistant from the Advokit project. Help the user (likely with aphasia) draft clear, honest, first-person answers for benefit forms in plain English.
 
-    // ---- Final system prompt ----
-    // const system = `
-    // You are Advokit’s claim assistant. Help the user (likely with aphasia) draft clear, honest answers for their benefit forms.
+    ### CRITICAL OUTPUT FORMAT
+    You must respond using this exact structure. Do not include any introductory chat (like "Sure, I can help") or closing remarks.
 
-    // Rules:
-    // - If the user says “More detail”, expand your previous answer.
-    // - If the user says “Less detail”, shorten your previous answer.
-    // - If the user says “Bad response / try again”, rewrite your previous answer using a different approach.
+    COACHING:
+    <0–2 short bullet points with suggestions or answers to questions. If this section is present, ALWAYS end it with the exact phrase: "You could draft something like:">
 
-    // Guidance:
-    // - Follow the principles used in Advokit’s benefit guidance (e.g., focusing on functional impact and real-life difficulties).
-    // - When relevant, encourage users to describe their worst days rather than their best days, and to explain how their condition affects them over time and across situations.
+    ANSWER:
+    <The exact text for the form. If the user asked a general question and no form draft is needed yet, provide a one-sentence summary here that they could use to explain their situation to others.>
 
-    // Context:
-    // - benefitName: ${caseContext.benefitName ?? "unknown"}
-    // - claimStage: ${caseContext.claimStage ?? "unknown"}
-    // - conditions: ${caseContext.conditions ?? "unknown"}
-    // - dailyImpact: ${caseContext.dailyImpact ?? "unknown"}
-    // `.trim();
+    ### RULES FOR THE ANSWER SECTION:
+    - Use first person ("I...").
+    - Focus on functional impact: how the condition limits daily activities.
+    - Use concrete, day-to-day examples (e.g., "I struggle to grip a standard kettle").
+    - Describe "worst days" and variability over time.
+    - Keep sentences short. One idea per sentence. Minimal jargon.
+    - If specific information is missing, use a bracketed placeholder: "[add example here]". Do not invent facts.
 
-    const system = `
-  You are Benefit Buddy, a friendly claim assistant from the Advokit project. Help the user (likely with aphasia) draft clear, honest, first-person answers for benefit forms in plain English.
+    ### INTERACTION LOGIC:
+    - **General Questions:** If the user asks "What is PIP?" or similar, explain it in COACHING. Use ANSWER to provide a simple "script" they can use to explain that benefit to a friend or official.
+    - **More detail:** Expand the previous ANSWER with more specific functional examples.
+    - **Less detail:** Shorten the previous ANSWER to only the most vital impacts.
+    - **Bad response / try again:** Rewrite the previous ANSWER using different phrasing or a different functional focus.
 
-  CRITICAL OUTPUT FORMAT (always follow):
-  - Respond using EXACTLY these two sections, in this order:
-
-  COACHING:
-  <Optional. If present, include 0–2 short bullet points with suggestions or next steps, written for the user.
-  If COACHING is present, ALWAYS end with the phrase: “You could draft something like:”.>
-
-  ANSWER:
-  <The exact text the user should copy into the form>
-
-  Rules for ANSWER:
-  - ONLY include the drafted form text. No prefaces (e.g., “Here’s a suggestion”), no questions, no commentary.
-  - Use first person (“I…”), concrete day-to-day examples, and functional impact.
-  - Avoid medical jargon unless the user used it.
-  - Keep it readable: short sentences, one idea per sentence.
-
-  Interaction rules:
-  - If the user says “More detail”, expand your previous ANSWER with additional specific examples (still plain English).
-  - If the user says “Less detail”, shorten your previous ANSWER while keeping the key functional impacts.
-  - If the user says “Bad response / try again”, rewrite your previous ANSWER using a different structure or examples, without changing the facts.
-  - If the user asks a question instead of providing content, answer briefly in COACHING and provide a short suggested ANSWER if appropriate.
-
-  Guidance (Advokit principles):
-  - Focus on functional impact and real-life difficulties.
-  - When relevant, describe worst days as well as typical days, and how things vary over time and situations.
-  - Do not exaggerate. Do not invent details. If information is missing, make a reasonable neutral placeholder (e.g., “[add example here]”) rather than guessing.
-
-  Context:
-  - benefitName: ${caseContext.benefitName ?? "unknown"}
-  - claimStage: ${caseContext.claimStage ?? "unknown"}
-  - conditions: ${caseContext.conditions ?? "unknown"}
-  - dailyImpact: ${caseContext.dailyImpact ?? "unknown"}
+    ### CONTEXT:
+    - Benefit: ${caseContext.benefitName ?? "unknown"}
+    - Stage: ${caseContext.claimStage ?? "unknown"}
+    - Conditions: ${caseContext.conditions ?? "unknown"}
+    - Daily Impact: ${caseContext.dailyImpact ?? "unknown"}
   `.trim();
 
+    
     // console.log(
     //   "[claim-assistant] SYSTEM PROMPT >>>\n" +
     //     system +
@@ -161,10 +133,10 @@ export async function POST(req: NextRequest) {
     //   "<<< END OPENAI INPUT",
     // );
 
-    const response = await client.responses.create({
+    const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
-      input: [{ role: "system", content: system }, ...modelMessages],
-      max_output_tokens: 600,
+      messages: [{ role: "system", content: system }, ...modelMessages],
+      max_tokens: 600,
     });
 
     // console.log(
@@ -173,10 +145,12 @@ export async function POST(req: NextRequest) {
     //   "<<< END OPENAI OUTPUT TEXT",
     // );
 
+    const replyText = response.choices[0]?.message?.content || "";
+
     const assistantLogged = {
       id: `assistant-${Date.now()}`,
       role: "assistant" as const,
-      content: response.output_text,
+      content: replyText,
       createdAtISO: new Date().toISOString(), // ✅ single timestamp for GPT output
     };
 
@@ -196,8 +170,9 @@ export async function POST(req: NextRequest) {
         interactions,
         model: "gpt-4o-mini",
       });
+    
+      return NextResponse.json({ reply: replyText });
 
-    return NextResponse.json({ reply: response.output_text });
   } catch (err) {
     console.error("[claim-assistant] Error handling POST", err);
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });

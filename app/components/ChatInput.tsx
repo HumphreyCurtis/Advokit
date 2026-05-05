@@ -1,7 +1,5 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
-
 import type { InputMode, SimpleSpeechRecognitionEvent } from "../types";
 
 interface ChatInputProps {

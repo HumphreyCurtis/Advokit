@@ -573,34 +573,41 @@ function splitAnswerAndCoaching(raw: string): {
   answer: string;
   coaching?: string;
 } {
-  const text = (raw ?? "").trim();
+  if (!raw) return { answer: "" };
 
-  const coachToken = "COACHING:";
-  const answerToken = "ANSWER:";
+  // Use Regex to find the tokens regardless of bolding (**ANSWER**) or case
+  const coachRegex = /(?:\*\*?)?COACHING:(?:\*\*?)?/i;
+  const answerRegex = /(?:\*\*?)?ANSWER:(?:\*\*?)?/i;
 
-  const coachIdx = text.indexOf(coachToken);
-  const answerIdx = text.indexOf(answerToken);
+  const coachMatch = raw.match(coachRegex);
+  const answerMatch = raw.match(answerRegex);
 
-  // If ANSWER is missing, just return everything as the answer
-  if (answerIdx === -1) {
-    return { answer: text };
+  // If no ANSWER: header is found, return the whole thing as the answer
+  if (!answerMatch) {
+    return { answer: raw.trim() };
   }
 
-  // If COACHING is missing or comes after ANSWER, ignore it
-  if (coachIdx === -1 || coachIdx > answerIdx) {
-    return {
-      answer: text.slice(answerIdx + answerToken.length).trim(),
-    };
+  const answerIdx = answerMatch.index!;
+  const answerHeaderLength = answerMatch[0].length;
+
+  let coaching: string | undefined = undefined;
+
+  // If COACHING: exists and is before ANSWER:
+  if (coachMatch && coachMatch.index! < answerIdx) {
+    const coachIdx = coachMatch.index!;
+    const coachHeaderLength = coachMatch[0].length;
+    
+    coaching = raw.slice(coachIdx + coachHeaderLength, answerIdx).trim();
   }
 
-  const coaching = text.slice(coachIdx + coachToken.length, answerIdx).trim();
-  const answer = text.slice(answerIdx + answerToken.length).trim();
+  const answer = raw.slice(answerIdx + answerHeaderLength).trim();
 
   return {
     coaching: coaching || undefined,
     answer,
   };
 }
+
 
 // Sends the full conversation + context to the backend API
 async function sendToBackend(
