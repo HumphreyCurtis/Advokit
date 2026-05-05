@@ -48,3 +48,11 @@ export type Participant = {
   mode: "anonymous" | "named";
   consentedAtISO: string;
 };
+
+export type Role = "user" | "assistant" | "system";
+
+export type SimpleSpeechRecognitionEvent = {
+  results: SpeechRecognitionResult[]; // TS already knows this type
+};
+
+export type InputMode = "typed" | "speech" | "unknown";

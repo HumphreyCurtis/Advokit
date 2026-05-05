@@ -2,17 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type InputMode = "typed" | "speech" | "unknown";
+import type { InputMode, SimpleSpeechRecognitionEvent } from "../types";
 
 interface ChatInputProps {
   onboardingComplete: boolean;
   disabled?: boolean; // e.g. isLoading from parent
   onSend: (text: string, mode: InputMode) => void | Promise<void>;
 }
-
-type SimpleSpeechRecognitionEvent = {
-  results: SpeechRecognitionResult[]; // TS already knows this type
-};
 
 export default function ChatInput({
   onboardingComplete,
@@ -104,6 +100,7 @@ export default function ChatInput({
     }
   }
 
+  // May implement later
   function handleOpenCamera() {
     if (disabled) return;
     fileInputRef.current?.click();

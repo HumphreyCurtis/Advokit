@@ -782,6 +782,69 @@
   },
   {
     "id": 22,
+    "title": "Attendance Allowance",
+    "difficulty": 2,
+    "value": 4,
+    "info": "Attendance Allowance helps with extra costs if you have a disability or health condition severe enough that you need someone to help look after you. It is paid at two rates (lower: £76.70/week; higher: £114.60/week) depending on how much help you need. You must be State Pension age or over. It is not means-tested — savings and income do not affect it. Getting it can also unlock extra Pension Credit, Housing Benefit, or Council Tax Reduction.",
+    "links": "<a href='https://www.gov.uk/attendance-allowance' target='_blank' rel='noopener noreferrer' class='text-blue-600 underline'>Gov.uk/attendance-allowance</a>",
+    "slug": "attendance-allowance",
+    "article": {
+      "sections": [
+        {
+          "id": "stage-1",
+          "title": "You don't need a carer to claim",
+          "body": "Many people think they cannot claim because no one officially looks after them. You can still qualify if your condition means you need help, even if you currently manage alone or refuse help. Describe what help you need, not what help you currently get."
+        },
+        {
+          "id": "stage-2",
+          "title": "Savings and income don't matter",
+          "body": "Attendance Allowance is not means-tested. You can have savings, a pension, or own your home and still receive the full amount. Don't assume you're not eligible because of what you own or earn."
+        },
+        {
+          "id": "stage-3",
+          "title": "Describe your care needs, not your diagnosis",
+          "body": "The assessment focuses on what you need help with, not your condition's name. Explain specific tasks: washing, dressing, preparing food, taking medication, getting to the toilet, or supervision overnight. Say how often you need this help and what happens if you don't get it."
+        },
+        {
+          "id": "stage-4",
+          "title": "Understand the two rates",
+          "body": "The lower rate (£76.70/week) is for people who need help or supervision frequently during the day, or at night. The higher rate (£114.60/week) is for people who need help or supervision both during the day and at night, or who are terminally ill. Be honest about night-time needs — many people underreport these."
+        },
+        {
+          "id": "stage-5",
+          "title": "Claim even if care home costs are self-funded",
+          "body": "If you live in a care home and pay for your own care, you can still claim. You cannot claim if the local authority is funding your care."
+        },
+        {
+          "id": "stage-6",
+          "title": "Use it to unlock other benefits",
+          "body": "Getting Attendance Allowance can qualify you for increased Pension Credit, Housing Benefit, or Council Tax Reduction. Once awarded, check with Citizens Advice or Age UK to see what else you can claim."
+        },
+        {
+          "id": "stage-7",
+          "title": "Apply early — the 6-month rule",
+          "body": "You usually need to have needed help for at least 6 months before you can get paid. Apply as soon as possible so the clock starts. If you are nearing the end of life, a fast-track route applies and the 6-month wait does not."
+        },
+        {
+          "id": "stage-8",
+          "title": "Get help with your application",
+          "body": "Age UK, Citizens Advice, and local welfare rights services can help you fill in the form. You can also call the AA helpline to request a paper form or have someone call on your behalf."
+        },
+        {
+          "id": "stage-9",
+          "title": "Scotland: apply for Pension Age Disability Payment instead",
+          "body": "If you live in Scotland, you cannot claim Attendance Allowance. Apply for Pension Age Disability Payment (PADP) through Social Security Scotland instead."
+        },
+        {
+          "id": "stage-10",
+          "title": "Challenge a refusal",
+          "body": "If you are refused or awarded the lower rate and you think the higher rate is right, request a Mandatory Reconsideration within one month. Keep copies of everything you send."
+        }
+      ]
+    }
+  },
+  {
+    "id": 23,
     "title": "Disabled Taxicard",
     "difficulty": 2,
     "value": 3,

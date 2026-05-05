@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/app/lib/mongodb";
 import OpenAI from "openai";
-import { Participant } from "../../types";
+import { Participant, Role } from "../../types";
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-type Role = "user" | "assistant" | "system";
 
 interface ChatMessage {
   id: string;
