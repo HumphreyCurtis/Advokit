@@ -11,10 +11,12 @@ if not ENV_PATH.exists():
 load_dotenv(dotenv_path=ENV_PATH)
 
 # ---- standard imports ----
+import json
 import os
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 import pandas as pd
+from bson import ObjectId
 
 import streamlit as st
 from pymongo import MongoClient, DESCENDING
@@ -66,14 +68,25 @@ def get_full_data():
 from typing import Any, Dict, List
 
 
-def list_latest_session_per_user(col, limit: int = 200) -> List[Dict[str, Any]]:
+@st.cache_data(ttl=60)
+def get_distinct_event_types(_col) -> List[str]:
+    types = _col.distinct("interactions.type")
+    return sorted(t for t in types if t)
+
+
+def list_latest_session_per_user(col, limit: int = 200, content_search: Optional[str] = None, event_types: Optional[List[str]] = None) -> List[Dict[str, Any]]:
     """
     Returns ONE row per user (participantId), taking the newest document by createdAt.
     That newest document implies the user's latest sessionId.
     """
+    match: Dict[str, Any] = {"participant.participantId": {"$exists": True, "$ne": None}}
+    if content_search:
+        match["messages.content"] = {"$regex": content_search, "$options": "i"}
+    if event_types:
+        match["interactions.type"] = {"$in": event_types}
     pipeline = [
         # Only keep docs that actually have a user id
-        {"$match": {"participant.participantId": {"$exists": True, "$ne": None}}},
+        {"$match": match},
         # Ensure newest docs first (tie-break on _id to be safe)
         {"$sort": {CREATED_AT_FIELD: -1, "_id": -1}},
         # Group by user, keep newest doc as "latest"
@@ -113,14 +126,19 @@ def list_latest_session_per_user(col, limit: int = 200) -> List[Dict[str, Any]]:
     return list(col.aggregate(pipeline))
 
 
-def list_all_snapshots(col, limit: int = 500) -> List[Dict[str, Any]]:
+def list_all_snapshots(col, limit: int = 500, content_search: Optional[str] = None, event_types: Optional[List[str]] = None) -> List[Dict[str, Any]]:
     """
     Returns one row per DOCUMENT snapshot (unique _id), sorted by createdAt desc.
     Useful for debugging snapshot logging.
     """
+    query: Dict[str, Any] = {}
+    if content_search:
+        query["messages.content"] = {"$regex": content_search, "$options": "i"}
+    if event_types:
+        query["interactions.type"] = {"$in": event_types}
     cursor = (
         col.find(
-            {},
+            query,
             {
                 SESSION_ID_FIELD: 1,
                 CREATED_AT_FIELD: 1,
@@ -188,6 +206,19 @@ def build_timeline(doc: Dict[str, Any]) -> List[Dict[str, Any]]:
 
     out.sort(key=lambda x: x["ts"] or datetime.max.replace(tzinfo=timezone.utc))
     return out
+
+
+class _MongoEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ObjectId):
+            return str(obj)
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        return super().default(obj)
+
+
+def doc_to_json(doc: Dict[str, Any]) -> str:
+    return json.dumps(doc, cls=_MongoEncoder, indent=2, ensure_ascii=False)
 
 
 def fmt_when(dt: Any) -> str:
@@ -307,14 +338,22 @@ with tab_chat_logs:
         )
 
         q = st.text_input("Filter (sessionId / name)", "", key="chatlogs_query")
+        content_q = st.text_input("Search message content", "", key="chatlogs_content_query", placeholder="e.g. PIP, social prescribing")
+
+        all_event_types = get_distinct_event_types(col)
+        selected_event_types = st.multiselect(
+            "Filter by event type",
+            options=all_event_types,
+            key="chatlogs_event_types",
+        )
 
         # Build rows for dropdown
+        content_search = content_q.strip() or None
+        event_type_filter = selected_event_types or None
         if mode == "Latest snapshot per user session":
-            rows = list_latest_session_per_user(
-                col
-            )  # 1 row per sessionId (latest snapshot)
+            rows = list_latest_session_per_user(col, content_search=content_search, event_types=event_type_filter)
         else:
-            rows = list_all_snapshots(col)  # 1 row per document snapshot
+            rows = list_all_snapshots(col, content_search=content_search, event_types=event_type_filter)
 
         # Apply filter
         if q.strip():
@@ -338,9 +377,10 @@ with tab_chat_logs:
             r = row_by_docid[docid]
             who = r.get("displayName") or "Unknown"
             when_str = fmt_when(r.get("createdAt"))
-            msgs = r.get("n_messages", -1)
-            # If you want, include sessionId:  + f" — {r.get('sessionId','')}"
-            return f"{who} — {when_str} — {msgs} msgs"
+            msgs = r.get("n_messages", 0)
+            evts = r.get("n_events", 0)
+            model = r.get("model") or "?"
+            return f"{who} — {when_str} — {msgs}m / {evts}e — {model}"
 
         chosen_docid = st.selectbox(
             "Select",
@@ -403,6 +443,15 @@ with tab_chat_logs:
                 "model": doc.get("model"),
                 "caseContext": doc.get("caseContext"),
             }
+        )
+
+        session_id_slug = (doc.get("sessionId") or str(doc.get("_id", "log")))[:32]
+        st.download_button(
+            label="⬇ Download chat log (JSON)",
+            data=doc_to_json(doc),
+            file_name=f"chat_{session_id_slug}.json",
+            mime="application/json",
+            use_container_width=True,
         )
 
 with meta_right:
