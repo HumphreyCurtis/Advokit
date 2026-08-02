@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Non-blocking for now: main currently has 8 pre-existing lint errors.
+      # Remove continue-on-error once they're cleared so lint gates PRs properly.
+      - run: npm run lint
+        continue-on-error: true
+
+      - run: npm run build
+        env:
+          # Build-time placeholders: app/lib/mongodb.ts throws if MONGODB_URI is unset.
+          MONGODB_URI: mongodb://localhost:27017
+          MONGODB_DB: advokit
+          OPENAI_API_KEY: sk-placeholder-not-used-at-build-time
