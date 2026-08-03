@@ -86,6 +86,11 @@ export default function BenefitBuddy() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [showGate, setShowGate] = useState(true);
 
+  // Restores a returning participant from localStorage. This has to run in an
+  // effect rather than a lazy useState initialiser: the page is prerendered, so
+  // reading localStorage during render would produce a hydration mismatch.
+  // Runs once on mount, so the cascading render the rule warns about is bounded.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     const rawP = localStorage.getItem("advokit_participant");
     if (rawP) setParticipant(JSON.parse(rawP));
@@ -93,6 +98,7 @@ export default function BenefitBuddy() {
     const rawS = localStorage.getItem("advokit_sessionId");
     if (rawS) setSessionId(rawS);
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Adding interaction logger to chat
   const [interactions, setInteractions] = useState<InteractionEvent[]>([]);

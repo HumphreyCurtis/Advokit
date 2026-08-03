@@ -10,20 +10,23 @@ function ReadAlongText({
   text: string;
   currentWordIndex: number | null;
 }) {
-  const chunks = useMemo(() => text.split(/(\s+)/), [text]);
-  let wordCounter = 0;
+  // Split into words and whitespace, and precompute each chunk's word index up
+  // front. Counting during render would mutate across the map callback, which
+  // is not render-pure.
+  const chunks = useMemo(() => {
+    let wordCounter = 0;
+
+    return text.split(/(\s+)/).map((chunk) => ({
+      chunk,
+      // null for whitespace chunks, which are never highlighted
+      wordIndex: /\S/.test(chunk) ? wordCounter++ : null,
+    }));
+  }, [text]);
 
   return (
     <p className="text-xl text-gray-800 leading-relaxed whitespace-pre-wrap">
-      {chunks.map((chunk, i) => {
-        const isWord = /\S/.test(chunk);
-        let isActive = false;
-
-        if (isWord) {
-          const thisWordIndex = wordCounter;
-          wordCounter += 1;
-          isActive = currentWordIndex === thisWordIndex;
-        }
+      {chunks.map(({ chunk, wordIndex }, i) => {
+        const isActive = wordIndex !== null && currentWordIndex === wordIndex;
 
         return (
           <span

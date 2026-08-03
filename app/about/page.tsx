@@ -24,8 +24,8 @@ export default function About() {
               successful applicants use - even encouragement to get started!
             </li>
             <li>
-              Real stories: Recorded stories about people with aphasia's benefit
-              experiences including their insights and experience.
+              Real stories: Recorded stories about people with aphasia&rsquo;s
+              benefit experiences including their insights and experience.
             </li>
             <li>
               Community-informed red flags and workarounds for digital portals,
@@ -236,7 +236,7 @@ export default function About() {
               rel="noopener noreferrer"
               className="mt-3 inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-blue-700 shadow-sm hover:bg-blue-50"
             >
-              Email Dr. Filip Bircanin at King's College London
+              Email Dr. Filip Bircanin at King&rsquo;s College London
               <span aria-hidden="true">↗</span>
             </a>
           </p>

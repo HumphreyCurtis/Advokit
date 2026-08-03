@@ -1,6 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import type { InputMode, SimpleSpeechRecognitionEvent } from "../types";
+import type {
+  InputMode,
+  SimpleSpeechRecognition,
+  SimpleSpeechRecognitionEvent,
+  SpeechRecognitionWindow,
+} from "../types";
 
 interface ChatInputProps {
   onboardingComplete: boolean;
@@ -17,7 +22,7 @@ export default function ChatInput({
   const [isRecording, setIsRecording] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const recognitionRef = useRef<any>(null); // keep simple for now
+  const recognitionRef = useRef<SimpleSpeechRecognition | null>(null);
 
   const lastInputModeRef = useRef<InputMode>("unknown");
 
@@ -25,9 +30,9 @@ export default function ChatInput({
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    const speechWindow = window as SpeechRecognitionWindow;
     const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition;
+      speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
       console.warn("Speech recognition not supported in this browser.");

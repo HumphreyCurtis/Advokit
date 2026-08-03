@@ -55,4 +55,25 @@ export type SimpleSpeechRecognitionEvent = {
   results: SpeechRecognitionResult[]; // TS already knows this type
 };
 
+// Minimal shape of the Web Speech API recognition object. Only the members we
+// actually use — the spec is still a draft and browser support varies.
+export type SimpleSpeechRecognition = {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onresult: ((event: SimpleSpeechRecognitionEvent) => void) | null;
+  onerror: ((event: unknown) => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+};
+
+export type SimpleSpeechRecognitionConstructor = new () => SimpleSpeechRecognition;
+
+// Chrome exposes this prefixed; neither is in TypeScript's DOM lib yet.
+export type SpeechRecognitionWindow = Window & {
+  SpeechRecognition?: SimpleSpeechRecognitionConstructor;
+  webkitSpeechRecognition?: SimpleSpeechRecognitionConstructor;
+};
+
 export type InputMode = "typed" | "speech" | "unknown";
